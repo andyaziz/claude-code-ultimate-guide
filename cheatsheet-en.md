@@ -157,11 +157,14 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 
 | Server | Purpose |
 |--------|---------|
-| **Serena** | Semantic code navigation |
+| **Serena** | Indexation + session memory + symbol search |
+| **mgrep** | Semantic search by intent (alternative) |
 | **Context7** | Library documentation |
 | **Sequential** | Structured reasoning |
 | **Playwright** | Browser automation |
 | **Postgres** | Database queries |
+
+**Serena memory**: `write_memory()` / `read_memory()` / `list_memories()`
 
 Check status: `/mcp`
 

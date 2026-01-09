@@ -2800,7 +2800,17 @@ MCP (Model Context Protocol) is a standard for connecting AI models to external 
 
 ### Serena (Semantic Code Analysis)
 
-**Purpose**: Deep code understanding through semantic analysis.
+**Purpose**: Deep code understanding through semantic analysis, indexing, and persistent memory.
+
+**Why Serena matters**: Claude Code has no built-in indexation (unlike Cursor). Serena fills this gap by indexing your codebase for faster, smarter searches. It also provides **session memory** — context that persists across conversations.
+
+**Key Features**:
+
+| Feature | Description |
+|---------|-------------|
+| **Indexation** | Pre-indexes your codebase for efficient symbol lookup |
+| **Project Memory** | Stores context in `.serena/memories/` between sessions |
+| **Onboarding** | Auto-analyzes project structure on first run |
 
 **Tools**:
 
@@ -2811,11 +2821,71 @@ MCP (Model Context Protocol) is a standard for connecting AI models to external 
 | `search_for_pattern` | Regex search across codebase |
 | `find_referencing_symbols` | Find all usages of a symbol |
 | `replace_symbol_body` | Replace function/class body |
+| `write_memory` | Save context for future sessions |
+| `read_memory` | Retrieve saved context |
+| `list_memories` | List all stored memories |
+
+**Session Memory Workflow**:
+
+```
+# Start of session
+list_memories() → See what context exists
+read_memory("auth_architecture") → Load relevant context
+
+# During work
+write_memory("api_refactor_plan", "...") → Save decisions for later
+
+# End of session
+write_memory("session_summary", "...") → Persist progress
+```
+
+**Setup**:
+
+```bash
+# Pre-index your project (recommended for large codebases)
+uvx --from git+https://github.com/oraios/serena serena project index
+```
 
 **Use when**:
-- Navigating large codebases
+- Navigating large codebases (>10k lines)
+- Need context to persist across sessions
 - Understanding symbol relationships
 - Refactoring across files
+
+> **Source**: [Serena GitHub](https://github.com/oraios/serena)
+
+### mgrep (Semantic Search Alternative)
+
+**Purpose**: Natural language semantic search across code, docs, PDFs, and images.
+
+**Why consider mgrep**: While Serena focuses on symbol-level analysis, mgrep excels at **intent-based search** — finding code by describing what it does rather than exact patterns. Their benchmarks show ~2x fewer tokens used compared to grep-based workflows.
+
+**Key Features**:
+
+| Feature | Description |
+|---------|-------------|
+| **Semantic search** | Find code by natural language description |
+| **Background indexing** | `mgrep watch` indexes respecting `.gitignore` |
+| **Multi-format** | Search code, PDFs, images, text |
+| **Web integration** | `--web` flag for web search fallback |
+
+**Example**:
+
+```bash
+# Traditional grep (exact match required)
+grep -r "authenticate.*user" .
+
+# mgrep (intent-based)
+mgrep "code that handles user authentication"
+```
+
+**Use when**:
+- Onboarding to unfamiliar codebases
+- Exploring code by intent, not exact patterns
+- Searching across mixed content (code + docs)
+
+> **Note**: I haven't tested mgrep personally. Consider it an alternative worth exploring.
+> **Source**: [mgrep GitHub](https://github.com/mixedbread-ai/mgrep)
 
 ### Context7 (Documentation Lookup)
 
@@ -2963,7 +3033,9 @@ What do you need?
 
 | Need | Best Server | Why |
 |------|-------------|-----|
-| "Find all usages of this function" | Serena | Semantic analysis |
+| "Find all usages of this function" | Serena | Semantic symbol analysis |
+| "Remember this for next session" | Serena | Persistent memory |
+| "Find code that handles payments" | mgrep | Intent-based semantic search |
 | "How does React useEffect work?" | Context7 | Official docs |
 | "Why is this failing?" | Sequential | Structured debugging |
 | "What's in the users table?" | Postgres | Direct query |
