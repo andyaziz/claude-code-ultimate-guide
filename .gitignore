@@ -1,0 +1,22 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (if any tooling added later)
+node_modules/
+npm-debug.log*
+
+# Misc
+*.log
+*.tmp
+*.bak
