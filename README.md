@@ -20,6 +20,8 @@ A significant source of inspiration for this work was [Claudelog.com](https://cl
 
 **Important note**: This guide was largely generated with the help of AI. As such, it likely contains errors, inaccuracies, or outdated information. I would be delighted to receive any feedback, corrections, or — even better — pull requests to improve it. Don't hesitate to [open an issue](../../issues) or submit a PR!
 
+**Language**: I wrote this guide in English by default to reach a wider audience, but French is my native language. I could easily translate it to French myself, or leverage AI and community contributions for other languages. Let me know if translations would be useful!
+
 If you find value in this guide, have questions, or want to discuss Claude Code practices, feel free to reach out on [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/).
 
 ---
