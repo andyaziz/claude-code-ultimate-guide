@@ -18,6 +18,8 @@ This guide is the result of **several months of daily practice and research** wi
 
 A significant source of inspiration for this work was [Claudelog.com](https://claudelog.com/), which I highly recommend for anyone wanting to go deeper.
 
+**Important note**: This guide was largely generated with the help of AI. As such, it likely contains errors, inaccuracies, or outdated information. I would be delighted to receive any feedback, corrections, or — even better — pull requests to improve it. Don't hesitate to [open an issue](../../issues) or submit a PR!
+
 If you find value in this guide, have questions, or want to discuss Claude Code practices, feel free to reach out on [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/).
 
 ---
