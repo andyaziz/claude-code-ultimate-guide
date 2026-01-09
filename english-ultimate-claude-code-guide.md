@@ -4352,13 +4352,13 @@ exit 0
 
 ---
 
-**Author**: [Florian BRUNIAUX](https://github.com/florianb) | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
+**Author**: [Florian BRUNIAUX](https://github.com/FlorianBruniaux) | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
 
 **Written with**: Claude (Anthropic) - This guide was collaboratively written with Claude Code, demonstrating the tool's capabilities for technical documentation.
 
 **Inspired by**: [Claudelog.com](https://claudelog.com/) - An excellent resource for Claude Code tips, patterns, and advanced techniques that served as a major reference for this guide.
 
-**License**: MIT - Feel free to use, adapt, and share.
+**License**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) - Feel free to use, adapt, and share with attribution.
 
 **Contributions**: Issues and PRs welcome.
 
