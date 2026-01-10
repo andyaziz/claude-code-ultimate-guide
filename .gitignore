@@ -20,3 +20,6 @@ npm-debug.log*
 *.log
 *.tmp
 *.bak
+
+# Personal notes & temp files
+to-ignore/
