@@ -440,4 +440,4 @@ Here's an example of what the audit report looks like:
 
 ---
 
-*Last updated: January 2025 | Version 1.0*
+*Last updated: January 2026 | Version 2.0*

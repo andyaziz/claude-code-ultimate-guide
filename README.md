@@ -73,11 +73,11 @@ If you find value in this guide, have questions, or want to discuss Claude Code 
 
 | File | Description | Reading Time |
 |------|-------------|--------------|
-| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (4000+ lines) | ~2.5 hours |
+| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (7500+ lines, 27K+ words) | ~3 hours |
 | [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
 | [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
-| [`claude-code-ultimate-guide_notebooklm.pdf`](./claude-code-ultimate-guide_notebooklm.pdf) | Audio Deep Dive (NotebookLM podcast) | ~1 hour |
-| [`claude-code-ultimate-guide_kimi.pdf`](./claude-code-ultimate-guide_kimi.pdf) | PDF version (Kimi export) | ~2.5 hours |
+| [`claude-code-ultimate-guide_notebooklm.pdf`](./claude-code-ultimate-guide_notebooklm.pdf) | NotebookLM slides export | ~20 minutes |
+| [`claude-code-ultimate-guide_kimi.pdf`](./claude-code-ultimate-guide_kimi.pdf) | PDF version (Kimi export) | ~3 hours |
 
 ---
 
@@ -241,6 +241,10 @@ Want to know if your Claude Code setup follows best practices?
 ### Official
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) — Official Anthropic docs
 
+### Related Guides
+- [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus (excellent for security practitioners)
+- [Claudelog.com](https://claudelog.com/) — Tips, patterns & tutorials (highly recommended for all users)
+
 ### Community Curated Lists
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Commands, workflows, IDE integrations
 - [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) — Custom skills collection
@@ -250,7 +254,6 @@ Want to know if your Claude Code setup follows best practices?
 
 ### Frameworks & Tools
 - [SuperClaude](https://github.com/SuperClaude-Org/SuperClaude_Framework) — Advanced configuration framework with 30+ commands
-- [Claudelog.com](https://claudelog.com/) — Tips, patterns & tutorials
 
 ### Further Reading
 - [Nick Tune: Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) — Advanced autonomous workflow patterns
@@ -273,4 +276,4 @@ You are free to share and adapt this material, provided you give appropriate cre
 
 ---
 
-*Last updated: January 2025 | Version 1.0*
+*Last updated: January 2026 | Version 2.0*

@@ -6,11 +6,11 @@
 
 **Written with**: Claude (Anthropic)
 
-**Reading time**: ~2.5 hours (full) | ~15 minutes (Quick Start only)
+**Reading time**: ~3 hours (full) | ~15 minutes (Quick Start only)
 
-**Last updated**: January 2025
+**Last updated**: January 2026
 
-**Version**: 1.0
+**Version**: 2.0
 
 ---
 
@@ -20,14 +20,14 @@
 
 | Section | Status | Coverage | Last Updated |
 |---------|--------|----------|--------------|
-| **Quick Start & Installation** | ✅ Complete | 100% | Jan 2025 |
-| **Core Concepts** | ✅ Complete | 100% | Jan 2025 |
-| **Memory & Settings** | ✅ Complete | 100% | Jan 2025 |
-| **Agents & Skills** | ✅ Complete | 100% | Jan 2025 |
-| **Commands & Hooks** | ✅ Complete | 100% | Jan 2025 |
-| **MCP Integration** | ✅ Complete | 100% | Jan 2025 |
-| **Advanced Patterns** | ✅ Complete | 100% | Jan 2025 |
-| **Reference & Troubleshooting** | ✅ Complete | 100% | Jan 2025 |
+| **Quick Start & Installation** | ✅ Complete | 100% | Jan 2026 |
+| **Core Concepts** | ✅ Complete | 100% | Jan 2026 |
+| **Memory & Settings** | ✅ Complete | 100% | Jan 2026 |
+| **Agents & Skills** | ✅ Complete | 100% | Jan 2026 |
+| **Commands & Hooks** | ✅ Complete | 100% | Jan 2026 |
+| **MCP Integration** | ✅ Complete | 100% | Jan 2026 |
+| **Advanced Patterns** | ✅ Complete | 100% | Jan 2026 |
+| **Reference & Troubleshooting** | ✅ Complete | 100% | Jan 2026 |
 
 **Legend**: ✅ Complete | 🔄 In Progress | 📝 Planned | ⚠️ Needs Update
 
@@ -172,6 +172,10 @@ Context full → /compact or /clear
 
 # 1. Quick Start (Day 1)
 
+_Quick jump:_ [Installation](#11-installation) · [First Workflow](#12-first-workflow) · [Essential Commands](#13-essential-commands) · [Permission Modes](#14-permission-modes) · [Productivity Checklist](#15-productivity-checklist) · [Migrating from Other Tools](#16-migrating-from-other-ai-coding-tools)
+
+---
+
 **Reading time**: 15 minutes
 
 **Skill level**: Beginner
@@ -182,24 +186,19 @@ Context full → /compact or /clear
 
 Choose your preferred installation method based on your operating system:
 
-### Option A: npm (Recommended - All Platforms)
-
-```bash
-npm install -g @anthropic-ai/claude-code
-```
-
-This method works on **Windows, macOS, and Linux**.
-
-### Option B: Shell Script (macOS/Linux)
-
-```bash
-curl -fsSL https://claude.ai/install.sh | sh
-```
-
-### Option C: Homebrew (macOS only)
-
-```bash
-brew install claude-code
+```C
+/*──────────────────────────────────────────────────────────────*/
+/* Universal Method       */ npm install -g @anthropic-ai/claude-code
+/*──────────────────────────────────────────────────────────────*/
+/* Windows (CMD)          */ npm install -g @anthropic-ai/claude-code
+/* Windows (PowerShell)   */ irm https://claude.ai/install.ps1 | iex
+/*──────────────────────────────────────────────────────────────*/
+/* macOS (npm)            */ npm install -g @anthropic-ai/claude-code
+/* macOS (Homebrew)       */ brew install claude-code
+/* macOS (Shell Script)   */ curl -fsSL https://claude.ai/install.sh | sh
+/*──────────────────────────────────────────────────────────────*/
+/* Linux (npm)            */ npm install -g @anthropic-ai/claude-code
+/* Linux (Shell Script)   */ curl -fsSL https://claude.ai/install.sh | sh
 ```
 
 ### Verify Installation
@@ -586,6 +585,29 @@ Keep Copilot/Cursor for:
 
 # 2. Core Concepts
 
+_Quick jump:_ [The Interaction Loop](#21-the-interaction-loop) · [Context Management](#22-context-management) · [Plan Mode](#23-plan-mode) · [Rewind](#24-rewind) · [Mental Model](#25-mental-model)
+
+---
+
+## 📌 Section 2 TL;DR (2 minutes)
+
+**What you'll learn**: The mental model and critical workflows for Claude Code mastery.
+
+### Key Concepts:
+- **Interaction Loop**: Describe → Analyze → Review → Accept/Reject cycle
+- **Context Management** 🔴 CRITICAL: Watch `Ctx(u):` — /compact at 70%, /clear at 90%
+- **Plan Mode**: Read-only exploration before making changes
+- **Rewind**: Undo with Esc×2 or /rewind
+- **Mental Model**: Claude = expert pair programmer, not autocomplete
+
+### The One Rule:
+> Always check context % before starting complex tasks. High context = degraded quality.
+
+**Read this section if**: You want to avoid the #1 mistake (context overflow)
+**Skip if**: You just need quick command reference (go to Section 10)
+
+---
+
 **Reading time**: 20 minutes
 
 **Skill level**: Day 1-3
@@ -631,6 +653,22 @@ The loop is designed so that **you remain in control**. Claude proposes, you dec
 ## 2.2 Context Management
 
 🔴 **This is the most important concept in Claude Code.**
+
+### 📌 Context Management Quick Reference
+
+**The zones**:
+- 🟢 0-50%: Work freely
+- 🟡 50-75%: Be selective
+- 🔴 75-90%: `/compact` now
+- ⚫ 90%+: `/clear` required
+
+**When context is high**:
+1. `/compact` (saves context, frees space)
+2. `/clear` (fresh start, loses history)
+
+**Prevention**: Load only needed files, compact regularly, commit frequently
+
+---
 
 ### What is Context?
 
@@ -740,7 +778,7 @@ Example output:
 
 Claude Code isn't free - you're using API credits. Understanding costs helps optimize usage.
 
-#### Pricing Model (as of January 2025)
+#### Pricing Model (as of January 2026)
 
 Claude Code uses **Claude Sonnet 3.5** by default:
 
@@ -1312,6 +1350,32 @@ The more context you provide, the better Claude can help.
 
 # 3. Memory & Settings
 
+_Quick jump:_ [Memory Files (CLAUDE.md)](#31-memory-files-claudemd) · [.claude/ Folder Structure](#32-the-claude-folder-structure) · [Settings & Permissions](#33-settings--permissions) · [Precedence Rules](#34-precedence-rules)
+
+---
+
+## 📌 Section 3 TL;DR (90 seconds)
+
+**The Memory Hierarchy** (most important concept):
+
+```
+~/.claude/CLAUDE.md          → Global (all projects)
+/project/CLAUDE.md           → Project (team, committed to git)
+/project/.claude/            → Local overrides (personal, not committed)
+```
+
+**Rule**: More specific beats more general (local > project > global)
+
+**Quick Actions**:
+- Team instructions → Create `/project/CLAUDE.md`
+- Personal preferences → Use `/project/.claude/settings.local.json`
+- Global shortcuts → Add to `~/.claude/CLAUDE.md`
+
+**Read this section if**: You work on multiple projects or in a team
+**Skip if**: Single project, solo developer (can configure as you go)
+
+---
+
 **Reading time**: 15 minutes
 **Skill level**: Week 1
 **Goal**: Customize Claude Code for your project
@@ -1786,6 +1850,33 @@ Files in `.claude/rules/` are automatically loaded and combined:
 ---
 
 # 4. Agents
+
+_Quick jump:_ [What Are Agents](#41-what-are-agents) · [Creating Custom Agents](#42-creating-custom-agents) · [Agent Template](#43-agent-template) · [Best Practices](#44-best-practices) · [Agent Examples](#45-agent-examples)
+
+---
+
+## 📌 Section 4 TL;DR (60 seconds)
+
+**What are Agents**: Specialized AI personas for specific tasks (think "expert consultants")
+
+**When to create one**:
+- ✅ Task repeats often (security reviews, API design)
+- ✅ Requires specialized knowledge domain
+- ✅ Needs consistent behavior/tone
+- ❌ One-off tasks (just ask Claude directly)
+
+**Quick Start**:
+1. Create `.claude/agents/my-agent.md`
+2. Add YAML frontmatter (name, description, tools, model)
+3. Write instructions
+4. Use: `@my-agent "task description"`
+
+**Popular agent types**: Security auditor, Test generator, Code reviewer, API designer
+
+**Read this section if**: You have repeating tasks or need domain expertise
+**Skip if**: All your tasks are one-off exploratory work
+
+---
 
 **Reading time**: 20 minutes
 **Skill level**: Week 1-2
@@ -2342,6 +2433,10 @@ Savings: 80-90%
 
 # 5. Skills
 
+_Quick jump:_ [Understanding Skills](#51-understanding-skills) · [Creating Skills](#52-creating-skills) · [Skill Template](#53-skill-template) · [Skill Examples](#54-skill-examples)
+
+---
+
 **Reading time**: 15 minutes
 **Skill level**: Week 2
 **Goal**: Create reusable knowledge modules
@@ -2763,6 +2858,10 @@ If you create specialized skills for other domains (DevOps, data science, ML/AI,
 
 # 6. Commands
 
+_Quick jump:_ [Slash Commands](#61-slash-commands) · [Creating Custom Commands](#62-creating-custom-commands) · [Command Template](#63-command-template) · [Command Examples](#64-command-examples)
+
+---
+
 **Reading time**: 10 minutes
 **Skill level**: Week 1-2
 **Goal**: Create custom slash commands
@@ -3060,6 +3159,31 @@ Challenge and refine problem definitions before solution design.
 ---
 
 # 7. Hooks
+
+_Quick jump:_ [The Event System](#71-the-event-system) · [Creating Hooks](#72-creating-hooks) · [Hook Templates](#73-hook-templates) · [Security Hooks](#74-security-hooks) · [Hook Examples](#75-hook-examples)
+
+---
+
+## 📌 Section 7 TL;DR (60 seconds)
+
+**What are Hooks**: Scripts that run automatically on events (like git hooks)
+
+**Event types**:
+- `PreToolUse` → Before Claude runs a tool (e.g., block dangerous commands)
+- `PostToolUse` → After Claude runs a tool (e.g., auto-format code)
+- `UserPromptSubmit` → When you send a message (e.g., inject context)
+
+**Common use cases**:
+- 🛡️ Security: Block file deletions, prevent secrets in commits
+- 🎨 Quality: Auto-format, lint, run tests
+- 📊 Logging: Track commands, audit changes
+
+**Quick Start**: See [7.3 Hook Templates](#73-hook-templates) for copy-paste examples
+
+**Read this section if**: You want automation or need safety guardrails
+**Skip if**: Manual control is sufficient for your workflow
+
+---
 
 **Reading time**: 20 minutes
 **Skill level**: Week 2-3
@@ -3603,6 +3727,10 @@ exit 0
 
 # 8. MCP Servers
 
+_Quick jump:_ [What is MCP](#81-what-is-mcp) · [Available Servers](#82-available-servers) · [Configuration](#83-configuration) · [Server Selection Guide](#84-server-selection-guide)
+
+---
+
 **Reading time**: 15 minutes
 **Skill level**: Week 2-3
 **Goal**: Extend Claude Code with external tools
@@ -3646,6 +3774,9 @@ MCP (Model Context Protocol) is a standard for connecting AI models to external 
 ```
 
 ## 8.2 Available Servers
+
+<details>
+<summary><b>MCP Server Catalog (click to expand)</b></summary>
 
 ### Serena (Semantic Code Analysis)
 
@@ -3800,6 +3931,8 @@ mgrep "code that handles user authentication"
 - Visual validation
 - Browser debugging
 
+</details>
+
 ## 8.3 Configuration
 
 ### mcp.json Location
@@ -3904,6 +4037,43 @@ Servers can work together:
 ---
 
 # 9. Advanced Patterns
+
+_Quick jump:_ [The Trinity](#91-the-trinity) · [Composition Patterns](#92-composition-patterns) · [CI/CD Integration](#93-cicd-integration) · [IDE Integration](#94-ide-integration) · [Tight Feedback Loops](#95-tight-feedback-loops)
+
+---
+
+## 📌 Section 9 TL;DR (3 minutes)
+
+**What you'll learn**: Production-grade workflows that combine multiple Claude Code features.
+
+### Pattern Categories:
+
+**🎯 The Trinity (9.1)** — Ultimate workflow: Plan Mode → Ultrathink → Sequential MCP
+- When: Architecture decisions, complex refactoring, critical systems
+- Why: Maximum reasoning power + safe exploration
+
+**🔄 Integration Patterns (9.2-9.4)**
+- Composition: Agents + Skills + Hooks working together
+- CI/CD: GitHub Actions, automated reviews, quality gates
+- IDE: VS Code + Claude Code = seamless flow
+
+**⚡ Productivity Patterns (9.5-9.8)**
+- Tight feedback loops: Test-driven with instant validation
+- Todo as mirrors: Keep context aligned with reality
+- Vibe coding: Skeleton → iterate → production
+
+**🎨 Quality Patterns (9.9-9.11)**
+- Batch operations: Process multiple files efficiently
+- Continuous improvement: Refine over multiple sessions
+- Common pitfalls: Learn from mistakes (Do/Don't lists)
+
+### When to Use This Section:
+- ✅ You're productive with basics and want mastery
+- ✅ You're setting up team workflows or CI/CD
+- ✅ You hit limits of simple "ask Claude" approach
+- ❌ You're still learning basics (finish Sections 1-8 first)
+
+---
 
 **Reading time**: 20 minutes
 **Skill level**: Month 1+
@@ -5315,7 +5485,826 @@ VERIFY:
 
 ---
 
+## 9.12 Git Best Practices & Workflows
+
+Effective git workflows with Claude Code for professional development.
+
+### Commit Message Best Practices
+
+Claude Code generates commit messages automatically. Guide it with clear context.
+
+**Default behavior:**
+```bash
+# After changes, Claude creates commits like:
+git commit -m "feat: add user authentication middleware
+
+- Implement JWT validation
+- Add session management
+- Create auth error handling
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+**Customize commit style in CLAUDE.md:**
+
+```markdown
+## Git Commit Conventions
+
+Follow Conventional Commits format:
+- feat: New features
+- fix: Bug fixes
+- docs: Documentation changes
+- refactor: Code restructuring
+- test: Test additions/changes
+- chore: Maintenance tasks
+
+Keep first line under 72 characters.
+Include ticket number: [PROJ-123]
+```
+
+**Example with guidance:**
+
+```markdown
+You: "Implement login endpoint"
+
+Claude: Creates commit:
+git commit -m "feat: implement user login endpoint [AUTH-42]
+
+- Add POST /api/auth/login route
+- Validate credentials with bcrypt
+- Generate JWT tokens
+- Return user profile on success
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+### Git Amend Workflow
+
+**When to amend:**
+- Fix typos in recent commit
+- Add forgotten files to last commit
+- Improve commit message
+- **Only for unpushed commits**
+
+**Safe amend pattern:**
+
+```bash
+# Check if commit is unpushed
+git status
+# Output: "Your branch is ahead of 'origin/main' by 1 commit"
+
+# Amend the commit
+You: "Add the missing test file to the last commit"
+
+Claude:
+git add tests/auth.test.ts
+git commit --amend --no-edit
+```
+
+**❌ Never amend pushed commits** (requires force push, breaks team history)
+
+**✅ For pushed commits, create new commit:**
+
+```bash
+You: "Fix typo in authentication function"
+
+Claude:
+# Creates new commit instead of amending
+git commit -m "fix: correct typo in authenticateUser function"
+```
+
+### Branch Management
+
+**Feature branch pattern:**
+
+```markdown
+## CLAUDE.md Git Workflow
+
+Always work on feature branches:
+1. Create branch from main: git checkout -b feature/name
+2. Make changes and commit regularly
+3. Push to remote: git push -u origin feature/name
+4. Create pull request when ready
+5. Never commit directly to main/master
+```
+
+**Branch naming conventions:**
+
+```
+feature/user-authentication
+fix/login-validation-bug
+refactor/api-endpoints
+docs/update-readme
+chore/dependency-updates
+```
+
+**Claude Code with branches:**
+
+```bash
+# Start new feature
+You: "Create a new branch for adding search functionality"
+
+Claude:
+git checkout -b feature/search-functionality
+
+# Work on feature...
+# ...
+
+# When complete
+You: "Create pull request for search feature"
+
+Claude:
+git push -u origin feature/search-functionality
+# Opens PR creation in browser
+```
+
+### Rewind vs Revert
+
+**`/rewind` (local undo):**
+- Undoes Claude's recent changes in current session
+- Does NOT create git commits
+- Works only for uncommitted changes
+- Use when: Claude made a mistake, you want to try different approach
+
+**Example:**
+
+```bash
+You: "Add email validation to login form"
+Claude: [Makes changes]
+You: [Reviews diff] "This breaks the existing flow"
+/rewind
+# Changes are undone, back to previous state
+You: "Add email validation but preserve existing flow"
+```
+
+**`git revert` (committed changes):**
+- Creates new commit that undoes previous commit
+- Safe for pushed commits (preserves history)
+- Use when: Need to undo committed changes
+
+**Example:**
+
+```bash
+You: "Revert the authentication changes from the last commit"
+
+Claude:
+git revert HEAD
+# Creates new commit: "Revert 'feat: add authentication'"
+```
+
+**Decision tree:**
+
+```
+Changes not committed yet? → Use /rewind
+Changes committed but not pushed? → Use git reset (careful!)
+Changes committed and pushed? → Use git revert
+```
+
+### Git Worktrees for Parallel Development
+
+**What are worktrees?**
+
+Git worktrees create multiple working directories from the same repository, each checked out to a different branch.
+
+**Traditional workflow problem:**
+
+```bash
+# Working on feature A
+git checkout feature-a
+# 2 hours of work...
+
+# Urgent hotfix needed
+git stash              # Save current work
+git checkout main
+git checkout -b hotfix
+# Fix the bug...
+git checkout feature-a
+git stash pop          # Resume work
+```
+
+**Worktree solution:**
+
+```bash
+# One-time setup
+git worktree add ../myproject-hotfix hotfix
+git worktree add ../myproject-feature-a feature-a
+
+# Now work in parallel
+cd ../myproject-hotfix    # Terminal 1
+claude                    # Fix the bug
+
+cd ../myproject-feature-a # Terminal 2
+claude                    # Continue feature work
+```
+
+**When to use worktrees:**
+
+✅ **Use worktrees when:**
+- Working on multiple features simultaneously
+- Need to test different approaches in parallel
+- Reviewing code while developing
+- Running long CI/CD builds while coding
+- Maintaining multiple versions (v1 support + v2 development)
+
+❌ **Don't use worktrees when:**
+- Simple branch switching is sufficient
+- Disk space is limited (each worktree = full working directory)
+- Team is unfamiliar with worktrees (adds complexity)
+
+**Quick setup with Claude:**
+
+```bash
+# Use the /git-worktree command (see examples/commands/git-worktree.md)
+You: "/git-worktree feature/new-api"
+
+Claude:
+# Checks for .worktrees/ or worktrees/ directory
+# Verifies .gitignore has worktree directory excluded
+# Creates worktree: git worktree add .worktrees/feature/new-api -b feature/new-api
+# Installs dependencies (npm/yarn/pnpm auto-detected)
+# Runs baseline tests
+# Reports: "Worktree ready at /path/to/.worktrees/feature/new-api"
+```
+
+**Worktree management:**
+
+```bash
+# List all worktrees
+git worktree list
+
+# Remove worktree (after merging feature)
+git worktree remove .worktrees/feature/new-api
+
+# Cleanup stale worktree references
+git worktree prune
+```
+
+**Claude Code context in worktrees:**
+
+Each worktree maintains **independent Claude Code context**:
+
+```bash
+# Terminal 1 - Worktree A
+cd .worktrees/feature-a
+claude
+You: "Implement user authentication"
+# Claude indexes feature-a worktree
+
+# Terminal 2 - Worktree B (simultaneous)
+cd .worktrees/feature-b
+claude
+You: "Add payment integration"
+# Claude indexes feature-b worktree (separate context)
+```
+
+**Memory files with worktrees:**
+
+- **Global memory** (`~/.claude/CLAUDE.md`): Shared across all worktrees
+- **Project memory** (repo root `CLAUDE.md`): Committed, shared
+- **Worktree-local memory** (`.claude/CLAUDE.md` in worktree): Specific to that worktree
+
+**Recommended structure:**
+
+```
+~/projects/
+├── myproject/              # Main worktree (main branch)
+│   ├── CLAUDE.md          # Project conventions (committed)
+│   └── .claude/
+├── myproject-develop/      # develop branch worktree
+│   └── .claude/           # Develop-specific config
+├── myproject-feature-a/    # feature-a branch worktree
+│   └── .claude/           # Feature A context
+└── myproject-hotfix/       # hotfix branch worktree
+    └── .claude/           # Hotfix context
+```
+
+**Best practices:**
+
+1. **Name worktrees clearly:**
+   ```bash
+   # Bad
+   git worktree add ../temp feature-x
+
+   # Good
+   git worktree add ../myproject-feature-x feature-x
+   ```
+
+2. **Add to .gitignore:**
+   ```gitignore
+   # Worktree directories
+   .worktrees/
+   worktrees/
+   ```
+
+3. **Clean up merged branches:**
+   ```bash
+   git worktree remove myproject-feature-x
+   git branch -d feature-x  # Delete local branch after merge
+   git push origin --delete feature-x  # Delete remote branch
+   ```
+
+4. **Use consistent location:**
+   - `.worktrees/` (hidden, in project root)
+   - `worktrees/` (visible, in project root)
+   - `../myproject-*` (sibling directories)
+
+5. **Don't commit worktree contents:**
+   - Always ensure worktree directories are in `.gitignore`
+   - The `/git-worktree` command verifies this automatically
+
+**Advanced: Parallel testing pattern:**
+
+```bash
+# Test feature A while working on feature B
+cd .worktrees/feature-a
+npm test -- --watch &      # Run tests in background
+
+cd .worktrees/feature-b
+claude                      # Continue development
+You: "Add new API endpoint"
+# Tests for feature A still running in parallel
+```
+
+**Worktree troubleshooting:**
+
+**Problem:** Worktree creation fails with "already checked out"
+
+```bash
+# Solution: You can't check out the same branch in multiple worktrees
+git worktree list  # See which branches are checked out
+# Use a different branch or remove the existing worktree first
+```
+
+**Problem:** Disk space issues
+
+```bash
+# Each worktree is a full working directory
+# Solution: Clean up unused worktrees regularly
+git worktree prune
+```
+
+**Problem:** Can't delete worktree directory
+
+```bash
+# Solution: Use git worktree remove, not rm -rf
+git worktree remove --force .worktrees/old-feature
+```
+
+**Resources:**
+- [Git Worktree Documentation](https://git-scm.com/docs/git-worktree)
+- Example command: [`examples/commands/git-worktree.md`](../examples/commands/git-worktree.md)
+
+---
+
+## 9.13 Cost Optimization Strategies
+
+Practical techniques to minimize API costs while maximizing productivity.
+
+### Model Selection Matrix
+
+Choose the right model for each task to balance cost and capability.
+
+| Task Type | Model | Cost | When to Use |
+|-----------|-------|------|-------------|
+| **Typo fixes** | Haiku | $ | Simple edits, obvious changes |
+| **Code review** | Haiku | $ | Linting, style checks, simple review |
+| **Unit tests** | Haiku | $ | Straightforward test generation |
+| **Feature implementation** | Sonnet | $$ | Most development work |
+| **Refactoring** | Sonnet | $$ | Code restructuring |
+| **Bug investigation** | Sonnet | $$ | Moderate debugging |
+| **Architecture design** | Opus | $$$ | System design, critical decisions |
+| **Complex debugging** | Opus | $$$ | Multi-layered issues |
+| **Critical reviews** | Opus | $$$ | Security audits, production code |
+
+**OpusPlan mode (recommended):**
+- **Planning**: Opus for high-level thinking
+- **Execution**: Sonnet for implementation
+- **Best of both worlds**: Strategic thinking + cost-effective execution
+
+```bash
+# Activate OpusPlan mode
+/model opusplan
+
+# Enter Plan Mode (Opus for planning)
+Shift+Tab × 2
+
+You: "Design a caching layer for the API"
+# Opus creates detailed architectural plan
+
+# Exit Plan Mode (Sonnet for execution)
+Shift+Tab
+
+You: "Implement the caching layer following the plan"
+# Sonnet executes the plan at lower cost
+```
+
+### Token-Saving Techniques
+
+**1. Selective context loading:**
+
+```bash
+# ❌ Load entire monorepo (wastes tokens)
+cd monorepo
+claude
+
+# ✅ Load only needed directory
+cd monorepo
+claude --add-dir packages/api
+```
+
+**2. Use .claudeignore:**
+
+```gitignore
+# .claudeignore - Exclude from context
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+
+# Generated files
+dist/
+build/
+*.min.js
+*.bundle.js
+
+# Large data
+*.sql
+*.csv
+*.json.gz
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
+```
+
+**3. Compact proactively:**
+
+```bash
+# ❌ Wait until 90% context
+/status  # Context: 92% - Too late, degraded performance
+
+# ✅ Compact at 70%
+/status  # Context: 72%
+/compact  # Frees up context, maintains performance
+```
+
+**4. Agent specialization:**
+
+```markdown
+---
+name: test-writer
+description: Generate unit tests (use for test generation only)
+model: haiku
+---
+
+Generate comprehensive unit tests with edge cases.
+```
+
+**Benefits:**
+- Haiku costs less than Sonnet
+- Focused context (tests only)
+- Faster execution
+
+**5. Batch similar operations:**
+
+```bash
+# ❌ Individual sessions for each fix
+claude -p "Fix typo in auth.ts"
+claude -p "Fix typo in user.ts"
+claude -p "Fix typo in api.ts"
+
+# ✅ Batch in single session
+claude
+You: "Fix typos in auth.ts, user.ts, and api.ts"
+# Single context load, multiple fixes
+```
+
+### Cost Tracking
+
+**Monitor cost with `/status`:**
+
+```bash
+/status
+
+# Output:
+Model: Sonnet | Ctx: 45.2k | Cost: $1.23 | Ctx(u): 42.0%
+```
+
+**Set budget alerts (API usage):**
+
+```python
+# If using Anthropic API directly
+import anthropic
+
+client = anthropic.Anthropic()
+
+# Track spending
+response = client.messages.create(
+    model="claude-sonnet-4-5",
+    max_tokens=1024,
+    messages=[...],
+    metadata={
+        "user_id": "user_123",
+        "project": "api_development"
+    }
+)
+
+# Log cost per request
+cost = calculate_cost(response.usage)
+if cost > BUDGET_THRESHOLD:
+    alert_team(f"Budget threshold exceeded: ${cost}")
+```
+
+**Session cost limits:**
+
+```markdown
+## CLAUDE.md - Cost Awareness
+
+**Budget-conscious mode:**
+- Use Haiku for reviews and simple tasks
+- Reserve Sonnet for feature work
+- Use Opus only for critical decisions
+- Compact context at 70% to avoid waste
+- Close sessions after task completion
+```
+
+### Economic Workflows
+
+**Pattern 1: Haiku for tests, Sonnet for implementation**
+
+```bash
+# Terminal 1: Test generation (Haiku)
+claude --model haiku
+You: "Generate tests for the authentication module"
+
+# Terminal 2: Implementation (Sonnet)
+claude --model sonnet
+You: "Implement the authentication module"
+```
+
+**Pattern 2: Progressive model escalation**
+
+```bash
+# Start with Haiku
+claude --model haiku
+You: "Review this code for obvious issues"
+
+# If complex issues found, escalate to Sonnet
+/model sonnet
+You: "Deep analysis of the race condition"
+
+# If architectural issue, escalate to Opus
+/model opus
+You: "Redesign the concurrency model"
+```
+
+**Pattern 3: Context reuse**
+
+```bash
+# Build context once, reuse for multiple tasks
+claude
+You: "Analyze the authentication flow"
+# Context built: ~20k tokens
+
+# Same session - context already loaded
+You: "Now add 2FA to the authentication flow"
+# No context rebuild needed
+
+You: "Generate tests for the 2FA feature"
+# Still same context
+
+# Commit when done
+You: "Create commit for 2FA implementation"
+```
+
+### Token Calculation Reference
+
+**Input tokens:**
+- Source code loaded into context
+- Conversation history
+- Memory files (CLAUDE.md)
+- Agent/skill instructions
+
+**Output tokens:**
+- Claude's responses
+- Generated code
+- Explanations
+
+**Rough estimates:**
+- 1 token ≈ 0.75 words (English)
+- 1 token ≈ 4 characters
+- Average function: 50-200 tokens
+- Average file (500 LOC): 2,000-5,000 tokens
+
+**Example calculation:**
+
+```
+Context loaded:
+- 10 files × 500 LOC × 4 tokens/LOC = 20,000 tokens
+- Conversation history: 5,000 tokens
+- CLAUDE.md: 1,000 tokens
+Total input: 26,000 tokens
+
+Claude response:
+- Generated code: 500 LOC × 4 = 2,000 tokens
+- Explanation: 500 tokens
+Total output: 2,500 tokens
+
+Total cost per request: (26,000 + 2,500) tokens × model price
+```
+
+**Sonnet pricing (approximate):**
+- Input: $3 per million tokens
+- Output: $15 per million tokens
+
+**Session cost:**
+```
+Input: 26,000 × $3 / 1,000,000 = $0.078
+Output: 2,500 × $15 / 1,000,000 = $0.0375
+Total: ~$0.12 per interaction
+```
+
+### Cost Optimization Checklist
+
+```markdown
+Daily practices:
+□ Use /status to monitor context and cost
+□ Compact at 70% context usage
+□ Close sessions after task completion
+□ Use .claudeignore to exclude unnecessary files
+
+Model selection:
+□ Default to Sonnet for most work
+□ Use Haiku for reviews and simple fixes
+□ Reserve Opus for architecture and critical debugging
+□ Try OpusPlan mode for strategic work
+
+Context management:
+□ Load only needed directories (--add-dir)
+□ Batch similar tasks in single session
+□ Reuse context for multiple related tasks
+□ Create specialized agents with focused context
+
+Team practices:
+□ Share cost-effective patterns in team wiki
+□ Track spending per project
+□ Set budget alerts for high-cost operations
+□ Review cost metrics in retrospectives
+```
+
+### Advanced: Cost-Aware CI/CD
+
+```yaml
+# .github/workflows/claude-review.yml
+name: Claude Code Review
+
+on: [pull_request]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Use Haiku for cost-effective reviews
+      - name: Run Claude review
+        run: |
+          claude --model haiku \
+                 -p "Review changes for security and style issues" \
+                 --add-dir src/ \
+                 --output-format json > review.json
+
+      # Only escalate to Sonnet if issues found
+      - name: Deep analysis (if needed)
+        if: ${{ contains(steps.*.outputs.*, 'CRITICAL') }}
+        run: |
+          claude --model sonnet \
+                 -p "Detailed analysis of critical issues found" \
+                 --add-dir src/
+```
+
+**Cost comparison:**
+
+```
+Haiku review (per PR): ~$0.02
+Sonnet review (per PR): ~$0.10
+Opus review (per PR): ~$0.50
+
+With 100 PRs/month:
+- Haiku: $2/month
+- Sonnet: $10/month
+- Opus: $50/month
+
+Smart escalation (Haiku → Sonnet for 10% of PRs):
+- Base cost: $2 (Haiku for all)
+- Escalation: $1 (Sonnet for 10%)
+- Total: $3/month (vs $10 or $50)
+```
+
+### Cost vs Productivity Trade-offs
+
+**Don't be penny-wise, pound-foolish:**
+
+❌ **False economy:**
+- Spending 2 hours manually debugging to save $1 in API costs
+- Using Haiku for complex tasks, generating incorrect code
+- Over-compacting context, losing valuable history
+
+✅ **Smart optimization:**
+- Use right model for the task (time saved >> cost)
+- Invest in good prompts and memory files (reduce iterations)
+- Automate with agents (consistent, efficient)
+
+**ROI calculation:**
+
+```
+Your hourly rate: $50/hour
+Claude Sonnet request: $0.10
+
+Time saved per request: 15 minutes (0.25 hours)
+Value of time saved: $50 × 0.25 = $12.50
+ROI: ($12.50 - $0.10) / $0.10 = 12,400% ROI
+
+Conclusion: Focus on productivity, not penny-pinching.
+```
+
+**When to optimize aggressively:**
+- High-volume operations (>1000 requests/day)
+- Automated pipelines running 24/7
+- Large teams (cost scales with users)
+- Budget-constrained projects
+
+**When productivity matters more:**
+- Critical bug fixes
+- Time-sensitive features
+- Learning and experimentation
+- Complex architectural decisions
+
+---
+
+## 🎯 Section 9 Recap: Pattern Mastery Checklist
+
+Before moving to Section 10 (Reference), verify you understand:
+
+**Core Patterns**:
+- [ ] **Trinity Pattern**: Plan Mode → Ultrathink → Sequential MCP for critical work
+- [ ] **Composition**: Agents + Skills + Hooks working together seamlessly
+- [ ] **CI/CD Integration**: Automated reviews and quality gates in pipelines
+- [ ] **IDE Integration**: VS Code + Claude Code = seamless development flow
+
+**Productivity Patterns**:
+- [ ] **Tight Feedback Loops**: Test-driven workflows with instant validation
+- [ ] **Todo as Instruction Mirrors**: Keep context aligned with reality
+- [ ] **Vibe Coding**: Skeleton → iterate → production-ready
+- [ ] **Batch Operations**: Process multiple files efficiently
+
+**Quality Awareness**:
+- [ ] **Common Pitfalls**: Understand security, performance, workflow mistakes
+- [ ] **Continuous Improvement**: Refine over multiple sessions with learning mindset
+- [ ] **Best Practices**: Do/Don't patterns for professional work
+
+### What's Next?
+
+**Section 10 is your command reference** — bookmark it for quick lookups during daily work.
+
+You've mastered the concepts and patterns. Now Section 10 gives you the technical reference for efficient execution.
+
+---
+
 # 10. Reference
+
+_Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102-keyboard-shortcuts) · [Configuration Reference](#103-configuration-reference) · [Troubleshooting](#104-troubleshooting) · [Cheatsheet](#105-cheatsheet) · [Daily Workflow](#106-daily-workflow--checklists)
+
+---
+
+## 📌 Section 10 TL;DR (1 minute)
+
+**What's inside**: Complete command reference, troubleshooting guides, and daily checklists.
+
+### Quick Navigation by Need:
+
+| I need to... | Go to |
+|--------------|-------|
+| Look up a command | [10.1 Commands Table](#101-commands-table) |
+| Find keyboard shortcut | [10.2 Keyboard Shortcuts](#102-keyboard-shortcuts) |
+| Configure settings | [10.3 Configuration Reference](#103-configuration-reference) |
+| Fix an error | [10.4 Troubleshooting](#104-troubleshooting) |
+| Quick daily reference | [10.5 Cheatsheet](#105-cheatsheet) |
+| Set up workflow | [10.6 Daily Workflow](#106-daily-workflow--checklists) |
+
+### Most Common Lookups:
+- **Context full?** → [10.4.1 Context Issues](#context-issues)
+- **MCP not working?** → [10.4.4 MCP Troubleshooting](#mcp-issues)
+- **Need clean reinstall?** → [10.4.3 Full Reinstall](#full-clean-reinstall-procedures)
+
+**Usage tip**: Bookmark this section — you'll reference it often.
+
+---
 
 **Purpose**: Quick lookup for all Claude Code information
 
@@ -7438,4 +8427,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2025 | **Version**: 1.0
+**Last updated**: January 2026 | **Version**: 2.0

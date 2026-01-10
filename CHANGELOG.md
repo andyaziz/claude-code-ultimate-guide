@@ -6,6 +6,85 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-01-10
+
+### Added
+- **Section 9.12: Git Best Practices & Workflows** (~400 lines)
+  - Commit message best practices with Conventional Commits format
+  - Git amend workflow with safety rules and verification process
+  - Branch management patterns and naming conventions
+  - Rewind vs Revert decision tree for different scenarios
+  - **Git Worktrees comprehensive documentation**
+    - Parallel branch development without context switching
+    - Setup process and directory structure
+    - Claude Code integration patterns
+    - CLAUDE.md memory file strategies for worktrees
+    - Best practices and troubleshooting guide
+    - Cleanup procedures
+- **Section 9.13: Cost Optimization Strategies** (~350 lines)
+  - Model selection matrix (Haiku/Sonnet/Opus use cases and costs)
+  - OpusPlan mode (Opus for planning, Sonnet for execution)
+  - Token-saving techniques (selective loading, .claudeignore, proactive compacting)
+  - Agent specialization for efficiency
+  - Cost tracking with /status command and budget alerts
+  - Economic workflows (Haiku for tests, Sonnet for implementation)
+  - Token calculation reference with real pricing examples
+  - Cost vs productivity trade-offs analysis
+  - ROI calculations and cost-effectiveness metrics
+- **examples/commands/git-worktree.md** - Slash command template
+  - Systematic worktree setup workflow
+  - Directory selection priority logic (.worktrees/ vs worktrees/)
+  - Safety verification (.gitignore checks)
+  - Auto-detection of package managers (pnpm, cargo, poetry, go)
+  - Baseline test verification
+  - Complete quick reference table
+- **8 TL;DR/Recap sections** for improved navigation and learning journey
+  - Section 2 TL;DR (Core Concepts) - 2 minute overview of mental model
+  - Section 3 TL;DR (Memory & Settings) - 90 second memory hierarchy guide
+  - Section 4 TL;DR (Agents) - 60 second quick start guide
+  - Section 7 TL;DR (Hooks) - 60 second event system overview
+  - Section 9 TL;DR (Advanced Patterns) - 3 minute pattern categories breakdown
+  - Section 10 TL;DR (Reference) - 1 minute navigation table
+  - Subsection 2.2 Quick Reference (Context Management zones)
+  - Section 9 Recap Checklist (Pattern mastery verification before Section 10)
+- **Format Enhancements** for better readability
+  - Collapsible tables using `<details>` tags for dense content (MCP Server Catalog)
+  - C-style comment format (`/*──────*/`) for multi-OS installation commands
+  - Quick navigation anchor links at top of all 10 major sections
+- **zebbern/claude-code-guide reference** in README Resources
+  - New "Related Guides" section grouping zebbern and Claudelog as peer guides
+  - Positioned prominently after Official docs section
+  - Added context: "Comprehensive reference & troubleshooting guide with cybersecurity focus"
+
+### Changed
+- **Updated statistics** throughout documentation
+  - Guide expanded from 7,481 to 7,668 lines (+187 lines, +2.5%)
+  - Word count: 27,471 words (27K+)
+  - Reading time estimate: 2.5 hours → 3 hours (more accurate for full guide)
+  - README: "4000+ lines" → "7500+ lines, 27K+ words"
+  - PDF Kimi reading time: 2.5 hours → 3 hours
+- **Version alignment** across all files to 2.0
+  - english-ultimate-claude-code-guide.md: Version 1.0 → 2.0
+  - README.md: Version 1.0 → 2.0
+  - claude-setup-audit-prompt.md: Version 1.0 → 2.0
+  - cheatsheet-en.md: Already 2.0
+- **Date updates** to January 2026
+  - All "Last updated" fields across documentation
+  - Status Overview Table dates (Jan 2025 → Jan 2026)
+  - Pricing model reference date (January 2026)
+  - Footer timestamps in all major files
+
+### Fixed
+- Removed duplicate Claudelog reference from "Frameworks & Tools" section (was in both Key inspirations and Resources)
+- Improved organization of Resources section with clearer categorization
+
+### Stats
+- Guide now 7,668 lines (from 6,250 lines in v1.2.0)
+- Added 187 lines of TL;DR/navigation content
+- ~23% growth from v1.2.0
+- Focus on user experience optimization and learning journey enhancement
+- Major version bump reflects structural documentation paradigm shift (learning-focused TL;DRs throughout)
+
 ## [1.2.0] - 2025-01-10
 
 ### Added
