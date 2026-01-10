@@ -1,6 +1,12 @@
-# The Ultimate Claude Code Guide
+# Claude Code Guide: Complete Tutorial & Best Practices
 
-> From zero to power user — a comprehensive, self-contained guide to mastering Claude Code.
+> The comprehensive guide to Claude Code — Anthropic's AI coding assistant CLI.
+> From installation to advanced MCP servers, agents, skills, hooks, and CI/CD integration.
+
+![Claude Code](https://img.shields.io/badge/Claude_Code-Guide-5A67D8?style=flat-square)
+![Anthropic CLI](https://img.shields.io/badge/Anthropic-CLI-FF6B6B?style=flat-square)
+![AI Coding](https://img.shields.io/badge/AI-Coding_Assistant-4CAF50?style=flat-square)
+![MCP](https://img.shields.io/badge/MCP-Servers-FFA726?style=flat-square)
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![GitHub stars](https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=social)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers)
@@ -17,7 +23,9 @@
 
 ## About This Guide
 
-This guide is the result of **several months of daily practice and research** with Claude Code. I don't claim to be an "expert" — I'm simply sharing what I've learned along the way, humbly hoping to help my peers and evangelize good practices in AI-assisted development.
+This guide is the result of **several months of daily practice and research** with Claude Code, Anthropic's AI coding assistant CLI. Whether you're exploring agentic development, LLM-powered coding workflows, or AI pair programming, this resource covers everything from basic setup to advanced MCP server orchestration.
+
+I don't claim to be an "expert" — I'm simply sharing what I've learned along the way, humbly hoping to help my peers and evangelize good practices in AI-assisted development.
 
 A significant source of inspiration for this work was [Claudelog.com](https://claudelog.com/), which I highly recommend for anyone wanting to go deeper.
 
@@ -185,6 +193,14 @@ Want to know if your Claude Code setup follows best practices?
 - [Nick Tune: Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) — Advanced autonomous workflow patterns
 
 ---
+
+<!-- SEO Keywords - Do not remove
+claude code, claude code tutorial, claude code guide, anthropic cli,
+ai coding assistant, claude code mcp, claude code agents, claude code hooks,
+claude code skills, claude code installation, claude code commands,
+agentic coding, ai pair programming, llm development tools, ai developer tools,
+anthropic claude, mcp servers, claude code ci/cd, claude code best practices
+-->
 
 ## License
 
