@@ -1,10 +1,12 @@
 # Claude Code Cheatsheet
 
-**1 printable page** - Daily essentials
+**1 printable page** - Daily essentials for maximum productivity
 
 **Author**: Florian BRUNIAUX | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
 
 **Written with**: Claude (Anthropic)
+
+**Version**: 2.0 | **Last Updated**: January 2025
 
 ---
 
@@ -244,6 +246,22 @@ VERIFY: Empty email shows error, invalid format shows error
 
 ---
 
+## CLI Flags Quick Reference
+
+| Flag | Usage |
+|------|-------|
+| `-p "query"` | Non-interactive mode |
+| `--model sonnet` | Change model |
+| `--add-dir ../lib` | Add directory |
+| `--permission-mode plan` | Plan mode |
+| `--dangerously-skip-permissions` | Auto-accept (⚠️ use carefully) |
+| `--debug` | Debug output |
+| `--mcp-debug` | Debug MCP servers |
+| `--allowedTools "Edit,Read"` | Whitelist tools |
+| `--disallowedTools "WebFetch"` | Blacklist tools |
+
+---
+
 ## Debug Commands
 
 ```bash
@@ -251,7 +269,7 @@ claude --version     # Version
 claude doctor        # Diagnostic
 claude --debug       # Verbose mode
 claude --mcp-debug   # Debug MCPs
-/mcp                 # MCP status
+/mcp                 # MCP status (inside Claude)
 ```
 
 ---
@@ -299,15 +317,51 @@ Deep analysis     → Use --think or --ultrathink
 
 ---
 
+## Common Issues Quick Fix
+
+| Problem | Solution |
+|---------|----------|
+| "Command not found" | Check PATH, reinstall npm global |
+| Context too high (>70%) | `/compact` immediately |
+| Slow responses | `/compact` or `/clear` |
+| MCP not working | `claude mcp list`, check config |
+| Permission denied | Check `settings.local.json` |
+| Hook blocking | Check hook exit code, review logic |
+
+**Health Check Script** (save & run):
+```bash
+# macOS/Linux
+which claude && claude doctor && claude mcp list
+
+# Windows PowerShell
+where.exe claude; claude doctor; claude mcp list
+```
+
+---
+
+## Cost Optimization
+
+| Model | Use For | Cost |
+|-------|---------|------|
+| Haiku | Simple fixes, reviews | $ |
+| Sonnet | Most development | $$ |
+| Opus | Architecture, complex bugs | $$$ |
+| OpusPlan | Plan (Opus) + Execute (Sonnet) | $$ |
+
+**Tip**: Use `--add-dir` to load only needed directories (saves tokens)
+
+---
+
 ## Resources
 
 - **Official docs**: [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code)
-- **Inspired by**: [Claudelog.com](https://claudelog.com/) - Advanced tips & patterns
-- **Full guide**: `english-ultimate-claude-code-guide.md`
-- **Project memory**: `CLAUDE.md` at project root
+- **Advanced guide**: [Claudelog.com](https://claudelog.com/) - Tips & patterns
+- **Full guide**: `english-ultimate-claude-code-guide.md` (this repo)
+- **Project memory**: Create `CLAUDE.md` at project root
+- **DeepSeek (cost-effective)**: Configure via `ANTHROPIC_BASE_URL`
 
 ---
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2025 | Version 1.0*
+*Last updated: January 2025 | Version 2.0*

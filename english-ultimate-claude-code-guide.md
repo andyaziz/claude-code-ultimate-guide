@@ -14,6 +14,27 @@
 
 ---
 
+<div align="center">
+
+### 📊 Guide Status Overview
+
+| Section | Status | Coverage | Last Updated |
+|---------|--------|----------|--------------|
+| **Quick Start & Installation** | ✅ Complete | 100% | Jan 2025 |
+| **Core Concepts** | ✅ Complete | 100% | Jan 2025 |
+| **Memory & Settings** | ✅ Complete | 100% | Jan 2025 |
+| **Agents & Skills** | ✅ Complete | 100% | Jan 2025 |
+| **Commands & Hooks** | ✅ Complete | 100% | Jan 2025 |
+| **MCP Integration** | ✅ Complete | 100% | Jan 2025 |
+| **Advanced Patterns** | ✅ Complete | 100% | Jan 2025 |
+| **Reference & Troubleshooting** | ✅ Complete | 100% | Jan 2025 |
+
+**Legend**: ✅ Complete | 🔄 In Progress | 📝 Planned | ⚠️ Needs Update
+
+</div>
+
+---
+
 ## TL;DR - The 5-Minute Summary
 
 If you only have 5 minutes, here's what you need to know:
@@ -134,6 +155,7 @@ Context full → /compact or /clear
   - [9.8 Vibe Coding & Skeleton Projects](#98-vibe-coding--skeleton-projects)
   - [9.9 Batch Operations Pattern](#99-batch-operations-pattern)
   - [9.10 Continuous Improvement Mindset](#910-continuous-improvement-mindset)
+  - [9.11 Common Pitfalls & Best Practices](#911-common-pitfalls--best-practices)
 - [10. Reference](#10-reference)
   - [10.1 Commands Table](#101-commands-table)
   - [10.2 Keyboard Shortcuts](#102-keyboard-shortcuts)
@@ -142,6 +164,7 @@ Context full → /compact or /clear
   - [10.5 Cheatsheet](#105-cheatsheet)
   - [10.6 Daily Workflow & Checklists](#106-daily-workflow--checklists)
 - [Appendix: Templates Collection](#appendix-templates-collection)
+  - [Appendix A: File Locations Reference](#appendix-a-file-locations-reference)
   - [A.8 Prompt Templates](#a8-prompt-templates)
   - [A.9 Success Metrics & Maturity Model](#a9-success-metrics--maturity-model)
 
@@ -5023,6 +5046,273 @@ This is the meta-skill: instead of fixing code, **fix the system that produces t
 
 > Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
 
+## 9.11 Common Pitfalls & Best Practices
+
+Learn from common mistakes to avoid frustration and maximize productivity.
+
+### Security Pitfalls
+
+**❌ Don't:**
+
+- Use `--dangerously-skip-permissions` on production systems or sensitive codebases
+- Hard-code secrets in commands, config files, or CLAUDE.md
+- Grant overly broad permissions like `Bash(*)` without restrictions
+- Run Claude Code with elevated privileges (sudo/Administrator) unnecessarily
+- Commit `.claude/settings.local.json` to version control (contains API keys)
+- Share session IDs or logs that may contain sensitive information
+- Disable security hooks during normal development
+
+**✅ Do:**
+
+- Store secrets in environment variables or secure vaults
+- Start from minimal permissions and expand gradually as needed
+- Audit regularly with `claude config list` to review active permissions
+- Isolate risky operations in containers, VMs, or separate environments
+- Use `.gitignore` to exclude sensitive configuration files
+- Review all diffs before accepting changes, especially in security-critical code
+- Implement PreToolUse hooks to catch accidental secret exposure
+- Use Plan Mode for exploring unfamiliar or sensitive codebases
+
+**Example Security Hook:**
+
+```bash
+#!/bin/bash
+# .claude/hooks/PreToolUse.sh - Block secrets in commits
+
+INPUT=$(cat)
+TOOL_NAME=$(echo "$INPUT" | jq -r '.tool.name')
+
+if [[ "$TOOL_NAME" == "Bash" ]]; then
+    COMMAND=$(echo "$INPUT" | jq -r '.tool.input.command')
+
+    # Block git commits with potential secrets
+    if [[ "$COMMAND" == *"git commit"* ]] || [[ "$COMMAND" == *"git add"* ]]; then
+        # Check for common secret patterns
+        if git diff --cached | grep -E "(password|secret|api_key|token).*=.*['\"]"; then
+            echo "❌ Potential secret detected in staged files" >&2
+            exit 2  # Block the operation
+        fi
+    fi
+fi
+
+exit 0  # Allow
+```
+
+### Performance Pitfalls
+
+**❌ Don't:**
+
+- Load entire monorepo when you only need one package
+- Max out thinking/turn budgets for simple tasks (wastes time and money)
+- Ignore session cleanup - old sessions accumulate and slow down Claude Code
+- Use `--ultrathink` for trivial edits like typo fixes
+- Keep context at 90%+ for extended periods
+- Load large binary files or generated code into context
+- Run expensive MCP operations in tight loops
+
+**✅ Do:**
+
+- Use `--add-dir` for focused context on specific directories
+- Right-size thinking levels to task complexity:
+  - Simple edits: No flags
+  - Medium analysis: `--think`
+  - Complex architecture: `--think-hard`
+  - Critical redesign: `--ultrathink`
+- Set `cleanupPeriodDays` in config to prune old sessions automatically
+- Use `/compact` proactively when context reaches 70%
+- Exclude irrelevant directories with `.claudeignore`
+- Monitor cost with `/status` and adjust model/thinking levels accordingly
+- Cache expensive computations in memory with Serena MCP
+
+**Context Management Strategy:**
+
+| Context Level | Action | Why |
+|--------------|--------|-----|
+| 0-50% | Work freely | Optimal performance |
+| 50-70% | Be selective | Start monitoring |
+| 70-85% | `/compact` now | Prevent degradation |
+| 85-95% | `/compact` or `/clear` | Significant slowdown |
+| 95%+ | `/clear` required | Risk of errors |
+
+### Workflow Pitfalls
+
+**❌ Don't:**
+
+- Skip project context (`CLAUDE.md`) - leads to repeated corrections
+- Use vague prompts like "fix this" or "check my code"
+- Ignore errors in logs or dismiss warnings
+- Automate workflows without testing in safe environments first
+- Accept changes blindly without reviewing diffs
+- Work without version control or backups
+- Mix multiple unrelated tasks in one session
+- Forget to commit after completing tasks
+
+**✅ Do:**
+
+- Maintain and update `CLAUDE.md` regularly with:
+  - Tech stack and versions
+  - Coding conventions and patterns
+  - Architecture decisions
+  - Common gotchas specific to your project
+- Be specific and goal-oriented in prompts using WHAT/WHERE/HOW/VERIFY format
+- Monitor via logs or OpenTelemetry when appropriate
+- Test automation in dev/staging environments first
+- Always review agent outputs before accepting
+- Use git branches for experimental changes
+- Break complex tasks into focused sessions
+- Commit frequently with descriptive messages
+
+**Effective Prompt Format:**
+
+```markdown
+## Task Template
+
+**WHAT**: [Concrete deliverable - e.g., "Add email validation to signup form"]
+**WHERE**: [File paths - e.g., "src/components/SignupForm.tsx"]
+**HOW**: [Constraints/approach - e.g., "Use Zod schema, show inline errors"]
+**VERIFY**: [Success criteria - e.g., "Empty email shows error, invalid format shows error, valid email allows submit"]
+
+## Example
+
+WHAT: Add input validation to the login form
+WHERE: src/components/LoginForm.tsx, src/schemas/auth.ts
+HOW: Use Zod schema validation, display errors inline below inputs
+VERIFY:
+- Empty email shows "Email required"
+- Invalid email format shows "Invalid email"
+- Empty password shows "Password required"
+- Valid inputs clear errors and allow submission
+```
+
+### Collaboration Pitfalls
+
+**❌ Don't:**
+
+- Commit personal API keys or local settings to shared repos
+- Override team conventions in personal `.claude/` without discussion
+- Use non-standard agents/skills without team alignment
+- Modify shared hooks without testing across team
+- Skip documentation for custom commands/agents
+- Use different Claude Code versions across team without coordinating
+
+**✅ Do:**
+
+- Use `.gitignore` for `.claude/settings.local.json` and personal configs
+- Document team-wide conventions in project `CLAUDE.md` (committed)
+- Share useful agents/skills via team repository or wiki
+- Test hooks in isolation before committing
+- Maintain README for `.claude/agents/` and `.claude/commands/`
+- Coordinate Claude Code updates and test compatibility
+- Use consistent naming conventions for custom components
+- Share useful prompts and patterns in team knowledge base
+
+**Recommended .gitignore:**
+
+```gitignore
+# Claude Code - Personal
+.claude/settings.local.json
+.claude/CLAUDE.md
+.claude/.serena/
+
+# Claude Code - Team (committed)
+# .claude/agents/
+# .claude/commands/
+# .claude/hooks/
+# .claude/settings.json
+
+# Environment
+.env.local
+.env.*.local
+```
+
+### Cost Optimization Pitfalls
+
+**❌ Don't:**
+
+- Use Opus for simple tasks that Sonnet can handle
+- Leave `--ultrathink` on by default
+- Ignore the cost metrics in `/status`
+- Use MCP servers that make external API calls excessively
+- Load entire codebase for focused tasks
+- Re-analyze unchanged code repeatedly
+
+**✅ Do:**
+
+- Use OpusPlan mode: Opus for planning, Sonnet for execution
+- Match model to task complexity:
+  - Haiku: Code review, simple fixes
+  - Sonnet: Most development tasks
+  - Opus: Architecture, complex debugging
+- Monitor cost with `/status` regularly
+- Set budget alerts if using API directly
+- Use Serena memory to avoid re-analyzing code
+- Leverage context caching with `/compact`
+- Batch similar operations together
+
+**Cost-Effective Model Selection:**
+
+| Task Type | Recommended Model | Reasoning |
+|-----------|------------------|-----------|
+| Typo fixes | Haiku | Simple, fast, cheap |
+| Feature implementation | Sonnet | Best balance |
+| Code review | Haiku/Sonnet | Depends on depth |
+| Architecture design | Opus (plan) → Sonnet (execute) | OpusPlan mode |
+| Complex debugging | Opus with `--think` | Worth the cost |
+| Batch operations | Sonnet | Efficient at scale |
+
+### Learning & Adoption Pitfalls
+
+**❌ Don't:**
+
+- Try to learn everything at once - overwhelming and inefficient
+- Skip the basics and jump to advanced features
+- Expect perfection from AI - it's a tool, not magic
+- Blame Claude for errors without reviewing your prompts
+- Work in isolation without checking community resources
+- Give up after first frustration
+
+**✅ Do:**
+
+- Follow progressive learning path:
+  1. Week 1: Basic commands, context management
+  2. Week 2: CLAUDE.md, permissions
+  3. Week 3: Agents and commands
+  4. Month 2+: MCP servers, advanced patterns
+- Start with simple, low-risk tasks
+- Iterate on prompts based on results
+- Review this guide and community resources regularly
+- Join Claude Code communities (Discord, GitHub discussions)
+- Share learnings and ask questions
+- Celebrate small wins and track productivity gains
+
+**Learning Checklist:**
+
+```
+□ Week 1: Installation & Basic Usage
+  □ Install Claude Code successfully
+  □ Complete first task (simple edit)
+  □ Understand context management (use /compact)
+  □ Learn permission modes (try Plan Mode)
+
+□ Week 2: Configuration & Memory
+  □ Create project CLAUDE.md
+  □ Set up .gitignore correctly
+  □ Configure permissions in settings.local.json
+  □ Use @file references effectively
+
+□ Week 3-4: Customization
+  □ Create first custom agent
+  □ Create first custom command
+  □ Set up at least one hook
+  □ Explore one MCP server (suggest: Context7)
+
+□ Month 2+: Advanced Patterns
+  □ Implement Trinity pattern (Git + TodoWrite + Agent)
+  □ Set up CI/CD integration
+  □ Configure OpusPlan mode
+  □ Build team workflow patterns
+```
+
 ---
 
 # 10. Reference
@@ -5097,6 +5387,64 @@ This is the meta-skill: instead of fixing code, **fix the system that produces t
 | `WebSearch` | Web search |
 | `mcp__serena__*` | All Serena tools |
 
+### CLI Flags Reference
+
+Complete reference for all Claude Code command-line flags.
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `-p, --print` | Print response and exit (non-interactive) | `claude -p "analyze app.ts"` |
+| `--output-format` | Output format (text/json/stream-json) | `claude --output-format json` |
+| `--input-format` | Input format (text/stream-json) | `claude --input-format stream-json` |
+| `--replay-user-messages` | Re-emit user messages in stream | `claude --replay-user-messages` |
+| `--allowedTools` | Whitelist specific tools | `claude --allowedTools "Edit,Read,Bash(git:*)"` |
+| `--disallowedTools` | Blacklist specific tools | `claude --disallowedTools "WebFetch"` |
+| `--mcp-config` | Load MCP servers from JSON file | `claude --mcp-config ./mcp.json` |
+| `--strict-mcp-config` | Only use MCP servers from config | `claude --strict-mcp-config` |
+| `--append-system-prompt` | Add to system prompt | `claude --append-system-prompt "Use TypeScript"` |
+| `--permission-mode` | Permission mode (default/auto/plan) | `claude --permission-mode plan` |
+| `--model` | Model selection | `claude --model sonnet` |
+| `--add-dir` | Add additional directories to context | `claude --add-dir ../shared ../utils` |
+| `--continue` | Continue last conversation | `claude --continue` |
+| `-r, --resume` | Resume session by ID | `claude --resume abc123` |
+| `--dangerously-skip-permissions` | Skip all permission prompts | `claude --dangerously-skip-permissions` |
+| `--debug` | Enable debug mode | `claude --debug` |
+| `--verbose` | Verbose output | `claude --verbose` |
+| `--mcp-debug` | Debug MCP server connections | `claude --mcp-debug` |
+| `--version` | Show version | `claude --version` |
+
+**Common Combinations:**
+
+```bash
+# CI/CD mode - non-interactive with auto-accept
+claude -p "fix linting errors" --dangerously-skip-permissions
+
+# JSON output for scripting
+claude -p "analyze code quality" --output-format json
+
+# Economic analysis with Haiku
+claude -p "review this file" --model haiku
+
+# Focused context (performance)
+claude --add-dir ./src/components
+
+# Plan mode for safety
+claude --permission-mode plan
+
+# Multi-directory project
+claude --add-dir ../shared-lib ../utils ../config
+```
+
+**Safety Guidelines:**
+
+| Flag | Risk Level | Use When |
+|------|-----------|----------|
+| `--dangerously-skip-permissions` | 🔴 High | Only in CI/CD, never on production |
+| `--allowedTools` | 🟢 Safe | Restricting tool access |
+| `--disallowedTools` | 🟢 Safe | Blocking specific tools |
+| `--permission-mode plan` | 🟢 Safe | Read-only exploration |
+| `--debug` | 🟡 Medium | Troubleshooting (verbose logs) |
+
 ## 10.4 Troubleshooting
 
 | Symptom | Cause | Solution |
@@ -5137,9 +5485,116 @@ This is the meta-skill: instead of fixing code, **fix the system that produces t
 
 ### MCP Server Issues
 
-**"MCP server connection failed"**
+**Common MCP Errors and Solutions**
 
-Common causes and solutions:
+#### Error 1: Tool Name Validation Failed
+
+```
+API Error 400: "tools.11.custom.name: String should match pattern '^[a-zA-Z0-9_-]{1,64}'"
+```
+
+**Cause**: MCP server name contains invalid characters.
+
+**Solution**:
+- Server names must only contain: letters, numbers, underscores, hyphens
+- Maximum 64 characters
+- No special characters or spaces
+
+**Example:**
+```bash
+# ❌ Wrong
+claude mcp add my-server@v1 -- npx server
+
+# ✅ Correct
+claude mcp add my-server-v1 -- npx server
+```
+
+#### Error 2: MCP Server Not Found
+
+```
+MCP server 'my-server' not found
+```
+
+**Cause**: Server not properly registered or wrong scope.
+
+**Solution**:
+1. Check scope settings (local/user/project)
+   ```bash
+   claude mcp list  # Verify server is listed
+   ```
+2. Ensure you're in the correct directory for local scope
+3. Restart Claude Code session
+4. Re-add server if needed:
+   ```bash
+   claude mcp add my-server -s user -- npx @my/server
+   ```
+
+#### Error 3: Windows Path Issues
+
+```
+Error: Cannot find module 'C:UsersusernameDocuments'
+```
+
+**Cause**: Backslashes in Windows paths not properly escaped.
+
+**Solution**:
+```bash
+# ❌ Wrong
+claude mcp add fs -- npx -y @modelcontextprotocol/server-filesystem C:\Users\username\Documents
+
+# ✅ Correct - Use forward slashes
+claude mcp add fs -- npx -y @modelcontextprotocol/server-filesystem C:/Users/username/Documents
+
+# ✅ Correct - Escape backslashes
+claude mcp add fs -- npx -y @modelcontextprotocol/server-filesystem "C:\\Users\\username\\Documents"
+```
+
+#### MCP Debugging Techniques
+
+**Enable Debug Mode:**
+```bash
+# Debug all MCP connections
+claude --mcp-debug
+
+# View MCP status inside Claude Code
+/mcp
+```
+
+**View Log Files:**
+```bash
+# macOS
+tail -f ~/Library/Logs/Claude/mcp*.log
+
+# Linux
+tail -f ~/.local/share/claude/logs/mcp*.log
+
+# Windows (PowerShell)
+Get-Content "$env:APPDATA\Claude\logs\mcp*.log" -Wait -Tail 50
+```
+
+**Manual Server Test:**
+```bash
+# Test if server works standalone
+npx -y @modelcontextprotocol/server-filesystem ~/Documents
+
+# Expected: Server should start and output JSON-RPC messages
+# If it crashes immediately, check server logs
+```
+
+**Quick Diagnostic Commands:**
+```bash
+# List all configured servers
+claude mcp list
+
+# Test specific server
+claude --mcp-debug -p "List available tools"
+
+# Remove and re-add server
+claude mcp remove my-server
+claude mcp add my-server -s user -- npx @my/server
+```
+
+**Connection Failed: Common Causes**
 
 | Error | Cause | Solution |
 |-------|-------|----------|
@@ -5147,6 +5602,8 @@ Common causes and solutions:
 | `Timeout after 30s` | Slow initialization | Increase timeout or check server logs |
 | `Module not found` | Missing dependencies | Run `npm install` in server directory |
 | `Permission denied` | File access | Check file permissions on server executable |
+| `ENOENT` | Server binary not found | Verify npx/npm is in PATH |
+| `Invalid JSON` | Server output malformed | Check server version compatibility |
 
 **Serena MCP specific issues:**
 
@@ -5304,6 +5761,203 @@ npm config set prefix '~/.npm-global'
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+### One-Shot Health Check Scripts
+
+Copy-paste diagnostic scripts for instant troubleshooting.
+
+**Windows PowerShell:**
+
+```powershell
+Write-Host "`n=== Claude Code Health Check ===" -ForegroundColor Cyan
+Write-Host "`n--- Node & npm ---"
+node --version
+npm --version
+
+Write-Host "`n--- Claude Installation ---"
+where.exe claude
+if ($?) { Write-Host "✓ Claude found in PATH" -ForegroundColor Green }
+else { Write-Host "✗ Claude not in PATH" -ForegroundColor Red }
+
+Write-Host "`n--- Running Claude Doctor ---"
+try {
+    claude doctor
+    Write-Host "✓ Claude doctor completed" -ForegroundColor Green
+} catch {
+    Write-Host "✗ Claude doctor failed: $_" -ForegroundColor Red
+}
+
+Write-Host "`n--- API Key Status ---"
+if ($env:ANTHROPIC_API_KEY) {
+    Write-Host "✓ ANTHROPIC_API_KEY is set" -ForegroundColor Green
+} else {
+    Write-Host "✗ ANTHROPIC_API_KEY not set" -ForegroundColor Red
+}
+
+Write-Host "`n--- MCP Servers ---"
+claude mcp list
+
+Write-Host "`n--- Config Location ---"
+$configPath = "$env:USERPROFILE\.claude.json"
+if (Test-Path $configPath) {
+    Write-Host "✓ Config found at: $configPath" -ForegroundColor Green
+} else {
+    Write-Host "⚠ No config file at: $configPath" -ForegroundColor Yellow
+}
+
+Write-Host "`n=== Health Check Complete ===" -ForegroundColor Cyan
+```
+
+**macOS/Linux Bash/Zsh:**
+
+```bash
+#!/bin/bash
+echo -e "\n=== Claude Code Health Check ==="
+echo -e "\n--- Node & npm ---"
+node --version
+npm --version
+
+echo -e "\n--- Claude Installation ---"
+which claude
+if [ $? -eq 0 ]; then
+    echo "✓ Claude found in PATH"
+else
+    echo "✗ Claude not in PATH"
+fi
+
+echo -e "\n--- Running Claude Doctor ---"
+if claude doctor; then
+    echo "✓ Claude doctor completed"
+else
+    echo "✗ Claude doctor failed"
+fi
+
+echo -e "\n--- API Key Status ---"
+if [ -n "$ANTHROPIC_API_KEY" ]; then
+    echo "✓ ANTHROPIC_API_KEY is set"
+else
+    echo "✗ ANTHROPIC_API_KEY not set"
+fi
+
+echo -e "\n--- MCP Servers ---"
+claude mcp list
+
+echo -e "\n--- Config Location ---"
+if [ -f ~/.claude.json ]; then
+    echo "✓ Config found at: ~/.claude.json"
+else
+    echo "⚠ No config file at: ~/.claude.json"
+fi
+
+echo -e "\n=== Health Check Complete ==="
+```
+
+**Usage:**
+```bash
+# Windows: Save as check-claude.ps1 and run
+.\check-claude.ps1
+
+# macOS/Linux: Save as check-claude.sh and run
+chmod +x check-claude.sh
+./check-claude.sh
+```
+
+### Full Clean Reinstall Procedures
+
+Nuclear option for corrupted installations. Use when all else fails.
+
+**Windows PowerShell Clean Reinstall:**
+
+```powershell
+# ⚠️ Warning: This will delete all Claude Code data and configuration
+# Backup your CLAUDE.md files and settings first!
+
+Write-Host "Starting Claude Code clean reinstall..." -ForegroundColor Yellow
+
+# 1. Uninstall
+Write-Host "`n[1/5] Uninstalling Claude Code..."
+npm uninstall -g @anthropic-ai/claude-code
+
+# 2. Remove shims and binaries
+Write-Host "[2/5] Removing npm shims and binaries..."
+Remove-Item -Path "$env:APPDATA\npm\claude*" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "$env:APPDATA\npm\node_modules\@anthropic-ai\claude-code" -Recurse -Force -ErrorAction SilentlyContinue
+
+# 3. Delete cache and local data
+Write-Host "[3/5] Deleting cache and local data..."
+Remove-Item -Path "$env:USERPROFILE\.claude\downloads\*" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "$env:USERPROFILE\.claude\local" -Recurse -Force -ErrorAction SilentlyContinue
+
+# 4. Backup and remove config (optional - comment out to keep config)
+Write-Host "[4/5] Backing up config..."
+$timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+Copy-Item "$env:USERPROFILE\.claude.json" "$env:USERPROFILE\.claude.json.backup-$timestamp" -ErrorAction SilentlyContinue
+# Uncomment next line to remove config:
+# Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force -ErrorAction SilentlyContinue
+
+# 5. Reinstall
+Write-Host "[5/5] Reinstalling Claude Code..."
+npm install -g @anthropic-ai/claude-code
+
+Write-Host "`n✓ Clean reinstall complete!" -ForegroundColor Green
+Write-Host "Run 'claude --version' to verify installation"
+```
+
+**macOS/Linux Clean Reinstall:**
+
+```bash
+#!/bin/bash
+# ⚠️ Warning: This will delete all Claude Code data and configuration
+# Backup your CLAUDE.md files and settings first!
+
+echo "Starting Claude Code clean reinstall..."
+
+# 1. Uninstall
+echo -e "\n[1/5] Uninstalling Claude Code..."
+npm uninstall -g @anthropic-ai/claude-code
+
+# 2. Remove global bin files
+echo "[2/5] Removing npm global files..."
+rm -f "$(npm config get prefix)/bin/claude"
+rm -rf "$(npm config get prefix)/lib/node_modules/@anthropic-ai/claude-code"
+
+# 3. Delete cache and local data
+echo "[3/5] Deleting cache and local data..."
+rm -rf ~/.claude/downloads/*
+rm -rf ~/.claude/local
+
+# 4. Backup and remove config (optional)
+echo "[4/5] Backing up config..."
+timestamp=$(date +%Y%m%d-%H%M%S)
+cp ~/.claude.json ~/.claude.json.backup-$timestamp 2>/dev/null || true
+# Uncomment next line to remove config:
+# rm -f ~/.claude.json
+
+# 5. Reinstall
+echo "[5/5] Reinstalling Claude Code..."
+npm install -g @anthropic-ai/claude-code
+
+echo -e "\n✓ Clean reinstall complete!"
+echo "Run 'claude --version' to verify installation"
+```
+
+**When to use clean reinstall:**
+- Mysterious errors that persist after normal troubleshooting
+- Corrupted configuration files
+- Breaking changes after Claude Code updates
+- Migration to new machine (export/import workflow)
+
+**What gets deleted:**
+- ✓ Claude Code binary and npm packages
+- ✓ Downloaded models and cache
+- ✓ Local session data
+- ⚠️ Config file (optional - backed up by default)
+
+**What survives:**
+- ✓ Project-level `.claude/` folders
+- ✓ Project `CLAUDE.md` files
+- ✓ Custom agents, skills, commands, hooks (in projects)
+- ✓ MCP server configurations (in `mcp.json`)
 
 ## 10.5 Cheatsheet
 
@@ -6325,6 +6979,206 @@ Nick Tune's article explores a more **autonomous, pipeline-driven approach** to 
 1. This guide (master fundamentals)
 2. Nick Tune's article (advanced automation)
 
+### DeepSeek Integration
+
+Use DeepSeek's Claude-compatible API as a cost-effective alternative to Anthropic's models.
+
+#### Overview
+
+DeepSeek offers Claude-compatible API endpoints, allowing you to use Claude Code with DeepSeek's models at significantly reduced costs. This is particularly useful for:
+
+- High-volume development work
+- Learning and experimentation
+- Budget-constrained projects
+- Non-critical tasks where slight quality trade-offs are acceptable
+
+#### Setup
+
+**Prerequisites:**
+- Claude Code installed: `npm install -g @anthropic-ai/claude-code`
+- DeepSeek API key from [platform.deepseek.com](https://platform.deepseek.com)
+
+**1. Get DeepSeek API Key:**
+
+Visit [platform.deepseek.com](https://platform.deepseek.com), create an account, and generate an API key.
+
+**2. Configure Environment Variables:**
+
+```bash
+# Set DeepSeek as your LLM provider
+export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+export ANTHROPIC_AUTH_TOKEN=YOUR_DEEPSEEK_API_KEY
+export ANTHROPIC_MODEL=deepseek-chat
+export ANTHROPIC_SMALL_FAST_MODEL=deepseek-chat
+```
+
+**Windows PowerShell:**
+```powershell
+$env:ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
+$env:ANTHROPIC_AUTH_TOKEN="YOUR_DEEPSEEK_API_KEY"
+$env:ANTHROPIC_MODEL="deepseek-chat"
+$env:ANTHROPIC_SMALL_FAST_MODEL="deepseek-chat"
+```
+
+**3. Persist Configuration (Optional):**
+
+**macOS/Linux** - Add to `~/.zshrc` or `~/.bashrc`:
+```bash
+echo 'export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic' >> ~/.zshrc
+echo 'export ANTHROPIC_AUTH_TOKEN=YOUR_DEEPSEEK_API_KEY' >> ~/.zshrc
+echo 'export ANTHROPIC_MODEL=deepseek-chat' >> ~/.zshrc
+echo 'export ANTHROPIC_SMALL_FAST_MODEL=deepseek-chat' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**Windows** - Set permanent environment variables:
+```powershell
+[System.Environment]::SetEnvironmentVariable('ANTHROPIC_BASE_URL', 'https://api.deepseek.com/anthropic', 'User')
+[System.Environment]::SetEnvironmentVariable('ANTHROPIC_AUTH_TOKEN', 'YOUR_DEEPSEEK_API_KEY', 'User')
+[System.Environment]::SetEnvironmentVariable('ANTHROPIC_MODEL', 'deepseek-chat', 'User')
+[System.Environment]::SetEnvironmentVariable('ANTHROPIC_SMALL_FAST_MODEL', 'deepseek-chat', 'User')
+```
+
+**4. Launch Claude Code:**
+
+```bash
+claude
+```
+
+Claude Code will now use DeepSeek's API instead of Anthropic's.
+
+#### Cost Comparison
+
+| Provider | Model | Input Cost (per 1M tokens) | Output Cost (per 1M tokens) | Total (avg) |
+|----------|-------|---------------------------|-----------------------------|-------------|
+| **Anthropic** | Claude Sonnet 4 | $3.00 | $15.00 | ~$9.00 |
+| **DeepSeek** | deepseek-chat | $0.14 | $0.28 | ~$0.21 |
+| **Savings** | - | **95% reduction** | **98% reduction** | **~98% savings** |
+
+**Example cost for 10M tokens:**
+- Anthropic Sonnet: ~$90
+- DeepSeek: ~$2.10
+- **Savings: $87.90**
+
+#### Use Cases
+
+**✅ Good fit for DeepSeek:**
+- Learning and experimentation
+- Code reviews and analysis
+- Documentation generation
+- Refactoring and code cleanup
+- Simple feature implementation
+- High-volume development work
+- Personal projects with budget constraints
+
+**⚠️ Use Anthropic for:**
+- Complex architectural decisions
+- Mission-critical production code
+- Advanced reasoning tasks (--ultrathink scenarios)
+- Tasks requiring latest Claude capabilities
+- When quality is more important than cost
+
+#### Limitations & Trade-offs
+
+**Performance Differences:**
+- DeepSeek models may have different reasoning capabilities than Claude
+- Some advanced features may not work identically
+- Response quality may vary, especially for complex tasks
+- Context window and capabilities differ from Claude models
+
+**Compatibility:**
+- Most Claude Code features work normally
+- MCP servers function as expected
+- Agents, skills, and hooks work without modification
+- Some model-specific features may behave differently
+
+**Recommendations:**
+- Test DeepSeek with your specific use cases before committing
+- Compare output quality for your domain
+- Use for development; consider Anthropic for production decisions
+- Monitor quality and switch back if needed
+
+#### Switching Between Providers
+
+You can easily switch between Anthropic and DeepSeek:
+
+**Create shell aliases (macOS/Linux):**
+
+```bash
+# Add to ~/.zshrc or ~/.bashrc
+alias claude-anthropic='unset ANTHROPIC_BASE_URL && claude'
+alias claude-deepseek='export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic && claude'
+```
+
+**PowerShell functions (Windows):**
+
+```powershell
+# Add to $PROFILE
+function claude-anthropic {
+    $env:ANTHROPIC_BASE_URL = $null
+    claude
+}
+
+function claude-deepseek {
+    $env:ANTHROPIC_BASE_URL = "https://api.deepseek.com/anthropic"
+    claude
+}
+```
+
+**Usage:**
+```bash
+# Use Anthropic (default)
+claude-anthropic
+
+# Use DeepSeek
+claude-deepseek
+```
+
+#### Project-Specific Configuration
+
+Use different providers for different projects:
+
+**Option 1: Environment file**
+
+Create `.env` in project root:
+```bash
+# .env - Use DeepSeek for this project
+ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+ANTHROPIC_AUTH_TOKEN=YOUR_DEEPSEEK_API_KEY
+ANTHROPIC_MODEL=deepseek-chat
+```
+
+Load before running Claude:
+```bash
+source .env && claude
+```
+
+**Option 2: Shell wrapper script**
+
+Create `claude-dev.sh`:
+```bash
+#!/bin/bash
+export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+export ANTHROPIC_AUTH_TOKEN=$DEEPSEEK_API_KEY
+export ANTHROPIC_MODEL=deepseek-chat
+claude "$@"
+```
+
+Usage:
+```bash
+chmod +x claude-dev.sh
+./claude-dev.sh
+```
+
+#### Resources
+
+- **DeepSeek API Documentation**: [api-docs.deepseek.com/guides/anthropic_api](https://api-docs.deepseek.com/guides/anthropic_api)
+- **DeepSeek Platform**: [platform.deepseek.com](https://platform.deepseek.com)
+- **DeepSeek Pricing**: [platform.deepseek.com/pricing](https://platform.deepseek.com/pricing)
+- **Claude Code Compatibility**: Works with Claude Code 1.0+
+
+> **Note**: DeepSeek is a third-party provider. This guide does not endorse any specific provider. Evaluate based on your needs, budget, and quality requirements.
+
 ### Community Resources
 
 The Claude Code ecosystem is growing rapidly. Here are curated resources to continue learning:
@@ -6389,6 +7243,180 @@ Use the included audit prompt to analyze your current Claude Code configuration:
 | 🟢 Low | MCP Serena | ❌ | Configure for large codebase |
 
 The audit covers: Memory files, folder structure, agents, hooks, MCP servers, context management, and CI/CD integration patterns.
+
+---
+
+## Appendix A: File Locations Reference
+
+Quick reference for where Claude Code stores files and configuration.
+
+### Windows
+
+| Component | Location |
+|-----------|----------|
+| **npm global bin** | `C:\Users\<username>\AppData\Roaming\npm` |
+| **Node.js install** | `C:\Program Files\nodejs` |
+| **Claude data directory** | `C:\Users\<username>\.claude\` |
+| **Claude config file** | `C:\Users\<username>\.claude.json` |
+| **Log files** | `%APPDATA%\Claude\logs\` |
+| **MCP config** | `C:\Users\<username>\.claude\mcp.json` |
+| **Session data** | `C:\Users\<username>\.claude\local\` |
+| **Downloads/cache** | `C:\Users\<username>\.claude\downloads\` |
+
+**Quick Access (PowerShell):**
+```powershell
+# Open Claude data directory
+explorer "$env:USERPROFILE\.claude"
+
+# Open config file
+notepad "$env:USERPROFILE\.claude.json"
+
+# View logs
+Get-Content "$env:APPDATA\Claude\logs\mcp*.log" -Wait -Tail 50
+```
+
+### macOS
+
+| Component | Location |
+|-----------|----------|
+| **npm global bin** | `/usr/local/bin` or `$(npm config get prefix)/bin` |
+| **Node.js install** | `/usr/local/bin/node` (Homebrew) or `/opt/homebrew/bin/node` (M1/M2) |
+| **Claude data directory** | `~/.claude/` |
+| **Claude config file** | `~/.claude.json` |
+| **Log files** | `~/Library/Logs/Claude/` |
+| **MCP config** | `~/.claude/mcp.json` |
+| **Session data** | `~/.claude/local/` |
+| **Downloads/cache** | `~/.claude/downloads/` |
+
+**Quick Access:**
+```bash
+# Open Claude data directory
+open ~/.claude
+
+# Edit config file
+code ~/.claude.json  # VS Code
+# or
+nano ~/.claude.json  # Terminal editor
+
+# View logs
+tail -f ~/Library/Logs/Claude/mcp*.log
+```
+
+### Linux
+
+| Component | Location |
+|-----------|----------|
+| **npm global bin** | `/usr/local/bin` or `~/.npm-global/bin` |
+| **Node.js install** | `/usr/bin/node` |
+| **Claude data directory** | `~/.claude/` |
+| **Claude config file** | `~/.claude.json` |
+| **Log files** | `~/.local/share/claude/logs/` or `~/.cache/claude/logs/` |
+| **MCP config** | `~/.claude/mcp.json` |
+| **Session data** | `~/.claude/local/` |
+| **Downloads/cache** | `~/.claude/downloads/` |
+
+**Quick Access:**
+```bash
+# Open Claude data directory
+cd ~/.claude
+
+# Edit config file
+nano ~/.claude.json
+# or
+vim ~/.claude.json
+
+# View logs
+tail -f ~/.local/share/claude/logs/mcp*.log
+```
+
+### Project-Level Files
+
+These are the same across all platforms:
+
+| File/Directory | Location | Purpose | Commit to Git? |
+|----------------|----------|---------|----------------|
+| `CLAUDE.md` | Project root | Project memory (team) | ✅ Yes |
+| `.claude/CLAUDE.md` | Project root | Personal memory | ❌ No |
+| `.claude/settings.json` | Project root | Hook configuration | ✅ Yes |
+| `.claude/settings.local.json` | Project root | Personal permissions | ❌ No |
+| `.claude/agents/` | Project root | Custom agents | ✅ Yes (team) |
+| `.claude/commands/` | Project root | Custom commands | ✅ Yes (team) |
+| `.claude/hooks/` | Project root | Event hooks | ✅ Yes (team) |
+| `.claude/skills/` | Project root | Knowledge modules | ✅ Yes (team) |
+| `.claude/rules/` | Project root | Auto-load rules | ✅ Yes (team) |
+| `.claude/.serena/` | Project root | Serena MCP index | ❌ No |
+
+### Environment Variables
+
+Set these in your shell profile (`~/.zshrc`, `~/.bashrc`, or Windows System Properties):
+
+| Variable | Purpose | Example |
+|----------|---------|---------|
+| `ANTHROPIC_API_KEY` | API authentication | `sk-ant-api03-...` |
+| `ANTHROPIC_BASE_URL` | Alternative API endpoint | `https://api.deepseek.com/anthropic` |
+| `ANTHROPIC_MODEL` | Default model | `claude-sonnet-4-20250514` |
+| `ANTHROPIC_SMALL_FAST_MODEL` | Fast model for simple tasks | `claude-haiku-4-20250514` |
+| `BASH_DEFAULT_TIMEOUT_MS` | Bash command timeout | `60000` |
+| `ANTHROPIC_AUTH_TOKEN` | Alternative auth (DeepSeek) | Your DeepSeek API key |
+
+### Finding Your Paths
+
+**Can't find npm global bin?**
+```bash
+# Universal command
+npm config get prefix
+
+# Should output something like:
+# macOS/Linux: /usr/local or ~/.npm-global
+# Windows: C:\Users\<username>\AppData\Roaming\npm
+```
+
+**Can't find Claude executable?**
+```bash
+# macOS/Linux
+which claude
+
+# Windows (PowerShell)
+where.exe claude
+
+# Windows (CMD)
+where claude
+```
+
+**Can't find log files?**
+```bash
+# Run Claude with debug and check output
+claude --debug 2>&1 | grep -i "log"
+```
+
+### Recommended .gitignore
+
+Add these to your project's `.gitignore`:
+
+```gitignore
+# Claude Code - Personal/Local
+.claude/settings.local.json
+.claude/CLAUDE.md
+.claude/.serena/
+.claude/local/
+
+# Claude Code - Team (DO commit these)
+# .claude/agents/
+# .claude/commands/
+# .claude/hooks/
+# .claude/skills/
+# .claude/settings.json
+
+# API Keys
+.env
+.env.local
+.env.*.local
+*.key
+
+# OS Files
+.DS_Store
+Thumbs.db
+```
 
 ---
 

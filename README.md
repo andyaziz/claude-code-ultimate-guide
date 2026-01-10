@@ -23,11 +23,26 @@
 
 ## About This Guide
 
+### Our Pedagogical Approach
+
+Unlike reference manuals that simply list features, **this guide follows a learning journey** designed to take you from beginner to power user. We focus on:
+
+- **Understanding why** before diving into how
+- **Real-world patterns** you can use immediately
+- **Progressive complexity** — start simple, master advanced techniques at your pace
+- **Practical workflows** over theoretical concepts
+
+Think of this as your **mentor for mastering Claude Code** — not just documentation.
+
+### Origins & Philosophy
+
 This guide is the result of **several months of daily practice and research** with Claude Code, Anthropic's AI coding assistant CLI. Whether you're exploring agentic development, LLM-powered coding workflows, or AI pair programming, this resource covers everything from basic setup to advanced MCP server orchestration.
 
 I don't claim to be an "expert" — I'm simply sharing what I've learned along the way, humbly hoping to help my peers and evangelize good practices in AI-assisted development.
 
-A significant source of inspiration for this work was [Claudelog.com](https://claudelog.com/), which I highly recommend for anyone wanting to go deeper.
+**Key inspirations for this work:**
+- [Claudelog.com](https://claudelog.com/) — Excellent tips, patterns & tutorials (highly recommended)
+- [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus
 
 **Important note**: This guide was largely generated with the help of AI. As such, it likely contains errors, inaccuracies, or outdated information. I would be delighted to receive any feedback, corrections, or — even better — pull requests to improve it. Don't hesitate to [open an issue](../../issues) or submit a PR!
 

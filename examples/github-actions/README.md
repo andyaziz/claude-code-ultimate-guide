@@ -15,12 +15,19 @@ Ready-to-use GitHub Actions workflows that integrate Claude Code into your CI/CD
 
 ### 1. Auto PR Review (`claude-pr-auto-review.yml`)
 
+**Enhanced version** with comprehensive review criteria and smart filtering.
+
 Creates a structured review with inline comments as soon as a PR opens or updates.
 
 **Features:**
 - Automatic code review on PR open/update
+- 8 focus areas: Correctness, Security, Performance, Readability, Maintainability, Testing, Best Practices, Breaking Changes
+- Priority-based feedback: 🔴 Critical, 🟡 Important, 🟢 Suggestion, 💡 Tip
+- Smart file filtering (skips build artifacts, lock files)
+- Skips draft PRs to save costs
+- Summary review with risk assessment
+- Error handling and fallback notifications
 - Inline comments on specific lines
-- Reviews for correctness, readability, testing, performance, DX
 
 **Usage:**
 ```bash
@@ -28,6 +35,17 @@ Creates a structured review with inline comments as soon as a PR opens or update
 cp examples/github-actions/claude-pr-auto-review.yml .github/workflows/
 
 # Open a PR - Claude will automatically review it
+```
+
+**Customization:**
+Add project-specific context by uncommenting the `append_system_prompt` section:
+```yaml
+append_system_prompt: |
+  Project conventions:
+  - Use TypeScript strict mode
+  - Follow functional programming patterns
+  - All functions must have JSDoc comments
+  - Test coverage must be >80%
 ```
 
 ---
