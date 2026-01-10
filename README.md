@@ -68,6 +68,7 @@ I don't claim to be an "expert" — I'm simply sharing what I've learned along t
 **Key inspirations for this work:**
 - [Claudelog.com](https://claudelog.com/) — Excellent tips, patterns & tutorials (highly recommended)
 - [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus
+- [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical tips & productivity techniques from Y.K. Dojo
 
 **Important note**: This guide was largely generated with the help of AI. As such, it likely contains errors, inaccuracies, or outdated information. I would be delighted to receive any feedback, corrections, or — even better — pull requests to improve it. Don't hesitate to [open an issue](../../issues) or submit a PR!
 
@@ -282,6 +283,7 @@ Want to know if your Claude Code setup follows best practices?
 ### Related Guides
 - [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus (excellent for security practitioners)
 - [Claudelog.com](https://claudelog.com/) — Tips, patterns & tutorials (highly recommended for all users)
+- [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical tips & productivity techniques (voice workflows, context management, terminal efficiency)
 
 ### Community Curated Lists
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Commands, workflows, IDE integrations
@@ -314,4 +316,4 @@ You are free to share and adapt this material, provided you give appropriate cre
 
 ---
 
-*Last updated: January 2026 | Version 2.0*
+*Last updated: January 2026 | Version 2.1*

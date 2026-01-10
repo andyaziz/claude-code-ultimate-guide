@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-01-10
+
 ### Added
 - **Production-ready slash commands** in examples/commands/ (~25 KB)
   - **pr.md** (5.8 KB) - PR creation with scope analysis

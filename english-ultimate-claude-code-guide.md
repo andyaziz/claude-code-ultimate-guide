@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.0
+**Version**: 2.1
 
 ---
 
@@ -1144,6 +1144,63 @@ Ask "What is checkpoint 2?" to verify Claude read that far.
 | Doesn't know your name | CLAUDE.md not loaded | Check file location |
 | Inconsistent answers | Typo in filename | Must be `CLAUDE.md` (not `clause.md`) |
 | Partial knowledge | Context exhausted | `/clear` or new session |
+
+### Session Handoff Pattern
+
+When ending a session or switching contexts, create a **handoff document** to maintain continuity.
+
+**Purpose**: Bridge the gap between sessions by documenting state, decisions, and next steps.
+
+**Template**:
+
+```markdown
+# Session Handoff - [Date] [Time]
+
+## What Was Accomplished
+- [Key task 1 completed]
+- [Key task 2 completed]
+- [Files modified: list]
+
+## Current State
+- [What's working]
+- [What's partially done]
+- [Known issues or blockers]
+
+## Decisions Made
+- [Architectural choice 1: why]
+- [Technology selection: rationale]
+- [Trade-offs accepted]
+
+## Next Steps
+1. [Immediate next task]
+2. [Dependent task]
+3. [Follow-up validation]
+
+## Context for Next Session
+- Branch: [branch-name]
+- Key files: [list 3-5 most relevant]
+- Dependencies: [external factors]
+```
+
+**When to create handoff documents**:
+
+| Scenario | Why |
+|----------|-----|
+| End of work day | Resume seamlessly tomorrow |
+| Before context limit | Preserve state before `/clear` |
+| Switching focus areas | Different task requires fresh context |
+| Interruption expected | Emergency or meeting disrupts work |
+| Complex debugging | Document hypotheses and tests tried |
+
+**Storage location**: `claudedocs/handoffs/handoff-YYYY-MM-DD.md`
+
+**Pro tip**: Ask Claude to generate the handoff:
+
+```
+You: "Create a session handoff document for what we accomplished today"
+```
+
+Claude will analyze git status, conversation history, and generate a structured handoff.
 
 ## 2.3 Plan Mode
 
@@ -4385,6 +4442,63 @@ jobs:
             Output as markdown."
 ```
 
+#### Debugging Failed CI Runs
+
+When GitHub Actions fails, use the `gh` CLI to investigate without leaving your terminal:
+
+**Quick investigation workflow**:
+
+```bash
+# List recent workflow runs
+gh run list --limit 10
+
+# View specific run details
+gh run view <run-id>
+
+# View logs for failed run
+gh run view <run-id> --log-failed
+
+# Download logs for detailed analysis
+gh run download <run-id>
+```
+
+**Common debugging commands**:
+
+| Command | Purpose |
+|---------|---------|
+| `gh run list --workflow=test.yml` | Filter by workflow file |
+| `gh run view --job=<job-id>` | View specific job details |
+| `gh run watch` | Watch the current run in real-time |
+| `gh run rerun <run-id>` | Retry a failed run |
+| `gh run rerun <run-id> --failed` | Retry only failed jobs |
+
+**Example: Investigate test failures**:
+
+```bash
+# Get the latest failed run
+FAILED_RUN=$(gh run list --status failure --limit 1 --json databaseId --jq '.[0].databaseId')
+
+# View the failure
+gh run view $FAILED_RUN --log-failed
+
+# Ask Claude to analyze
+gh run view $FAILED_RUN --log-failed | claude -p "Analyze this CI failure and suggest fixes"
+```
+
+**Pro tip**: Combine with Claude Code for automated debugging:
+
+```bash
+# Fetch failures and auto-fix
+gh run view --log-failed | claude --headless "
+  Analyze these test failures.
+  Identify the root cause.
+  Propose fixes for each failing test.
+  Output as actionable steps.
+"
+```
+
+This workflow saves time compared to navigating GitHub's web UI and enables faster iteration on CI failures.
+
 ### Verify Gate Pattern
 
 Before creating a PR, ensure all local checks pass. This prevents wasted CI cycles and review time.
@@ -6391,6 +6505,10 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `/clear` | Clear conversation history | Session |
 | `/compact` | Summarize and compress context | Context |
 | `/status` | Show session info (context, cost) | Info |
+| `/usage` | Check rate limits and token allocation | Info |
+| `/stats` | View usage statistics with activity graphs | Info |
+| `/chrome` | Toggle native browser integration | Mode |
+| `/mcp` | Manage Model Context Protocol servers | Config |
 | `/plan` | Enter Plan Mode | Mode |
 | `/execute` | Exit Plan Mode | Mode |
 | `/rewind` | Undo recent changes | Edit |
@@ -6409,6 +6527,8 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 
 ## 10.2 Keyboard Shortcuts
 
+### Session Control
+
 | Shortcut | Action |
 |----------|--------|
 | `Enter` | Send message |
@@ -6417,9 +6537,19 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `Ctrl+D` | Exit Claude Code |
 | `Ctrl+R` | Retry last operation |
 | `Ctrl+L` | Clear screen (keeps context) |
+| `Ctrl+B` | Run command in background |
+| `Esc` | Dismiss current suggestion |
+
+### Input & Navigation
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+A` | Jump to beginning of line |
+| `Ctrl+E` | Jump to end of line |
+| `Ctrl+W` | Delete previous word |
+| `Ctrl+G` | Open external editor for long text |
 | `Tab` | Autocomplete file paths |
 | `↑` / `↓` | Navigate command history |
-| `Esc` | Dismiss current suggestion |
 
 ## 10.3 Configuration Reference
 
@@ -8274,6 +8404,7 @@ SuperClaude transforms Claude Code into a structured development platform throug
 | Site | Description |
 |------|-------------|
 | [Claudelog.com](https://claudelog.com/) | Tips, patterns, tutorials, and best practices |
+| [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | Practical productivity tips (voice workflows, context management, terminal efficiency) |
 | [Official Docs](https://docs.anthropic.com/en/docs/claude-code) | Anthropic's official Claude Code documentation |
 
 > **Tip**: These resources evolve quickly. Star repos you find useful to track updates.
@@ -8496,10 +8627,11 @@ Thumbs.db
 
 **Inspired by**:
 - [Claudelog.com](https://claudelog.com/) - An excellent resource for Claude Code tips, patterns, and advanced techniques that served as a major reference for this guide.
+- [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) - Practical productivity techniques that informed keyboard shortcuts, context handoffs, and terminal workflow optimizations in sections 1.3, 2.2, and 10.2.
 - [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) - Advanced workflow patterns integrated in sections 3.1, 7.1, 9.3, and 9.10.
 
 **License**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) - Feel free to use, adapt, and share with attribution.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 2.0
+**Last updated**: January 2026 | **Version**: 2.1
