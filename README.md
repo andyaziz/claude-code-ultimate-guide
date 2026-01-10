@@ -21,6 +21,31 @@
 
 ---
 
+## What's Inside
+
+| File | Description | Reading Time |
+|------|-------------|--------------|
+| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (7500+ lines, 27K+ words) | ~3 hours |
+| [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
+| [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
+| [`examples/`](./examples/) | Production-ready commands, hooks, agents | Browse as needed |
+| [`claude-code-ultimate-guide_notebooklm.pdf`](./claude-code-ultimate-guide_notebooklm.pdf) | NotebookLM slides export | ~20 minutes |
+| [`claude-code-ultimate-guide_kimi.pdf`](./claude-code-ultimate-guide_kimi.pdf) | PDF version (Kimi export) | ~3 hours |
+
+### 🔍 Explore Interactively
+
+**[DeepWiki: Interactive Documentation](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview)**
+
+Transform this repository into an interactive AI-powered documentation explorer:
+- **Ask questions** in natural language about the guide
+- **Navigate contextually** through interconnected concepts
+- **Search semantically** beyond keyword matching
+- **Get summaries** of specific sections on demand
+
+Perfect for quick lookups when you don't want to read the full 7500+ lines.
+
+---
+
 ## About This Guide
 
 ### Our Pedagogical Approach
@@ -69,15 +94,31 @@ If you find value in this guide, have questions, or want to discuss Claude Code 
 
 ---
 
-## What's Inside
+## Ready-to-Use Examples
 
-| File | Description | Reading Time |
-|------|-------------|--------------|
-| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (7500+ lines, 27K+ words) | ~3 hours |
-| [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
-| [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
-| [`claude-code-ultimate-guide_notebooklm.pdf`](./claude-code-ultimate-guide_notebooklm.pdf) | NotebookLM slides export | ~20 minutes |
-| [`claude-code-ultimate-guide_kimi.pdf`](./claude-code-ultimate-guide_kimi.pdf) | PDF version (Kimi export) | ~3 hours |
+The [`examples/`](./examples/) directory contains production-ready templates you can copy directly into your projects:
+
+### 🎯 Commands (Slash Commands)
+
+| Command | Purpose | Highlights |
+|---------|---------|------------|
+| [/pr](./examples/commands/pr.md) | Create PRs with scope analysis | Complexity scoring, auto-detect scope issues, split suggestions |
+| [/release-notes](./examples/commands/release-notes.md) | Generate release notes (3 formats) | CHANGELOG + PR body + Slack announcement, migration detection |
+| [/sonarqube](./examples/commands/sonarqube.md) | Analyze SonarCloud quality issues | Executive summary, top violators, action plan |
+| [/commit](./examples/commands/commit.md) | Conventional commit messages | Follows team conventions, auto-formats |
+| [/review-pr](./examples/commands/review-pr.md) | PR review workflow | Structured feedback, security checks |
+| [/git-worktree](./examples/commands/git-worktree.md) | Isolated git worktree setup | Safe parallel development |
+
+### 🛡️ Hooks (Event Automation)
+
+| Hook | Event | Purpose |
+|------|-------|---------|
+| [dangerous-actions-blocker.sh](./examples/hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block `rm -rf /`, force push, secrets, dangerous edits |
+| [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts (success, error, warning) |
+| [security-check.sh](./examples/hooks/bash/security-check.sh) | PreToolUse | Detect secrets in commands |
+| [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
+
+> **📖 See [examples/README.md](./examples/README.md) for complete catalog including agents, skills, and config templates**
 
 ---
 
@@ -234,9 +275,6 @@ Want to know if your Claude Code setup follows best practices?
 ---
 
 ## Resources
-
-### Explore This Guide
-- [DeepWiki](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide) — AI-powered exploration of this repository (ask questions, get summaries)
 
 ### Official
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) — Official Anthropic docs

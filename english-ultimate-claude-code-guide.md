@@ -292,15 +292,87 @@ These 7 commands cover 90% of daily usage:
 | `/plan` | Enter Plan Mode | Safe exploration |
 | `/rewind` | Undo changes | Made a mistake |
 
-### Quick Actions
+### Quick Actions & Shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `!command` | Run shell command directly |
-| `@file.ts` | Reference a specific file |
-| `Ctrl+C` | Cancel current operation |
-| `Ctrl+R` | Retry last operation |
-| `Esc` | Dismiss current suggestion |
+| Shortcut | Action | Example |
+|----------|--------|---------|
+| `!command` | Run shell command directly | `!git status`, `!npm test` |
+| `@file.ts` | Reference a specific file | `@src/app.tsx`, `@README.md` |
+| `Ctrl+C` | Cancel current operation | Stop long-running analysis |
+| `Ctrl+R` | Retry last operation | Retry after fixing error |
+| `Esc` | Dismiss current suggestion | Skip unwanted changes |
+
+#### Shell Commands with `!`
+
+Execute commands immediately without asking Claude to do it:
+
+```bash
+# Quick status checks
+!git status
+!npm run test
+!docker ps
+
+# View logs
+!tail -f logs/app.log
+!cat package.json
+
+# Quick searches
+!grep -r "TODO" src/
+!find . -name "*.test.ts"
+```
+
+**When to use `!` vs asking Claude**:
+
+| Use `!` for... | Ask Claude for... |
+|----------------|-------------------|
+| Quick status checks (`!git status`) | Git operations requiring decisions |
+| View commands (`!cat`, `!ls`) | File analysis and understanding |
+| Already-known commands | Complex command construction |
+| Fast iteration in terminal | Commands you're unsure about |
+
+**Example workflow**:
+```
+You: !git status
+Output: Shows 5 modified files
+
+You: Create a commit with these changes, following conventional commits
+Claude: [Analyzes files, suggests commit message]
+```
+
+#### File References with `@`
+
+Reference specific files in your prompts for targeted operations:
+
+```bash
+# Single file
+Review @src/auth/login.tsx for security issues
+
+# Multiple files
+Refactor @src/utils/validation.ts and @src/utils/helpers.ts to remove duplication
+
+# With wildcards (in some contexts)
+Analyze all test files @src/**/*.test.ts
+
+# Relative paths work
+Check @./CLAUDE.md for project conventions
+```
+
+**Why use `@`**:
+- **Precision**: Target exact files instead of letting Claude search
+- **Speed**: Skip file discovery phase
+- **Context**: Claude loads file content automatically
+- **Clarity**: Makes your intent explicit
+
+**Example**:
+```
+# Without @
+You: Fix the authentication bug
+Claude: Which file contains the authentication logic? [Wastes time searching]
+
+# With @
+You: Fix the authentication bug in @src/auth/middleware.ts
+Claude: [Immediately loads file and proposes fix]
+```
 
 ## 1.4 Permission Modes
 
@@ -6296,6 +6368,7 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | Fix an error | [10.4 Troubleshooting](#104-troubleshooting) |
 | Quick daily reference | [10.5 Cheatsheet](#105-cheatsheet) |
 | Set up workflow | [10.6 Daily Workflow](#106-daily-workflow--checklists) |
+| **Copy ready-to-use templates** | **[examples/ directory](../examples/)** — Commands, hooks, agents |
 
 ### Most Common Lookups:
 - **Context full?** → [10.4.1 Context Issues](#context-issues)
@@ -7140,6 +7213,8 @@ Use this before sending complex requests:
 ---
 
 # Appendix: Templates Collection
+
+> **💡 Production-Ready Examples**: For complete, battle-tested templates including advanced commands (`/pr`, `/release-notes`, `/sonarqube`) and security hooks, see the [`examples/`](../examples/) directory. The templates below are minimal starting points.
 
 ## A.1 Agent Template
 

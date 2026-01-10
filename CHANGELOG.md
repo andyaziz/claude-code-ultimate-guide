@@ -6,6 +6,101 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **Production-ready slash commands** in examples/commands/ (~25 KB)
+  - **pr.md** (5.8 KB) - PR creation with scope analysis
+    - Complexity scoring algorithm (code files × 2 + tests × 0.5 + directories × 3 + commits)
+    - Scope coherence detection (related vs unrelated changes)
+    - Semi-automatic split suggestions with git commands
+    - Conventional commit format enforcement
+    - Complete PR template with TLDR + description + test checklist
+  - **release-notes.md** (7.2 KB) - Generate release notes in 3 formats
+    - CHANGELOG.md format (Keep a Changelog standard)
+    - GitHub Release / PR body format
+    - User announcement format (tech-to-product language transformation)
+    - Database migration detection (Prisma, Sequelize, Django, Alembic)
+    - Semantic versioning determination from commit types
+  - **sonarqube.md** (11.3 KB) - Analyze SonarCloud quality issues for PRs
+    - Environment variable configuration ($SONARQUBE_TOKEN, $SONAR_PROJECT_KEY)
+    - Bash script wrapper to handle zsh authentication issues
+    - Node.js analysis script for grouping issues by rule and severity
+    - Executive summary with top violators and action plan
+    - Severity mapping (BLOCKER/CRITICAL → 🔴, MAJOR → 🟡, MINOR/INFO → 🔵)
+- **Production-ready hooks** in examples/hooks/bash/ (~6.5 KB)
+  - **dangerous-actions-blocker.sh** (5.2 KB) - PreToolUse security hook
+    - Blocks destructive commands (rm -rf /, fork bombs, dd if=, mkfs)
+    - Blocks git force push to main/master branches
+    - Blocks npm/pnpm/yarn publish without confirmation
+    - Detects secrets in commands (password=, api_key=, token= patterns)
+    - Protects sensitive files (.env, credentials.json, SSH keys, .npmrc)
+    - Path validation with $ALLOWED_PATHS environment variable
+    - Generic implementation using $CLAUDE_PROJECT_DIR with fallback to pwd
+  - **notification.sh** (1.3 KB) - Notification hook with contextual macOS alerts
+    - 5 contextual sound mappings (success, error, waiting, warning, default)
+    - Keyword-based context detection (completed/done → Hero.aiff, error/failed → Basso.aiff)
+    - Non-blocking background execution
+    - Native macOS notifications with osascript
+    - Multi-language support (English/French keywords)
+- **Comprehensive hooks documentation**
+  - **examples/hooks/README.md** (12.4 KB) - Complete hook system guide
+    - Available hooks table with 6 hook examples across events
+    - Hook events reference (PreToolUse, PostToolUse, UserPromptSubmit, Notification, SessionStart, SessionEnd, Stop)
+    - Configuration guide with settings.json examples and matcher patterns
+    - Creating custom hooks template with environment variables
+    - Best practices (short timeout, fail gracefully, minimal logging)
+    - Advanced examples (git context enrichment, activity logger, migration detector)
+    - Troubleshooting section (permission issues, timeout errors, jq installation)
+- **README.md improvements** for better discoverability
+  - Moved "What's Inside" section to line 24 (immediately after intro, before "About This Guide")
+  - Added examples/ row to table: "Production-ready commands, hooks, agents | Browse as needed"
+  - **DeepWiki interactive documentation explorer** section
+    - Link to https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview
+    - 4 bullet points explaining features (natural language queries, contextual navigation, semantic search, on-demand summaries)
+    - Tagline: "Perfect for quick lookups when you don't want to read the full 7500+ lines"
+  - **Ready-to-Use Examples** section with comprehensive tables
+    - Commands table: 6 commands with purpose and highlights (/pr, /release-notes, /sonarqube, /commit, /review-pr, /git-worktree)
+    - Hooks table: 4 hooks with events and purposes (dangerous-actions-blocker, notification, security-check, auto-format)
+    - Link to examples/README.md for full catalog
+- **Guide documentation extensions** (english-ultimate-claude-code-guide.md)
+  - **Section 1.3 "Quick Actions & Shortcuts"** expanded (~80 lines)
+    - New subsection "Shell Commands with `!`" with 9 concrete examples
+      - Quick status checks (!git status, !npm run test, !docker ps)
+      - View logs (!tail -f, !cat package.json)
+      - Quick searches (!grep -r "TODO", !find . -name "*.test.ts")
+    - Comparison table: when to use `!` vs asking Claude
+    - Example workflow showing both approaches
+    - New subsection "File References with `@`" with usage patterns
+      - Single file, multiple files, wildcards, relative paths
+      - "Why use `@`" section: precision, speed, context, clarity
+      - Comparative example showing with/without `@`
+  - Section 10 TL;DR updated with "Copy ready-to-use templates → examples/ directory"
+  - Appendix updated with note redirecting to examples/ for production-ready templates
+
+### Changed
+- **examples/README.md** updated with new entries
+  - Commands table: Added /pr, /release-notes, /sonarqube rows
+  - Hooks table: Added dangerous-actions-blocker.sh, notification.sh rows
+  - Added note: "See hooks/README.md for complete documentation"
+- **README.md restructured** for immediate content comprehension
+  - "What's Inside" moved from line 72 to line 24 (48 lines higher)
+  - Removed duplicate "What's Inside" section (was at old location)
+  - Removed duplicate DeepWiki reference from Resources section
+  - Optimal information architecture: Title → Author → What's Inside → About
+- **Guide statistics updated**
+  - Guide expanded from 7,668 to 8,505 lines (+837 lines, +10.9%)
+  - Word count updated to approximately 31,280 words
+  - Reading time remains 3 hours (comprehensive read-through)
+
+### Stats
+- 6 new files created (~43 KB total)
+  - 3 slash commands (pr.md, release-notes.md, sonarqube.md)
+  - 2 bash hooks (dangerous-actions-blocker.sh, notification.sh)
+  - 1 comprehensive documentation (hooks/README.md)
+- 3 files modified (README.md, english-ultimate-claude-code-guide.md, examples/README.md)
+- Guide grew by 837 lines (10.9% growth from v2.0.0)
+- Focus on production-ready templates and improved documentation discoverability
+- All commands and hooks fully generic (no project-specific references)
+
 ## [2.0.0] - 2026-01-10
 
 ### Added

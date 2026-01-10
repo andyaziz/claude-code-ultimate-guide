@@ -52,14 +52,22 @@ Ready-to-use templates for Claude Code configuration.
 | File | Trigger | Purpose |
 |------|---------|---------|
 | [commit.md](./commands/commit.md) | `/commit` | Conventional commit messages |
+| [pr.md](./commands/pr.md) | `/pr` | Create well-structured PRs with scope analysis |
 | [review-pr.md](./commands/review-pr.md) | `/review-pr` | PR review workflow |
+| [release-notes.md](./commands/release-notes.md) | `/release-notes` | Generate release notes in 3 formats |
+| [sonarqube.md](./commands/sonarqube.md) | `/sonarqube` | Analyze SonarCloud quality issues for PRs |
 | [generate-tests.md](./commands/generate-tests.md) | `/generate-tests` | Test generation |
+| [git-worktree.md](./commands/git-worktree.md) | `/git-worktree` | Isolated git worktree setup |
 
 ### Hooks
 | File | Event | Purpose |
 |------|-------|---------|
+| [dangerous-actions-blocker.sh](./hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block dangerous commands/edits |
 | [security-check.*](./hooks/) | PreToolUse | Block secrets in commands |
 | [auto-format.*](./hooks/) | PostToolUse | Auto-format after edits |
+| [notification.sh](./hooks/bash/notification.sh) | Notification | Contextual macOS sound alerts |
+
+> **See [hooks/README.md](./hooks/README.md) for complete documentation and examples**
 
 ### Config
 | File | Purpose |
