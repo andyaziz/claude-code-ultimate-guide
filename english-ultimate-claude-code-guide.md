@@ -329,6 +329,236 @@ You're ready for Day 2 when you can:
 - [ ] Use `/status` to check context usage
 - [ ] Exit cleanly with `/exit` or `Ctrl+D`
 
+## 1.6 Migrating from Other AI Coding Tools
+
+Switching from GitHub Copilot, Cursor, or other AI assistants? Here's what you need to know.
+
+### Why Claude Code is Different
+
+| Feature | GitHub Copilot | Cursor | Claude Code |
+|---------|---------------|--------|-------------|
+| **Interaction** | Inline autocomplete | Chat + autocomplete | CLI + conversation |
+| **Context** | Current file | Open files | Entire project |
+| **Autonomy** | Suggestions only | Edit + chat | Full task execution |
+| **Customization** | Limited | Extensions | Agents, skills, hooks, MCP |
+| **Cost Model** | $10-20/month flat | $20/month flat | Pay-per-use ($0.10-$0.50/hour) |
+
+**Key mindset shift**: Claude Code is a **conversational coding partner**, not an autocomplete tool.
+
+### Migration Guide: GitHub Copilot → Claude Code
+
+#### What Copilot Does Well
+
+- **Inline suggestions** - Fast autocomplete as you type
+- **Familiar workflow** - Works inside your editor
+- **Low friction** - No context switching
+
+#### What Claude Code Does Better
+
+- **Multi-file refactoring** - Copilot: one file at a time | Claude: entire codebase
+- **Complex tasks** - Copilot: suggests lines | Claude: implements features
+- **Understanding context** - Copilot: current file | Claude: project-wide awareness
+- **Explaining code** - Copilot: limited | Claude: detailed explanations
+- **Debugging** - Copilot: weak | Claude: systematic root cause analysis
+
+#### Hybrid Approach (Recommended)
+
+**Use Copilot for:**
+- Quick autocomplete while typing
+- Boilerplate code generation
+- Simple function completions
+
+**Use Claude Code for:**
+- Feature implementation (multi-file changes)
+- Debugging complex issues
+- Code reviews and refactoring
+- Understanding unfamiliar codebases
+- Writing tests for entire modules
+
+**Workflow example**:
+
+```bash
+# Morning: Plan feature with Claude Code
+claude
+You: "I need to add user authentication. What's the best approach for this codebase?"
+# Claude analyzes project, suggests architecture
+
+# During coding: Use Copilot for inline completions
+# Type in VS Code, Copilot autocompletes
+
+# Afternoon: Debug with Claude Code
+claude
+You: "Login fails on mobile but works on desktop. Debug this."
+# Claude systematically investigates
+
+# End of day: Review with Claude Code
+claude
+You: "Review my changes today. Check for security issues."
+# Claude reviews all modified files
+```
+
+### Migration Guide: Cursor → Claude Code
+
+#### What Cursor Does Well
+
+- **Inline editing** - Direct code modifications in editor
+- **GUI interface** - Familiar VS Code experience
+- **Chat + autocomplete** - Both modalities in one tool
+
+#### What Claude Code Does Better
+
+- **Terminal-native workflow** - Better for CLI-heavy developers
+- **Advanced customization** - Agents, skills, hooks, commands
+- **MCP servers** - Extensibility beyond what Cursor offers
+- **Cost efficiency** - Pay for what you use vs. flat $20/month
+- **Git integration** - Native git operations, commit generation
+- **CI/CD integration** - Headless mode for automation
+
+#### When to Switch
+
+**Stick with Cursor if:**
+- You strongly prefer GUI over CLI
+- You want all-in-one IDE experience
+- You use it >4 hours/day (flat rate is better)
+- You don't need advanced customization
+
+**Switch to Claude Code if:**
+- You're comfortable with terminal workflows
+- You want deeper customization (agents, hooks)
+- You work with complex, multi-repo projects
+- You want to integrate AI into CI/CD
+- You prefer pay-per-use pricing
+
+#### Running Both
+
+You can use both tools simultaneously:
+
+```bash
+# Cursor for editing and quick changes
+# Claude Code in terminal for complex tasks
+
+# Example workflow:
+# 1. Use Cursor to explore and make quick edits
+# 2. Open terminal: claude
+# 3. Ask Claude Code: "Review my changes and suggest improvements"
+# 4. Apply suggestions in Cursor
+# 5. Use Claude Code to generate tests
+```
+
+### Migration Checklist
+
+#### Week 1: Learning Phase
+
+```markdown
+□ Complete Quick Start (Section 1)
+□ Understand context management (critical!)
+□ Try 3-5 small tasks (bug fixes, small features)
+□ Learn when to use /plan mode
+□ Practice reviewing diffs before accepting
+```
+
+#### Week 2: Establishing Workflow
+
+```markdown
+□ Create project CLAUDE.md file
+□ Set up 1-2 custom commands for frequent tasks
+□ Configure MCP servers (Serena, Context7)
+□ Define your hybrid workflow (when to use Claude Code vs. other tools)
+□ Track costs and optimize based on usage
+```
+
+#### Week 3-4: Advanced Usage
+
+```markdown
+□ Create custom agents for specialized tasks
+□ Set up hooks for automation (formatting, linting)
+□ Integrate into CI/CD if applicable
+□ Build team patterns if working with others
+□ Refine CLAUDE.md based on learnings
+```
+
+### Common Migration Issues
+
+**Issue 1: "I miss inline suggestions"**
+
+- **Solution**: Keep using Copilot/Cursor for autocomplete, use Claude Code for complex tasks
+- **Alternative**: Request Claude to generate code snippets you can paste
+
+**Issue 2: "Context switching is annoying"**
+
+- **Solution**: Use split terminal (editor on left, Claude Code on right)
+- **Tip**: Set up keyboard shortcut to toggle terminal focus
+
+**Issue 3: "I don't know when to use which tool"**
+
+- **Rule of thumb**:
+  - **<5 lines of code** → Use Copilot/autocomplete
+  - **5-50 lines, single file** → Either tool works
+  - **>50 lines or multi-file** → Use Claude Code
+
+**Issue 4: "Claude Code is slower than autocomplete"**
+
+- **Reality check**: Claude Code solves different problems
+- **Don't compare**: Autocomplete vs. full task execution
+- **Optimize**: Use specific queries, manage context well
+
+**Issue 5: "Costs are unpredictable"**
+
+- **Solution**: Track costs in Anthropic Console
+- **Budget**: Set mental budget per session ($0.10-$0.50)
+- **Optimize**: Use `/compact`, be specific in queries
+
+### Transition Strategies
+
+**Strategy 1: Gradual (Recommended)**
+
+```
+Week 1: Use Claude Code 1-2 times/day for specific tasks
+Week 2: Use Claude Code for all debugging and reviews
+Week 3: Use Claude Code for feature implementation
+Week 4: Full workflow integration
+```
+
+**Strategy 2: Cold Turkey**
+
+```
+Day 1: Disable Copilot/Cursor, force yourself to use only Claude Code
+Day 2-3: Frustration period (learning curve)
+Day 4-7: Productivity recovery
+Week 2+: Full proficiency
+```
+
+**Strategy 3: Task-Based**
+
+```
+Use Claude Code exclusively for:
+- All new features
+- All debugging sessions
+- All code reviews
+
+Keep Copilot/Cursor for:
+- Quick edits
+- Autocomplete
+```
+
+### Measuring Success
+
+**You know you've successfully migrated when:**
+
+- [ ] You instinctively reach for Claude Code for complex tasks
+- [ ] You understand context management without thinking
+- [ ] You've created at least 2-3 custom commands/agents
+- [ ] You can estimate costs before starting a session
+- [ ] You prefer Claude Code's explanations over inline docs
+- [ ] You've integrated Claude Code into your daily workflow
+
+**Productivity indicators:**
+
+- Completing features 20-30% faster
+- Spending less time debugging
+- Higher code quality (caught by Claude reviews)
+- Better understanding of unfamiliar code
+
 ---
 
 # 2. Core Concepts
@@ -482,6 +712,218 @@ Example output:
 - Multi-file operations at end of session
 - Last-minute corrections
 - Generating summary/checkpoint
+
+### Cost Awareness & Optimization
+
+Claude Code isn't free - you're using API credits. Understanding costs helps optimize usage.
+
+#### Pricing Model (as of January 2025)
+
+Claude Code uses **Claude Sonnet 3.5** by default:
+
+| Model | Input (per 1M tokens) | Output (per 1M tokens) | Context Window |
+|-------|----------------------|------------------------|----------------|
+| **Sonnet 3.5** | $3.00 | $15.00 | 200K tokens |
+| Opus 4 | $15.00 | $75.00 | 200K tokens |
+| Haiku 3.5 | $0.80 | $4.00 | 200K tokens |
+
+**Reality check**: A typical 1-hour session costs **$0.10 - $0.50** depending on usage patterns.
+
+#### What Costs the Most?
+
+| Action | Tokens Consumed | Estimated Cost |
+|--------|-----------------|----------------|
+| Read a 100-line file | ~500 | $0.0015 |
+| Read 10 files (1000 lines) | ~5,000 | $0.015 |
+| Long conversation (20 messages) | ~30,000 | $0.090 |
+| MCP tool call (Serena, Context7) | ~2,000 | $0.006 |
+| Running tests (with output) | ~3,000-10,000 | $0.009-$0.030 |
+| Code generation (100 lines) | ~2,000 output | $0.030 |
+
+**The expensive operations**:
+1. **Reading entire large files** - 2000+ line files add up fast
+2. **Multiple MCP server calls** - Each server adds ~2K tokens overhead
+3. **Long conversations without `/compact`** - Context accumulates
+4. **Repeated trial and error** - Each iteration costs
+
+#### Cost Optimization Strategies
+
+**Strategy 1: Be specific in queries**
+
+```bash
+# ❌ Expensive - reads entire file
+"Check auth.ts for issues"
+# ~5K tokens if file is large
+
+# ✅ Cheaper - targets specific location
+"Check the login function in auth.ts:45-60"
+# ~500 tokens
+```
+
+**Strategy 2: Use `/compact` proactively**
+
+```bash
+# Without /compact - conversation grows
+Context: 10% → 30% → 50% → 70% → 90%
+Cost per message increases as context grows
+
+# With /compact at 70%
+Context: 10% → 30% → 50% → 70% → [/compact] → 30% → 50%
+Saves 30-40% on subsequent messages
+```
+
+**Strategy 3: Choose the right model**
+
+```bash
+# Use Haiku for simple tasks (4x cheaper input, 3.75x cheaper output)
+claude --model haiku "Fix this typo in README.md"
+
+# Use Sonnet (default) for standard work
+claude "Refactor this module"
+
+# Use Opus only for critical/complex tasks
+claude --model opus "Design the entire authentication system"
+```
+
+**Strategy 4: Limit MCP servers**
+
+```json
+// ❌ Expensive - 5 MCP servers loaded
+{
+  "mcpServers": {
+    "serena": {...},
+    "context7": {...},
+    "sequential": {...},
+    "playwright": {...},
+    "postgres": {...}
+  }
+}
+// ~10K tokens overhead per session
+
+// ✅ Cheaper - load only what you need
+{
+  "mcpServers": {
+    "serena": {...}  // Only for this project
+  }
+}
+// ~2K tokens overhead
+```
+
+**Strategy 5: Batch operations**
+
+```bash
+# ❌ Expensive - 5 separate prompts
+"Read file1.ts"
+"Read file2.ts"
+"Read file3.ts"
+"Read file4.ts"
+"Read file5.ts"
+
+# ✅ Cheaper - single batched request
+"Read file1.ts, file2.ts, file3.ts, file4.ts, file5.ts and analyze them together"
+# Shared context, single response
+```
+
+#### Tracking Costs
+
+**Real-time tracking**:
+
+The status line shows current session cost:
+
+```
+Claude Code │ Ctx(u): 45% │ Cost: $0.23 │ Session: 1h 23m
+                              ↑ Current session cost
+```
+
+**Monthly tracking**:
+
+Check your Anthropic Console for detailed usage:
+- https://console.anthropic.com/settings/usage
+
+**Cost budgeting**:
+
+```bash
+# Set a mental budget per session
+- Quick task (5-10 min): $0.05-$0.10
+- Feature work (1-2 hours): $0.20-$0.50
+- Deep refactor (half day): $1.00-$2.00
+
+# If you're consistently over budget:
+1. Use /compact more often
+2. Be more specific in queries
+3. Consider using Haiku for simpler tasks
+4. Reduce MCP servers
+```
+
+#### Cost vs. Value
+
+**Don't over-optimize!**
+
+Spending $0.50 to save 30 minutes is a **60x ROI** if your time is worth $30/hour.
+
+| Time Saved | Cost | Your Hourly Rate | ROI |
+|------------|------|------------------|-----|
+| 30 min | $0.50 | $30/hr | 30x |
+| 1 hour | $1.00 | $50/hr | 50x |
+| 2 hours | $2.00 | $75/hr | 75x |
+
+**When to optimize**:
+- ✅ You're on a tight budget (student, hobbyist)
+- ✅ High-volume usage (>4 hours/day)
+- ✅ Team usage (5+ developers)
+
+**When NOT to optimize**:
+- ❌ Your time is more expensive than API costs
+- ❌ You're spending more time optimizing than the savings
+- ❌ Optimization hurts productivity (being too restrictive)
+
+#### Cost-Conscious Workflows
+
+**For solo developers on a budget:**
+
+```markdown
+1. Start with Haiku for exploration/planning
+2. Switch to Sonnet for implementation
+3. Use /compact aggressively (every 50-60% context)
+4. Limit to 1-2 MCP servers
+5. Be specific in all queries
+6. Batch operations when possible
+
+Monthly cost estimate: $5-$15 for 20-30 hours
+```
+
+**For professional developers:**
+
+```markdown
+1. Use Sonnet as default (optimal balance)
+2. Use /compact when needed (70%+ context)
+3. Use full MCP setup (productivity matters)
+4. Don't micro-optimize queries
+5. Use Opus for critical architectural decisions
+
+Monthly cost estimate: $20-$50 for 40-80 hours
+```
+
+**For teams:**
+
+```markdown
+1. Shared MCP infrastructure (Context7, Serena)
+2. Standardized CLAUDE.md to avoid repeated explanations
+3. Agent library to avoid rebuilding patterns
+4. CI/CD integration for automation
+5. Track costs per developer in Anthropic Console
+
+Monthly cost estimate: $50-$200 for 5-10 developers
+```
+
+#### Red Flags (Cost Waste Indicators)
+
+| Indicator | Cause | Fix |
+|-----------|-------|-----|
+| Sessions consistently >$1 | Not using `/compact` | Set reminder at 70% context |
+| Cost per message >$0.05 | Context bloat | Start fresh `/clear` |
+| >$5/day for hobby project | Over-using or inefficient queries | Review query specificity |
+| Haiku failing simple tasks | Using wrong model tier | Use Sonnet for anything non-trivial |
 
 ### Context Poisoning (Bleeding)
 
@@ -2205,6 +2647,95 @@ it('should calculate order total', () => {
 });
 ```
 
+## 5.5 Community Skill Repositories
+
+### Cybersecurity Skills Repository
+
+The Claude Code community has created specialized skill collections for specific domains. One notable collection focuses on cybersecurity and penetration testing.
+
+**Repository**: [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide)
+**Skills Directory**: [/skills](https://github.com/zebbern/claude-code-guide/tree/main/skills)
+
+This repository contains **29 cybersecurity-focused skills** covering penetration testing, vulnerability assessment, and security analysis:
+
+**Penetration Testing & Exploitation**
+- SQL Injection Testing
+- XSS (Cross-Site Scripting) Testing
+- Broken Authentication Testing
+- IDOR (Insecure Direct Object Reference) Testing
+- File Path Traversal Testing
+- Active Directory Attacks
+- Privilege Escalation (Linux & Windows)
+
+**Security Tools & Frameworks**
+- Metasploit Framework
+- Burp Suite Testing
+- SQLMap Database Pentesting
+- Wireshark Analysis
+- Shodan Reconnaissance
+- Scanning Tools
+
+**Infrastructure Security**
+- AWS Penetration Testing
+- Cloud Penetration Testing
+- Network 101
+- SSH Penetration Testing
+- SMTP Penetration Testing
+
+**Application Security**
+- API Fuzzing & Bug Bounty
+- WordPress Penetration Testing
+- HTML Injection Testing
+- Top Web Vulnerabilities
+
+**Methodologies & References**
+- Ethical Hacking Methodology
+- Pentest Checklist
+- Pentest Commands
+- Red Team Tools
+- Linux Shell Scripting
+
+#### Usage Example
+
+To use these skills in your Claude Code setup:
+
+1. Clone or download specific skills from the repository
+2. Copy the skill folder to your `.claude/skills/` directory
+3. Reference in your agents using the `skills` frontmatter field
+
+```bash
+# Example: Add SQL injection testing skill
+cd ~/.claude/skills/
+curl -L https://github.com/zebbern/claude-code-guide/archive/refs/heads/main.zip -o skills.zip
+unzip -j skills.zip "claude-code-guide-main/skills/sql-injection-testing/*" -d sql-injection-testing/
+```
+
+Then reference in an agent:
+
+```yaml
+---
+name: security-auditor
+role: Security testing specialist
+skills: ["sql-injection-testing"]
+---
+```
+
+#### Important Disclaimer
+
+> **Note**: These cybersecurity skills have not been fully tested by the maintainers of this guide. While they appear well-structured and comprehensive based on their documentation, you should:
+>
+> - **Test thoroughly** before using in production security assessments
+> - **Ensure you have proper authorization** before conducting any penetration testing
+> - **Review and validate** the techniques against your organization's security policies
+> - **Use only in legal contexts** with written permission from system owners
+> - **Contribute back** if you find issues or improvements
+
+The skills appear to follow proper ethical hacking guidelines and include appropriate legal prerequisites, but as with any security tooling, verification is essential.
+
+#### Contributing
+
+If you create specialized skills for other domains (DevOps, data science, ML/AI, etc.), consider sharing them with the community through similar repositories or pull requests to existing collections.
+
 ---
 
 # 6. Commands
@@ -3658,6 +4189,288 @@ gh api graphql -f query='
 
 > Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
 
+### Release Notes Generation
+
+Automate release notes and changelog generation using Claude Code.
+
+**Why automate release notes?**
+- Consistent format across releases
+- Captures technical details from commits
+- Translates technical changes to user-facing language
+- Saves 30-60 minutes per release
+
+**Pattern**: Git commits → Claude analysis → User-friendly release notes
+
+#### Approach 1: Command-Based
+
+Create `.claude/commands/release-notes.md`:
+
+```markdown
+# Generate Release Notes
+
+Analyze git commits since last release and generate release notes.
+
+## Process
+
+1. **Get commits since last tag**:
+   ```bash
+   git log $(git describe --tags --abbrev=0)..HEAD --oneline
+   ```
+
+2. **Read full commit details**:
+   - Include commit messages
+   - Include file changes
+   - Include PR numbers if present
+
+3. **Categorize changes**:
+   - **✨ Features** - New functionality
+   - **🐛 Bug Fixes** - Issue resolutions
+   - **⚡ Performance** - Speed/efficiency improvements
+   - **🔒 Security** - Security patches
+   - **📝 Documentation** - Doc updates
+   - **🔧 Maintenance** - Refactoring, dependencies
+   - **⚠️ Breaking Changes** - API changes (highlight prominently)
+
+4. **Generate three versions**:
+
+   **A. CHANGELOG.md format** (technical, for developers):
+   ```markdown
+   ## [Version] - YYYY-MM-DD
+
+   ### Added
+   - Feature description with PR reference
+
+   ### Fixed
+   - Bug fix description
+
+   ### Changed
+   - Breaking change with migration guide
+   ```
+
+   **B. GitHub Release Notes** (balanced, technical + context):
+   ```markdown
+   ## What's New
+
+   Brief summary of the release
+
+   ### ✨ New Features
+   - User-facing feature description
+
+   ### 🐛 Bug Fixes
+   - Issue resolution description
+
+   ### ⚠️ Breaking Changes
+   - Migration instructions
+
+   **Full Changelog**: v1.0.0...v1.1.0
+   ```
+
+   **C. User Announcement** (non-technical, benefits-focused):
+   ```markdown
+   We're excited to announce [Version]!
+
+   **Highlights**:
+   - What users can now do
+   - How it helps them
+   - When to use it
+
+   [Link to full release notes]
+   ```
+
+5. **Output files**:
+   - Prepend to `CHANGELOG.md`
+   - Save to `release-notes-[version].md`
+   - Copy "User Announcement" to clipboard for Slack/blog
+
+## Verification
+
+- Check for missed breaking changes
+- Verify all PR references are valid
+- Ensure migration guides are clear
+```
+
+#### Approach 2: CI/CD Automation
+
+Add to `.github/workflows/release.yml`:
+
+```yaml
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for changelog
+
+      - name: Generate Release Notes
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get version from tag
+          VERSION=${GITHUB_REF#refs/tags/}
+
+          # Generate with Claude
+          claude --headless "Generate release notes for $VERSION. \
+            Analyze commits since last tag. \
+            Output in GitHub Release format. \
+            Save to release-notes.md"
+
+          # Create GitHub Release
+          gh release create $VERSION \
+            --title "Release $VERSION" \
+            --notes-file release-notes.md
+
+      - name: Update CHANGELOG.md
+        run: |
+          # Prepend to CHANGELOG
+          cat release-notes.md CHANGELOG.md > CHANGELOG.tmp
+          mv CHANGELOG.tmp CHANGELOG.md
+
+          # Commit back
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "docs: update changelog for $VERSION"
+          git push
+```
+
+#### Approach 3: Interactive Workflow
+
+For more control, use an interactive session:
+
+```bash
+# 1. Start Claude Code
+claude
+
+# 2. Request release notes
+You: "Generate release notes for v2.0.0"
+
+# 3. Claude will:
+# - Run git log to get commits
+# - Ask clarifying questions:
+#   - "Is this a major/minor/patch release?"
+#   - "Any breaking changes users should know?"
+#   - "Target audience for announcement?"
+
+# 4. Review and refine
+You: "Add more detail to the authentication feature"
+
+# 5. Finalize
+You: "Save these notes and update CHANGELOG.md"
+```
+
+#### Best Practices
+
+**Before generation:**
+- ✅ Ensure commits follow conventional commits format
+- ✅ All PRs have been merged
+- ✅ Version number decided (semver)
+
+**During generation:**
+- ✅ Review for accuracy (Claude might miss context)
+- ✅ Add migration guides for breaking changes
+- ✅ Include upgrade instructions if needed
+
+**After generation:**
+- ✅ Cross-reference with closed issues/PRs
+- ✅ Test upgrade path on a staging project
+- ✅ Share draft with team before publishing
+
+#### Example Output
+
+Given these commits:
+```
+feat: add user avatar upload (PR #123)
+fix: resolve login timeout issue (PR #124)
+perf: optimize database queries by 40% (PR #125)
+BREAKING: change API endpoint from /api/v1 to /v2 (PR #126)
+```
+
+Claude generates:
+
+**CHANGELOG.md** (technical):
+```markdown
+## [2.0.0] - 2025-01-10
+
+### Added
+- User avatar upload functionality (#123)
+
+### Fixed
+- Login timeout issue affecting mobile users (#124)
+
+### Performance
+- Optimized database queries, reducing load time by 40% (#125)
+
+### Breaking Changes
+- **API Endpoints**: Migrated from `/api/v1/*` to `/v2/*`
+  - Update client code: replace `/api/v1/` with `/v2/`
+  - Old endpoints will return 410 Gone after 2025-02-01
+  - Migration guide: docs/migration-v2.md (#126)
+```
+
+**GitHub Release** (balanced):
+```markdown
+## What's New in v2.0.0
+
+This release brings performance improvements, bug fixes, and a new avatar feature.
+
+### ✨ New Features
+- **Avatar Upload**: Users can now upload custom profile pictures
+
+### 🐛 Bug Fixes
+- Fixed login timeout issue that affected some mobile users
+
+### ⚡ Performance
+- Database queries are now 40% faster
+
+### ⚠️ Breaking Changes
+- **API Endpoint Migration**: All endpoints have moved from `/api/v1` to `/v2`
+  - **Action Required**: Update your API client code
+  - **Timeline**: Old endpoints will stop working on February 1, 2025
+  - **Migration Guide**: [See docs/migration-v2.md](./docs/migration-v2.md)
+
+**Full Changelog**: v1.9.0...v2.0.0
+```
+
+**User Announcement** (non-technical):
+```markdown
+📢 Version 2.0 is here!
+
+We've made your experience faster and more personal:
+
+✨ **Customize Your Profile** - Upload your own avatar
+⚡ **Lightning Fast** - Pages load 40% faster
+🐛 **More Reliable** - Fixed the login timeout issue
+
+**For Developers**: This is a breaking release. See our migration guide for API changes.
+
+[Read full release notes →]
+```
+
+#### Common Issues
+
+**"Release notes are too technical"**
+- Solution: Specify audience in prompt: "Generate for non-technical users"
+
+**"Claude missed a breaking change"**
+- Solution: Explicitly list breaking changes in prompt
+- Better: Use "BREAKING:" prefix in commit messages
+
+**"Generated notes are generic"**
+- Solution: Provide more context: "This release focuses on mobile performance"
+
+**"Commits are messy/unclear"**
+- Solution: Clean up commit history before generation (interactive rebase)
+- Better: Enforce commit message format with git hooks
+
 ## 9.4 IDE Integration
 
 ### VS Code Integration
@@ -5056,6 +5869,395 @@ exit 0
 - Commands created: [count]
 - Agents created: [count]
 ```
+
+---
+
+## A.10 Emergency Hotfix Checklist
+
+When you need to fix production issues quickly and safely.
+
+### Pre-Hotfix Phase (2-5 minutes)
+
+```markdown
+## Emergency Hotfix Protocol
+
+**Incident**: [Brief description]
+**Impact**: [User/system impact]
+**Priority**: 🔴 Critical / 🟠 High / 🟡 Medium
+
+### Step 1: Assess & Isolate
+□ Verify the issue is reproducible
+□ Check error logs/monitoring for root cause indicators
+□ Estimate blast radius (how many users affected)
+□ Create incident channel/ticket
+
+### Step 2: Environment Setup
+□ Create hotfix branch: `git checkout -b hotfix/[issue-name]`
+□ Pull latest production: `git pull origin main`
+□ Verify local environment matches production
+□ Document current state (git commit hash, deployment time)
+
+### Step 3: Context Preparation
+□ Open Claude Code in project root
+□ Set explicit scope: "Working on hotfix for [issue]"
+□ Use Plan Mode first: `/plan` (safer for critical changes)
+□ Load relevant error logs/stack traces
+```
+
+### Hotfix Development (5-15 minutes)
+
+```markdown
+### Step 4: Fix Implementation
+□ Use Claude to locate issue: "Find where [error] occurs"
+□ Review proposed fix carefully (critical code path)
+□ Prefer minimal changes (smaller diff = lower risk)
+□ Add defensive checks if time permits
+
+### Step 5: Immediate Verification
+□ Run affected test suite: `npm test [related tests]`
+□ Manual smoke test of fixed functionality
+□ Test edge cases that triggered the issue
+□ Verify no regression in related features
+```
+
+### Post-Fix Phase (5-10 minutes)
+
+```markdown
+### Step 6: Commit & Deploy
+□ Create focused commit: `git add [changed files]`
+□ Write clear commit message:
+   "hotfix: [verb] [what was broken]
+
+   - Root cause: [brief explanation]
+   - Fix: [what changed]
+   - Tested: [how verified]
+
+   Fixes #[incident-number]"
+
+□ Push hotfix branch: `git push origin hotfix/[issue-name]`
+□ Create PR with "HOTFIX" label
+□ Tag reviewer(s) for immediate review
+□ Include before/after behavior in PR description
+
+### Step 7: Deploy & Monitor
+□ Deploy to staging first if possible (even for hotfixes)
+□ Monitor staging for 2-3 minutes
+□ Deploy to production
+□ Watch error rates/logs for 5-10 minutes
+□ Verify issue is resolved in production
+□ Update incident channel/ticket
+
+### Step 8: Post-Mortem (Schedule later)
+□ Document root cause analysis
+□ Identify why this wasn't caught earlier
+□ Add tests/monitoring to prevent recurrence
+□ Update CLAUDE.md with lessons learned
+□ Schedule team discussion if systemic issue
+```
+
+### Hotfix Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|---------|------|
+| Skip tests "to save time" | Run at minimum the affected tests |
+| Make "while we're here" improvements | Fix ONLY the immediate issue |
+| Deploy without code review | Get at least one approval (async if urgent) |
+| Forget to monitor after deploy | Watch for 10+ minutes post-deploy |
+| Skip documentation | Update incident log immediately |
+| Work on main branch | Always use hotfix branch |
+
+### Time-Based Decision Matrix
+
+| Time Available | Approach |
+|----------------|----------|
+| **< 5 min** | Rollback to previous version, fix properly later |
+| **5-15 min** | Minimal fix, comprehensive testing later |
+| **15-30 min** | Proper fix with tests, still monitor closely |
+| **> 30 min** | Not a hotfix, follow normal development process |
+
+### Claude Code Hotfix Commands
+
+```markdown
+# Use Plan Mode for safety
+/plan
+
+# Ask Claude to assess
+"Analyze this error log and suggest the safest minimal fix"
+
+# Get focused context
+"Read only the [affected module], not the entire codebase"
+
+# Verify fix
+"What are the potential side effects of this change?"
+
+# Generate tests
+"Create a test that would have caught this bug"
+```
+
+### Communication Template
+
+```markdown
+## Hotfix Status Update
+
+**Status**: [In Progress / Deployed / Monitoring]
+**Issue**: [One-line description]
+**Fix**: [One-line solution]
+**ETA**: [Timeframe]
+**Risk**: Low/Medium/High
+**Monitoring**: [What we're watching]
+
+**Next Steps**:
+- [ ] [Action 1]
+- [ ] [Action 2]
+```
+
+## A.11 Git Archaeology Pattern
+
+Use Claude Code to understand legacy code through git history analysis.
+
+### Why Git Archaeology?
+
+Understanding **why** code exists is often more valuable than understanding **what** it does.
+
+| Question | Traditional Approach | Git Archaeology Approach |
+|----------|---------------------|-------------------------|
+| Why this weird workaround? | Guess or ask someone | Check commit that added it |
+| Why was this refactored? | Search Slack/docs | Read PR description |
+| When did this bug appear? | Binary search testing | `git bisect` with Claude |
+| Who knows this code? | Check Slack or guess | See commit authors |
+
+### Pattern 1: Understanding Mysterious Code
+
+**Scenario**: You found confusing code and want to know why it exists.
+
+```markdown
+# Step 1: Find the commit
+You: "Run git blame on [file:line] to find when this code was added"
+
+# Step 2: Get commit context
+You: "Show me the full commit with git show [commit-hash]"
+
+# Step 3: Find related discussion
+You: "Search for the PR or issue related to this commit"
+
+# Step 4: Summarize
+You: "Explain why this code exists based on the commit history"
+```
+
+**Example**:
+
+```
+You: Why does user.ts:45 have this strange null check?
+
+Claude: Let me investigate...
+- Runs: git blame src/user.ts
+- Finds commit: abc123 "fix: handle legacy user objects"
+- Reads commit message: "Older user records don't have email field"
+- Conclusion: It's a backward compatibility fix from 2023 migration
+```
+
+### Pattern 2: Tracking Feature Evolution
+
+**Scenario**: Understand how a feature evolved over time.
+
+```markdown
+# Get all commits related to a feature
+You: "Find all commits that mention 'authentication' in the last 6 months"
+
+Claude runs:
+git log --grep="authentication" --since="6 months ago" --oneline
+
+# Analyze the evolution
+You: "Summarize how authentication changed over these commits"
+
+Claude provides timeline:
+- Jan: Initial OAuth implementation
+- Feb: Added 2FA support
+- Mar: Migrated to JWT
+- Apr: Added session refresh
+```
+
+### Pattern 3: Finding When Bugs Were Introduced
+
+**Scenario**: A bug exists now but didn't before. Find when it appeared.
+
+```markdown
+# Manual approach
+You: "Help me use git bisect to find when [bug] was introduced"
+
+Claude guides you:
+1. git bisect start
+2. git bisect bad [current commit]
+3. git bisect good [known good commit]
+4. Claude tests each bisect step
+5. Identifies the breaking commit
+
+# Automated with Claude
+You: "Write a script to test if [bug] exists, then use git bisect run"
+
+Claude creates:
+- Test script that exits 0 (good) or 1 (bad)
+- Runs git bisect automatically
+- Reports the exact commit that introduced the bug
+```
+
+### Pattern 4: Finding Domain Experts
+
+**Scenario**: Who should review this code?
+
+```markdown
+You: "Who has worked on [file/directory] most?"
+
+Claude runs:
+git shortlog -sn -- [path]
+
+Result:
+42  Alice Johnson
+18  Bob Smith
+5   Carol White
+
+Interpretation: Alice is the domain expert
+```
+
+### Pattern 5: Understanding Deleted Code
+
+**Scenario**: Code was deleted but you want to understand what it did.
+
+```markdown
+# Find when code was deleted
+You: "Search git history for when [function name] was removed"
+
+Claude runs:
+git log -c -S'[function name]' --all
+
+# Restore and analyze
+You: "Show me what [function name] did before it was deleted"
+
+Claude:
+1. Finds the deletion commit
+2. Shows commit^ (before deletion)
+3. Extracts and explains the old implementation
+4. Explains why it was removed (from commit message)
+```
+
+### Pattern 6: Comparing Implementations
+
+**Scenario**: The code changed drastically. Why?
+
+```markdown
+You: "Compare how [feature] was implemented in:
+- Current version
+- Version from 6 months ago"
+
+Claude:
+1. git show HEAD:[file]
+2. git show HEAD~6mo:[file]
+3. Highlights key differences
+4. Explains evolution reasoning from commit messages
+```
+
+### Claude-Optimized Git Commands
+
+```bash
+# Most useful for archaeology
+
+# Find commits by content
+git log -S'[search term]' --oneline
+
+# Find commits by message
+git log --grep='[pattern]' --oneline
+
+# See file history with diffs
+git log -p [file]
+
+# Who wrote which lines
+git blame [file]
+
+# Find when a file was deleted
+git log --all --full-history -- [file]
+
+# See commit with context
+git show [commit-hash]
+
+# List all files changed in commit
+git diff-tree --no-commit-id --name-only -r [commit]
+
+# See commits that touched a line range
+git log -L [start],[end]:[file]
+```
+
+### Archaeology Prompt Template
+
+```markdown
+## Git Archaeology Request
+
+**Goal**: [Understand why X exists / Find when Y broke / Find expert for Z]
+
+**Starting Point**:
+- File: [path]
+- Line: [line number or function name]
+- Current behavior: [what you see]
+
+**Questions**:
+1. When was this code introduced?
+2. Why was it introduced (commit message, PR discussion)?
+3. Has it changed since? If so, why?
+4. Who are the authors/experts?
+
+**Output Needed**:
+- Timeline of changes
+- Original intent (from commits/PRs)
+- Current maintainers
+```
+
+### Real-World Examples
+
+**Example 1: Understanding a Workaround**
+
+```
+Developer: "Why is there a setTimeout() in the login flow?"
+
+Claude investigates:
+- git blame → Commit in 2022 by Bob
+- git show [commit] → "fix: wait for analytics to load"
+- Finds related issue #543 → "Login fails if analytics blocked"
+- Conclusion: It's a workaround for a race condition
+
+Recommendation: "This may be obsolete if we're using modern analytics now"
+```
+
+**Example 2: Finding Breaking Change**
+
+```
+Developer: "Tests started failing sometime this week"
+
+Claude runs:
+- git bisect with test suite
+- Identifies commit: "refactor: simplify validation logic"
+- git show [commit] → Changed how empty strings are validated
+- Fix: Update tests to match new validation behavior
+```
+
+**Example 3: Removing Dead Code**
+
+```
+Developer: "Can we delete this old Payment class?"
+
+Claude checks:
+- git log → Last modified 2 years ago
+- git grep "Payment" → No references found
+- git log --grep="Payment" → See migration commit "Moved to Stripe API"
+- Conclusion: Safe to delete, no longer used
+```
+
+### Archaeology Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|---------|------|
+| Ignore commit messages | Read full context with `git show` |
+| Assume old code is wrong | Understand the constraints that led to it |
+| Delete code without checking history | Verify why it was added before removing |
+| Skip checking for related PRs | Search for issue numbers in commits |
 
 ---
 
