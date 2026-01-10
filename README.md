@@ -31,7 +31,22 @@ A significant source of inspiration for this work was [Claudelog.com](https://cl
 
 **Important note**: This guide was largely generated with the help of AI. As such, it likely contains errors, inaccuracies, or outdated information. I would be delighted to receive any feedback, corrections, or — even better — pull requests to improve it. Don't hesitate to [open an issue](../../issues) or submit a PR!
 
-**Windows disclaimer**: I work on macOS and have not tested the Windows-specific commands (PowerShell, batch files, paths). Windows instructions were generated with AI assistance. If you encounter issues, please open an issue or PR — contributions from Windows users are especially welcome!
+> **⚠️ WINDOWS USERS - IMPORTANT DISCLAIMER**
+>
+> I work on macOS and **have not personally tested Windows-specific commands** (PowerShell, batch files, path syntax).
+>
+> **What this means for you:**
+> - PowerShell scripts are AI-generated and may need adjustment
+> - Path separators (`\` vs `/`) may be incorrect in some examples
+> - Batch file hooks may require debugging
+> - Git Bash commands should work as-is (they use Unix syntax)
+>
+> **How you can help:**
+> 1. [Open an issue](../../issues) if you find Windows-specific problems
+> 2. Submit a PR with corrections (Windows testers highly appreciated!)
+> 3. Join our [community discussions](../../discussions) to share Windows-specific tips
+>
+> **Status**: We are actively seeking Windows contributors to improve platform support.
 
 **Language**: I wrote this guide in English by default to reach a wider audience, but French is my native language. I could easily translate it to French myself, or leverage AI and community contributions for other languages. Let me know if translations would be useful!
 

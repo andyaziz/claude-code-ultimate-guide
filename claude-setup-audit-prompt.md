@@ -197,6 +197,32 @@ For each category, evaluate against these criteria:
 - [ ] Meta-rules for fixing system, not just code
 - [ ] Learning from repeated issues
 
+**Cost Awareness (Guide Section 2.2)**
+- [ ] Understanding of pricing model (Sonnet/Opus/Haiku costs)
+- [ ] Using /compact proactively to manage costs
+- [ ] Being specific in queries to reduce token usage
+- [ ] Tracking costs via Anthropic Console
+
+**Migration Patterns (Guide Section 1.6)**
+- [ ] Understanding differences vs Copilot/Cursor
+- [ ] Hybrid workflow defined (when to use which tool)
+- [ ] Successfully transitioned from previous AI tools
+
+**Release Notes Automation (Guide Section 9.3)**
+- [ ] Using Claude for changelog generation
+- [ ] Automated release notes in CI/CD
+- [ ] User-facing vs technical release notes
+
+**Emergency Procedures (Guide Appendix A.10)**
+- [ ] Hotfix checklist available for production issues
+- [ ] Plan Mode usage during critical fixes
+- [ ] Post-mortem process documented
+
+**Git Archaeology (Guide Appendix A.11)**
+- [ ] Using git blame/log for code understanding
+- [ ] Finding domain experts via git history
+- [ ] Understanding code evolution patterns
+
 #### 2.2 Calculate Health Score
 
 **Formula**: `Score = (earned_points / max_points) × 100`
