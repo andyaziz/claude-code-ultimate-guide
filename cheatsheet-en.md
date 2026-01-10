@@ -145,9 +145,12 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 | Feature | Activation | Usage |
 |---------|------------|-------|
 | **Plan Mode** | `Shift+Tab × 2` or `/plan` | Explore without modifying |
+| **OpusPlan** | `/model opusplan` | Opus for planning, Sonnet for execution |
 | **Think** | `--think` flag | Standard analysis (~4K tokens) |
 | **Think Hard** | `--think-hard` flag | Deep analysis (~10K tokens) |
 | **Ultrathink** | `--ultrathink` flag | Maximum depth (~32K tokens) |
+
+**OpusPlan workflow**: `/model opusplan` → `Shift+Tab × 2` (plan with Opus) → `Shift+Tab` (execute with Sonnet)
 
 **Required for**: features >3 files, architecture, complex debugging
 
