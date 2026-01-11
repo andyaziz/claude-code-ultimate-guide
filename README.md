@@ -1,352 +1,316 @@
-# Claude Code Guide: Complete Tutorial & Best Practices
+# Master Claude Code: The Complete Guide from Beginner to Power User
 
-> The comprehensive guide to Claude Code — Anthropic's AI coding assistant CLI.
-> From installation to advanced MCP servers, agents, skills, hooks, and CI/CD integration.
+> **Transform Anthropic's AI coding CLI into your superpower.** 8500+ lines covering installation, agents, MCP servers, hooks, skills, and CI/CD integration—presented as a learning journey, not a reference manual.
 
-![Claude Code](https://img.shields.io/badge/Claude_Code-Guide-5A67D8?style=flat-square)
-![Anthropic CLI](https://img.shields.io/badge/Anthropic-CLI-FF6B6B?style=flat-square)
-![AI Coding](https://img.shields.io/badge/AI-Coding_Assistant-4CAF50?style=flat-square)
-![MCP](https://img.shields.io/badge/MCP-Servers-FFA726?style=flat-square)
-
-[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![GitHub stars](https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=social)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers)
-[![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide)
+[![Ask Zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide)
 
-**Author**: [Florian BRUNIAUX](https://github.com/FlorianBruniaux) | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
-
-**Contact**: [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
-
-**Written with**: Claude (Anthropic)
-
-> **If you find this guide useful, please consider giving it a star!** It helps others discover this resource and motivates continued updates.
+**By [Florian BRUNIAUX](https://github.com/FlorianBruniaux)** | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr) | [Connect on LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
 
 ---
 
-## What's Inside
+## Why This Guide Exists
 
-| File | Description | Reading Time |
-|------|-------------|--------------|
-| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (8500+ lines, 32K+ words) | ~3 hours |
-| [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
-| [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
-| [`examples/`](./examples/) | Production-ready commands, hooks, agents | Browse as needed |
-| [`claude-code-ultimate-guide_notebooklm.pdf`](./claude-code-ultimate-guide_notebooklm.pdf) | NotebookLM slides export | ~20 minutes |
-| [`claude-code-ultimate-guide_kimi.pdf`](./claude-code-ultimate-guide_kimi.pdf) | PDF version (Kimi export) | ~3 hours |
+**The Problem**: Most Claude Code resources are either scattered blog posts or dense reference manuals. You're left piecing together workflows, guessing at best practices, and discovering critical concepts too late.
 
-### 🔍 Explore Interactively
+**Our Solution**: A structured learning journey that takes you from installation to advanced orchestration in hours, not weeks—with ready-to-use examples you can deploy immediately.
 
-**[DeepWiki: Interactive Documentation](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview)**
+### What Makes This Different
 
-Transform this repository into an interactive AI-powered documentation explorer:
-- **Ask questions** in natural language about the guide
-- **Navigate contextually** through interconnected concepts
-- **Search semantically** beyond keyword matching
-- **Get summaries** of specific sections on demand
+| Traditional Docs | This Guide |
+|------------------|------------|
+| Lists features | Teaches workflows |
+| Reference lookup | Progressive mastery |
+| Theoretical concepts | Production-ready patterns |
+| "Figure it out" | "Here's exactly how" |
 
-Perfect for quick lookups when you don't want to read the full 8500+ lines.
+**Your Investment**: 45 minutes to productivity. 2 hours to mastery. 8500+ lines organized by learning path, not alphabetically.
+
+> **If this guide saves you hours of trial-and-error, please star it.** Your support helps others discover this resource and motivates continued updates.
 
 ---
 
-## About This Guide
+## Start Here: Choose Your Path
 
-### Our Pedagogical Approach
+### 🚀 Quick Start (15 minutes)
 
-Unlike reference manuals that simply list features, **this guide follows a learning journey** designed to take you from beginner to power user. We focus on:
-
-- **Understanding why** before diving into how
-- **Real-world patterns** you can use immediately
-- **Progressive complexity** — start simple, master advanced techniques at your pace
-- **Practical workflows** over theoretical concepts
-
-Think of this as your **mentor for mastering Claude Code** — not just documentation.
-
-### Origins & Philosophy
-
-This guide is the result of **several months of daily practice and research** with Claude Code, Anthropic's AI coding assistant CLI. Whether you're exploring agentic development, LLM-powered coding workflows, or AI pair programming, this resource covers everything from basic setup to advanced MCP server orchestration.
-
-I don't claim to be an "expert" — I'm simply sharing what I've learned along the way, humbly hoping to help my peers and evangelize good practices in AI-assisted development.
-
-**Key inspirations for this work:**
-- [Claudelog.com](https://claudelog.com/) — Excellent tips, patterns & tutorials (highly recommended)
-- [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus
-- [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical tips & productivity techniques from Y.K. Dojo
-
-**Important note**: This guide was largely generated with the help of AI. As such, it likely contains errors, inaccuracies, or outdated information. I would be delighted to receive any feedback, corrections, or — even better — pull requests to improve it. Don't hesitate to [open an issue](../../issues) or submit a PR!
-
-> **⚠️ WINDOWS USERS - IMPORTANT DISCLAIMER**
->
-> I work on macOS and **have not personally tested Windows-specific commands** (PowerShell, batch files, path syntax).
->
-> **What this means for you:**
-> - PowerShell scripts are AI-generated and may need adjustment
-> - Path separators (`\` vs `/`) may be incorrect in some examples
-> - Batch file hooks may require debugging
-> - Git Bash commands should work as-is (they use Unix syntax)
->
-> **How you can help:**
-> 1. [Open an issue](../../issues) if you find Windows-specific problems
-> 2. Submit a PR with corrections (Windows testers highly appreciated!)
-> 3. Join our [community discussions](../../discussions) to share Windows-specific tips
->
-> **Status**: We are actively seeking Windows contributors to improve platform support.
-
-**Language**: I wrote this guide in English by default to reach a wider audience, but French is my native language. I could easily translate it to French myself, or leverage AI and community contributions for other languages. Let me know if translations would be useful!
-
-If you find value in this guide, have questions, or want to discuss Claude Code practices, feel free to reach out on [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/).
-
----
-
-## Ready-to-Use Examples
-
-The [`examples/`](./examples/) directory contains production-ready templates you can copy directly into your projects:
-
-### 🎯 Commands (Slash Commands)
-
-| Command | Purpose | Highlights |
-|---------|---------|------------|
-| [/pr](./examples/commands/pr.md) | Create PRs with scope analysis | Complexity scoring, auto-detect scope issues, split suggestions |
-| [/release-notes](./examples/commands/release-notes.md) | Generate release notes (3 formats) | CHANGELOG + PR body + Slack announcement, migration detection |
-| [/sonarqube](./examples/commands/sonarqube.md) | Analyze SonarCloud quality issues | Executive summary, top violators, action plan |
-| [/commit](./examples/commands/commit.md) | Conventional commit messages | Follows team conventions, auto-formats |
-| [/review-pr](./examples/commands/review-pr.md) | PR review workflow | Structured feedback, security checks |
-| [/git-worktree](./examples/commands/git-worktree.md) | Isolated git worktree setup | Safe parallel development |
-
-### 🛡️ Hooks (Event Automation)
-
-| Hook | Event | Purpose |
-|------|-------|---------|
-| [dangerous-actions-blocker.sh](./examples/hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block `rm -rf /`, force push, secrets, dangerous edits |
-| [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts (success, error, warning) |
-| [security-check.sh](./examples/hooks/bash/security-check.sh) | PreToolUse | Detect secrets in commands |
-| [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
-
-> **📖 See [examples/README.md](./examples/README.md) for complete catalog including agents, skills, and config templates**
-
----
-
-## Table of Contents
-
-Jump directly to any section in the [full guide](./english-ultimate-claude-code-guide.md):
-
-| # | Section | Description |
-|---|---------|-------------|
-| 1 | [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) | Installation, first workflow, essential commands |
-| 2 | [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) | Context management, Plan Mode, Rewind, Mental Model |
-| 3 | [Memory & Settings](./english-ultimate-claude-code-guide.md#3-memory--settings) | CLAUDE.md files, .claude/ folder, precedence rules |
-| 4 | [Agents](./english-ultimate-claude-code-guide.md#4-agents) | Custom AI personas, Tool SEO, orchestration patterns |
-| 5 | [Skills](./english-ultimate-claude-code-guide.md#5-skills) | Reusable knowledge modules (Security, TDD...) |
-| 6 | [Commands](./english-ultimate-claude-code-guide.md#6-commands) | Custom slash commands, variable interpolation |
-| 7 | [Hooks](./english-ultimate-claude-code-guide.md#7-hooks) | Event-driven automation (security, formatting, logging) |
-| 8 | [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) | Serena, Context7, Sequential, Playwright, Postgres |
-| 9 | [Advanced Patterns](./english-ultimate-claude-code-guide.md#9-advanced-patterns) | Trinity, CI/CD, feedback loops, vibe coding |
-| 10 | [Reference](./english-ultimate-claude-code-guide.md#10-reference) | Commands, shortcuts, troubleshooting, checklists |
-| A | [Appendix](./english-ultimate-claude-code-guide.md#appendix-templates-collection) | Ready-to-use templates |
-
-### Quick Links by Topic
-
-**Getting Started**
-- [Installation](./english-ultimate-claude-code-guide.md#11-installation) · [First Workflow](./english-ultimate-claude-code-guide.md#12-first-workflow) · [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands)
-
-**Critical Concepts**
-- [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) · [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) · [Memory Files](./english-ultimate-claude-code-guide.md#31-memory-files-claudemd)
-
-**Customization**
-- [Creating Agents](./english-ultimate-claude-code-guide.md#42-creating-custom-agents) · [Creating Skills](./english-ultimate-claude-code-guide.md#52-creating-skills) · [Creating Commands](./english-ultimate-claude-code-guide.md#62-creating-custom-commands) · [Creating Hooks](./english-ultimate-claude-code-guide.md#72-creating-hooks)
-
-**Advanced**
-- [The Trinity Pattern](./english-ultimate-claude-code-guide.md#91-the-trinity) · [CI/CD Integration](./english-ultimate-claude-code-guide.md#93-cicd-integration) · [MCP Configuration](./english-ultimate-claude-code-guide.md#83-configuration)
-
----
-
-## Quick Start
+**Goal**: Be productive immediately.
 
 ```bash
-# Install Claude Code (all platforms)
+# Install (all platforms)
 npm install -g @anthropic-ai/claude-code
 
-# Or on macOS/Linux only:
-curl -fsSL https://claude.ai/install.sh | sh
-
-# Start in your project
+# Start coding
 cd your-project
 claude
 ```
 
-> **Windows Users**: Use `%USERPROFILE%\.claude\` instead of `~/.claude/` for all paths in this guide.
+**Learn**: [Installation Guide](./english-ultimate-claude-code-guide.md#11-installation) → [First Workflow](./english-ultimate-claude-code-guide.md#12-first-workflow) → [Cheat Sheet](./cheatsheet-en.md)
 
-### The 7 Commands You Need
+### 🧭 Not Sure Where to Start?
 
-| Command | Action |
-|---------|--------|
-| `/help` | Show all commands |
-| `/status` | Check context usage |
-| `/compact` | Compress context (>70%) |
-| `/clear` | Fresh start |
-| `/plan` | Safe read-only mode |
-| `/rewind` | Undo changes |
-| `Ctrl+C` | Cancel operation |
+| If you... | Start here | Time |
+|-----------|------------|------|
+| Just installed Claude Code | [Quick Start](#-quick-start-15-minutes) | 15 min |
+| Want to understand core concepts | [Junior Developer Path](#junior-developer-45-min-to-productivity) | 45 min |
+| Already use AI coding tools | [Senior Developer Path](#senior-developer-40-min-to-mastery) | 40 min |
+| Need to configure a team setup | [Power User Path](#power-user-2-hours-for-full-mastery) | 2h |
+| Need to evaluate/approve adoption | [Product Manager Path](#product-manager-20-min-overview) | 20 min |
+| Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
 
-### Context Management (Critical!)
+### ⚡ Audit Your Setup
 
-| Context % | Action |
-|-----------|--------|
-| 0-50% | Work freely |
-| 50-70% | Be selective |
-| 70-90% | `/compact` now |
-| 90%+ | `/clear` required |
-
----
-
-## The Golden Rules
-
-1. **Always review diffs** before accepting changes
-2. **Use `/compact`** before context gets critical (>70%)
-3. **Be specific** in requests (WHAT, WHERE, HOW, VERIFY)
-4. **Start with Plan Mode** for complex/risky tasks
-5. **Create CLAUDE.md** for every project
-
----
-
-## Who Is This For?
-
-- **Beginners**: Start with Quick Start (15 min) → be productive immediately
-- **Intermediate**: Deep dive into Configuration, Agents, Skills
-- **Power Users**: Advanced Patterns, MCP orchestration, CI/CD integration
-
----
-
-## Learning Paths
-
-Choose your path based on experience and goals:
-
-### Junior Developer (45 min to productivity)
-1. [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) - Installation & first workflow
-2. [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands) - The 7 commands you need
-3. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) - Critical concept
-4. [Memory Files](./english-ultimate-claude-code-guide.md#31-memory-files-claudemd) - Create your first CLAUDE.md
-5. [Cheatsheet](./cheatsheet-en.md) - Print and keep nearby
-
-### Senior Developer (40 min to mastery)
-1. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) - Mental model & context zones
-2. [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) - Safe exploration
-3. [Agents](./english-ultimate-claude-code-guide.md#4-agents) - Custom AI personas
-4. [Hooks](./english-ultimate-claude-code-guide.md#7-hooks) - Event-driven automation
-5. [CI/CD Integration](./english-ultimate-claude-code-guide.md#93-cicd-integration) - Pipeline automation
-
-### Power User (2 hours for full mastery)
-1. Read the [complete guide](./english-ultimate-claude-code-guide.md) end-to-end
-2. [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) - Extended capabilities
-3. [The Trinity Pattern](./english-ultimate-claude-code-guide.md#91-the-trinity) - Advanced workflows
-4. [Audit your setup](./claude-setup-audit-prompt.md) - Optimize your configuration
-5. Explore [examples/](./examples/) - Ready-to-use templates
-
-### Non-Technical / Product Manager (20 min overview)
-1. [What's Inside](#whats-inside) - Understand the scope
-2. [The Golden Rules](#the-golden-rules) - Key principles
-3. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) - High-level overview
-4. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) - Why it matters
-
----
-
-## Contributing
-
-Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
----
-
-## Audit Your Setup
-
-Want to know if your Claude Code setup follows best practices?
-
-### Option 1: Quick Bash Scan (2 seconds)
-
-**Script**: [`examples/scripts/audit-scan.sh`](./examples/scripts/audit-scan.sh)
+Already have Claude Code installed? Scan your configuration in 2 seconds:
 
 ```bash
-# Human-readable output
-./examples/scripts/audit-scan.sh
-
-# JSON output for processing
-./examples/scripts/audit-scan.sh --json
-
-# Or download and run directly
 curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash
 ```
 
-**What it checks** (instantly):
-- ✅ Global and project config files existence
-- 📦 Tech stack detection (Node.js, Python, Go, Rust, etc.)
-- 🔧 Extensions count (agents, commands, skills, hooks)
-- 🔒 Security hooks presence (PreToolUse patterns)
-- 📖 MCP servers configured
-- 📏 CLAUDE.md quality metrics (size, @references)
+**Instant checks**: Config files, tech stack, extensions, security hooks, MCP servers, CLAUDE.md quality
 
-### Option 2: Full Audit with Claude (~3 minutes)
+**Want deeper analysis?** Use [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) for personalized recommendations (~3 min).
 
-**File**: [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md)
+### 🎯 By Role (Tailored Learning Paths)
 
-**How it works**:
-1. Copy the prompt from the file
-2. Run `claude --ultrathink` in your project
-3. Paste the prompt and get a comprehensive audit report
+<table>
+<tr>
+<td width="50%">
 
-**What it checks**:
-- Everything from Option 1, plus:
-- Context management practices
-- Single Source of Truth patterns
-- CI/CD integration patterns
-- Best practices against the full guide
+**Junior Developer** (45 min to productivity)
 
-**Output**: A prioritized report with health score, quick wins, and ready-to-use templates tailored to your tech stack.
+1. [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) — Install & first workflow
+2. [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands) — The 7 commands
+3. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) — Critical concept
+4. [Memory Files](./english-ultimate-claude-code-guide.md#31-memory-files-claudemd) — Your first CLAUDE.md
+5. [Cheat Sheet](./cheatsheet-en.md) — Print this
 
-> **Performance**: The audit now uses bash/grep for ~80% faster scanning and 90% fewer tokens!
+</td>
+<td width="50%">
 
----
+**Senior Developer** (40 min to mastery)
 
-## Resources
+1. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) — Mental model
+2. [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) — Safe exploration
+3. [Agents](./english-ultimate-claude-code-guide.md#4-agents) — Custom AI personas
+4. [Hooks](./english-ultimate-claude-code-guide.md#7-hooks) — Event automation
+5. [CI/CD Integration](./english-ultimate-claude-code-guide.md#93-cicd-integration) — Pipelines
 
-### Official
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) — Official Anthropic docs
+</td>
+</tr>
+<tr>
+<td width="50%">
 
-### Related Guides
-- [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus (excellent for security practitioners)
-- [Claudelog.com](https://claudelog.com/) — Tips, patterns & tutorials (highly recommended for all users)
-- [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical tips & productivity techniques (voice workflows, context management, terminal efficiency)
-  - Additional topics worth exploring: voice transcription (superwhisper/MacWhisper), tmux autonomous testing, cc-safe tool, cascade method, container experimentation, half-clone technique
-- [DeepTo Claude Code Guide](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide) — Comprehensive best practices covering XML-structured prompts, session continuation, image processing, Unix piping workflows, and cost tracking (ccusage tool)
-- [Shipyard: Claude Code Cheat Sheet](https://shipyard.build/blog/claude-code-cheat-sheet/) — Quick reference covering CLI flags, MCP configuration patterns, and command examples
+**Power User** (2 hours for full mastery)
 
-### Community Curated Lists
-- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Extensive reference library (19.9k stars) covering commands, workflows, hooks, IDE integrations, and monitoring tools. **Note**: This is a curated collection for discovering solutions, not an architectural guide—it lists tools without guidance on how to combine them intelligently or which to choose based on specific needs
-- [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) — Custom skills collection
-- [awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) — Full-stack & DevOps subagents
-- [awesome-claude](https://github.com/alvinunreal/awesome-claude) — General Claude resources (SDKs, tools)
-- [awesome-claude-prompts](https://github.com/langgptai/awesome-claude-prompts) — Prompt templates
+1. [Complete Guide](./english-ultimate-claude-code-guide.md) — End-to-end
+2. [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) — Extended capabilities
+3. [Trinity Pattern](./english-ultimate-claude-code-guide.md#91-the-trinity) — Advanced workflows
+4. [Audit](./claude-setup-audit-prompt.md) — Optimize setup
+5. [Examples](./examples/) — Production templates
 
-### Frameworks & Tools
-- [SuperClaude](https://github.com/SuperClaude-Org/SuperClaude_Framework) — Advanced configuration framework with 30+ commands
+</td>
+<td width="50%">
 
-### Further Reading
-- [Nick Tune: Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) — Advanced autonomous workflow patterns
-- [Neon Branching Documentation](https://neon.tech/docs/guides/branching) — Database branching for development workflows
-- [PlanetScale Branching Documentation](https://planetscale.com/docs/concepts/branching) — MySQL branching and deployment patterns
+**Product Manager** (20 min overview)
+
+1. [What's Inside](#-complete-toolkit) — Scope
+2. [Golden Rules](#-golden-rules) — Key principles
+3. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) — High-level
+4. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) — Why it matters
+
+</td>
+</tr>
+</table>
 
 ---
 
-<!-- SEO Keywords - Do not remove
-claude code, claude code tutorial, claude code guide, anthropic cli,
-ai coding assistant, claude code mcp, claude code agents, claude code hooks,
-claude code skills, claude code installation, claude code commands,
-agentic coding, ai pair programming, llm development tools, ai developer tools,
-anthropic claude, mcp servers, claude code ci/cd, claude code best practices
--->
+## 📚 Complete Toolkit
 
-## License
+### Core Documentation
 
-This work is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+| File | Purpose | Time Investment |
+|------|---------|-----------------|
+| **[Ultimate Guide](./english-ultimate-claude-code-guide.md)** | 8500+ lines, 32K+ words, 10 sections | ~3 hours (or by section) |
+| **[Cheat Sheet](./cheatsheet-en.md)** | 1-page printable reference | 5 minutes |
+| **[Setup Audit](./claude-setup-audit-prompt.md)** | Optimize your configuration | ~10 minutes |
+| **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
 
-You are free to share and adapt this material, provided you give appropriate credit and distribute your contributions under the same license.
+### Interactive Exploration
+
+**[DeepWiki: AI-Powered Documentation Explorer](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview)**
+
+Ask questions in natural language, navigate semantically, get instant summaries. Perfect when you don't want to read 8500+ lines.
+
+### PDF Exports
+
+- [NotebookLM Slides](./claude-code-ultimate-guide_notebooklm.pdf) — Visual overview (~20 min)
+- [Kimi PDF Export](./claude-code-ultimate-guide_kimi.pdf) — Full text version (~3 hours)
 
 ---
 
-*Last updated: January 2026 | Version 2.8*
+## 🎯 Production-Ready Examples
+
+Copy-paste templates from [`examples/`](./examples/) for immediate use:
+
+### Slash Commands
+
+| Command | Purpose | Highlights |
+|---------|---------|------------|
+| [/pr](./examples/commands/pr.md) | Create PRs with scope analysis | Complexity scoring, auto-split detection |
+| [/release-notes](./examples/commands/release-notes.md) | Generate release notes (3 formats) | CHANGELOG + PR body + Slack |
+| [/sonarqube](./examples/commands/sonarqube.md) | Analyze quality issues | Executive summary, action plans |
+| [/commit](./examples/commands/commit.md) | Conventional commits | Follows team conventions |
+
+### Security & Automation Hooks
+
+| Hook | Event | Purpose |
+|------|-------|---------|
+| [dangerous-actions-blocker.sh](./examples/hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block `rm -rf /`, force push, secrets |
+| [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts |
+| [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
+
+**[See Complete Catalog](./examples/README.md)** — Includes agents, skills, config templates
+
+---
+
+## 📖 Guide Navigation
+
+Jump directly to any section in the [Ultimate Guide](./english-ultimate-claude-code-guide.md):
+
+| Section | Topics | When to Read |
+|---------|--------|--------------|
+| **[1. Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1)** | Installation, first workflow, essential commands | Day 1 |
+| **[2. Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts)** | Context management, Plan Mode, mental model | Week 1 |
+| **[3. Memory & Settings](./english-ultimate-claude-code-guide.md#3-memory--settings)** | CLAUDE.md, .claude/ folder, precedence | First project |
+| **[4. Agents](./english-ultimate-claude-code-guide.md#4-agents)** | Custom AI personas, Tool SEO, orchestration | Advanced workflows |
+| **[5. Skills](./english-ultimate-claude-code-guide.md#5-skills)** | Reusable knowledge modules (Security, TDD) | Scaling teams |
+| **[6. Commands](./english-ultimate-claude-code-guide.md#6-commands)** | Custom slash commands, variable interpolation | Automation needs |
+| **[7. Hooks](./english-ultimate-claude-code-guide.md#7-hooks)** | Event-driven automation (security, formatting) | Production readiness |
+| **[8. MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers)** | Serena, Context7, Sequential, Playwright | Extended capabilities |
+| **[9. Advanced Patterns](./english-ultimate-claude-code-guide.md#9-advanced-patterns)** | Trinity, CI/CD, feedback loops | Power user |
+| **[10. Reference](./english-ultimate-claude-code-guide.md#10-reference)** | Commands, shortcuts, troubleshooting | Daily lookup |
+
+---
+
+## 🔑 Golden Rules
+
+Master these five principles before diving deeper:
+
+1. **Always review diffs** before accepting changes — Claude suggests, you decide
+2. **Use `/compact`** before context hits 70% — prevention beats recovery
+3. **Be specific** in requests — Include WHAT, WHERE, HOW, VERIFY
+4. **Start with Plan Mode** for risky/complex tasks — read-only exploration first
+5. **Create CLAUDE.md** for every project — single source of truth
+
+**Context Management Quick Reference**:
+
+| Context % | Status | Action |
+|-----------|--------|--------|
+| 0-50% | Green | Work freely |
+| 50-70% | Yellow | Be selective |
+| 70-90% | Orange | `/compact` now |
+| 90%+ | Red | `/clear` required |
+
+---
+
+## 🌍 About This Guide
+
+### Our Philosophy
+
+**Learning journey over reference manual.** We focus on:
+
+- Understanding **why** before diving into **how**
+- Real-world patterns you can use immediately
+- Progressive complexity — start simple, master advanced at your pace
+- Practical workflows over theoretical concepts
+
+Think of this as **your mentor for Claude Code mastery** — not just documentation.
+
+### Origins & Transparency
+
+This guide is the result of several months of daily practice with Claude Code. I don't claim expertise—I'm sharing what I've learned to help peers and evangelize AI-assisted development best practices.
+
+**Key Inspirations**:
+- [Claudelog.com](https://claudelog.com/) — Excellent patterns & tutorials
+- [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference with security focus
+- [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical productivity techniques
+
+**Created with Claude Code**. Community-validated through contributions and feedback. Found an issue? [Report it](../../issues) | [Contribute](./CONTRIBUTING.md)
+
+### Windows Users — Important Notice
+
+I work on macOS and **have not personally tested Windows-specific commands**. PowerShell scripts are AI-generated and may need adjustment. Git Bash commands should work as-is.
+
+**Help us improve**: [Open issues](../../issues) for Windows-specific problems or submit PRs. Windows testers highly appreciated!
+
+**Quick fix**: Use `%USERPROFILE%\.claude\` instead of `~/.claude/` for all paths.
+
+### Language & Translation
+
+Written in English for wider reach. French is my native language—I can translate directly or leverage AI + community for other languages. Request translations via [issues](../../issues).
+
+---
+
+## 🤝 Contributing
+
+Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+**Ways to Help**:
+- Star the repo to increase visibility
+- Report issues (especially Windows-specific)
+- Submit PRs with corrections or enhancements
+- Share your workflows in [Discussions](../../discussions)
+- Request missing topics or examples
+
+---
+
+## 📚 Related Resources
+
+### Complementary Guides
+
+- **[zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide)** — Comprehensive troubleshooting with cybersecurity focus
+- **[Claudelog.com](https://claudelog.com/)** — Tips, patterns, tutorials (highly recommended)
+- **[ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips)** — Voice workflows, context management, terminal efficiency
+- **[DeepTo Guide](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)** — XML prompts, session continuation, image processing
+- **[Shipyard Cheat Sheet](https://shipyard.build/blog/claude-code-cheat-sheet/)** — CLI flags, MCP patterns
+
+### Community Collections
+
+- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Extensive tool library (19.9k stars)
+- [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) — Custom skills
+- [awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) — Full-stack agents
+
+### Frameworks & Advanced Reading
+
+- [SuperClaude](https://github.com/SuperClaude-Org/SuperClaude_Framework) — Advanced configuration framework
+- [Nick Tune: Coding Agent Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) — Autonomous patterns
+
+### Official Documentation
+
+- [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code) — Anthropic official reference
+
+---
+
+## 📄 License
+
+Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Free to share and adapt with attribution and same-license distribution.
+
+---
+
+## ⭐ Support This Project
+
+If this guide saved you time, helped you master Claude Code, or inspired your workflows:
+
+1. **Star this repository** — Help others discover it
+2. **Share your success stories** in [Discussions](../../discussions)
+3. **Contribute improvements** via [Pull Requests](../../pulls)
+4. **Connect on [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)** to discuss AI-assisted development
+
+---
+
+*Version 2.8 | January 2026 | Crafted with Claude*
+
+<!-- SEO Keywords -->
+<!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
+claude code agents, claude code hooks, claude code skills, agentic coding, ai pair programming -->
