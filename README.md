@@ -29,6 +29,12 @@
 
 > **If this guide saves you hours of trial-and-error, please star it.** Your support helps others discover this resource and motivates continued updates.
 
+### Prerequisites
+
+- **Node.js 18+** (or use the [shell installer](./english-ultimate-claude-code-guide.md#11-installation) on macOS/Linux)
+- **Anthropic API key** — [Get one here](https://console.anthropic.com/)
+- **~$5-20/month** typical usage cost (varies with usage intensity)
+
 ---
 
 ## Start Here: Choose Your Path
@@ -53,10 +59,10 @@ claude
 | If you... | Start here | Time |
 |-----------|------------|------|
 | Just installed Claude Code | [Quick Start](#-quick-start-15-minutes) | 15 min |
-| Want to understand core concepts | [Junior Developer Path](#junior-developer-45-min-to-productivity) | 45 min |
-| Already use AI coding tools | [Senior Developer Path](#senior-developer-40-min-to-mastery) | 40 min |
-| Need to configure a team setup | [Power User Path](#power-user-2-hours-for-full-mastery) | 2h |
-| Need to evaluate/approve adoption | [Product Manager Path](#product-manager-20-min-overview) | 20 min |
+| Want to understand core concepts | [Junior Path](#-by-role-tailored-learning-paths) | 45 min |
+| Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | 40 min |
+| Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | 2h |
+| Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | 20 min |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
 
 ### ⚡ Audit Your Setup
@@ -136,16 +142,14 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 | **[Setup Audit](./claude-setup-audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
 
-### Interactive Exploration
+<details>
+<summary><strong>Alternative Formats</strong> (Interactive AI, PDFs)</summary>
 
-**[DeepWiki: AI-Powered Documentation Explorer](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview)**
+- **[DeepWiki](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview)** — AI-powered Q&A, semantic search, instant summaries
+- **[NotebookLM Slides](./claude-code-ultimate-guide_notebooklm.pdf)** — Visual overview (~20 min)
+- **[Kimi PDF](./claude-code-ultimate-guide_kimi.pdf)** — Full text export (~3 hours)
 
-Ask questions in natural language, navigate semantically, get instant summaries. Perfect when you don't want to read 8500+ lines.
-
-### PDF Exports
-
-- [NotebookLM Slides](./claude-code-ultimate-guide_notebooklm.pdf) — Visual overview (~20 min)
-- [Kimi PDF Export](./claude-code-ultimate-guide_kimi.pdf) — Full text version (~3 hours)
+</details>
 
 ---
 
@@ -178,18 +182,18 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 
 Jump directly to any section in the [Ultimate Guide](./english-ultimate-claude-code-guide.md):
 
-| Section | Topics | When to Read |
-|---------|--------|--------------|
-| **[1. Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1)** | Installation, first workflow, essential commands | Day 1 |
-| **[2. Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts)** | Context management, Plan Mode, mental model | Week 1 |
-| **[3. Memory & Settings](./english-ultimate-claude-code-guide.md#3-memory--settings)** | CLAUDE.md, .claude/ folder, precedence | First project |
-| **[4. Agents](./english-ultimate-claude-code-guide.md#4-agents)** | Custom AI personas, Tool SEO, orchestration | Advanced workflows |
-| **[5. Skills](./english-ultimate-claude-code-guide.md#5-skills)** | Reusable knowledge modules (Security, TDD) | Scaling teams |
-| **[6. Commands](./english-ultimate-claude-code-guide.md#6-commands)** | Custom slash commands, variable interpolation | Automation needs |
-| **[7. Hooks](./english-ultimate-claude-code-guide.md#7-hooks)** | Event-driven automation (security, formatting) | Production readiness |
-| **[8. MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers)** | Serena, Context7, Sequential, Playwright | Extended capabilities |
-| **[9. Advanced Patterns](./english-ultimate-claude-code-guide.md#9-advanced-patterns)** | Trinity, CI/CD, feedback loops | Power user |
-| **[10. Reference](./english-ultimate-claude-code-guide.md#10-reference)** | Commands, shortcuts, troubleshooting | Daily lookup |
+| Section | After this, you can... | When |
+|---------|------------------------|------|
+| **[1. Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1)** | Run Claude Code and complete your first AI-assisted task | Day 1 |
+| **[2. Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts)** | Manage context efficiently and avoid common pitfalls | Week 1 |
+| **[3. Memory & Settings](./english-ultimate-claude-code-guide.md#3-memory--settings)** | Create CLAUDE.md files that improve AI responses | First project |
+| **[4. Agents](./english-ultimate-claude-code-guide.md#4-agents)** | Build custom AI personas for specialized workflows | Advanced |
+| **[5. Skills](./english-ultimate-claude-code-guide.md#5-skills)** | Package reusable knowledge modules for your team | Scaling |
+| **[6. Commands](./english-ultimate-claude-code-guide.md#6-commands)** | Create custom slash commands with variable interpolation | Automation |
+| **[7. Hooks](./english-ultimate-claude-code-guide.md#7-hooks)** | Automate security checks and formatting on every action | Production |
+| **[8. MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers)** | Extend Claude with databases, browsers, and external tools | Extended |
+| **[9. Advanced Patterns](./english-ultimate-claude-code-guide.md#9-advanced-patterns)** | Orchestrate Trinity workflows and CI/CD pipelines | Power user |
+| **[10. Reference](./english-ultimate-claude-code-guide.md#10-reference)** | Look up commands, shortcuts, and troubleshooting tips | Daily |
 
 ---
 
@@ -238,13 +242,7 @@ This guide is the result of several months of daily practice with Claude Code. I
 
 **Created with Claude Code**. Community-validated through contributions and feedback. Found an issue? [Report it](../../issues) | [Contribute](./CONTRIBUTING.md)
 
-### Windows Users — Important Notice
-
-I work on macOS and **have not personally tested Windows-specific commands**. PowerShell scripts are AI-generated and may need adjustment. Git Bash commands should work as-is.
-
-**Help us improve**: [Open issues](../../issues) for Windows-specific problems or submit PRs. Windows testers highly appreciated!
-
-**Quick fix**: Use `%USERPROFILE%\.claude\` instead of `~/.claude/` for all paths.
+> **Windows Users**: Most commands work with Git Bash. Use `%USERPROFILE%\.claude\` for paths. PowerShell scripts may need adjustment. [Report Windows issues](../../issues) | [Help improve support](./CONTRIBUTING.md)
 
 ### Language & Translation
 
