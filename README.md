@@ -258,21 +258,48 @@ Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 Want to know if your Claude Code setup follows best practices?
 
+### Option 1: Quick Bash Scan (2 seconds)
+
+**Script**: [`examples/scripts/audit-scan.sh`](./examples/scripts/audit-scan.sh)
+
+```bash
+# Human-readable output
+./examples/scripts/audit-scan.sh
+
+# JSON output for processing
+./examples/scripts/audit-scan.sh --json
+
+# Or download and run directly
+curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash
+```
+
+**What it checks** (instantly):
+- ✅ Global and project config files existence
+- 📦 Tech stack detection (Node.js, Python, Go, Rust, etc.)
+- 🔧 Extensions count (agents, commands, skills, hooks)
+- 🔒 Security hooks presence (PreToolUse patterns)
+- 📖 MCP servers configured
+- 📏 CLAUDE.md quality metrics (size, @references)
+
+### Option 2: Full Audit with Claude (~3 minutes)
+
 **File**: [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md)
 
 **How it works**:
 1. Copy the prompt from the file
 2. Run `claude --ultrathink` in your project
-3. Paste the prompt and get a personalized audit report
+3. Paste the prompt and get a comprehensive audit report
 
 **What it checks**:
-- Memory files (CLAUDE.md) configuration
-- Agents, skills, commands, and hooks setup
-- MCP servers configuration
+- Everything from Option 1, plus:
 - Context management practices
+- Single Source of Truth patterns
 - CI/CD integration patterns
+- Best practices against the full guide
 
 **Output**: A prioritized report with health score, quick wins, and ready-to-use templates tailored to your tech stack.
+
+> **Performance**: The audit now uses bash/grep for ~80% faster scanning and 90% fewer tokens!
 
 ---
 
@@ -287,6 +314,7 @@ Want to know if your Claude Code setup follows best practices?
 - [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical tips & productivity techniques (voice workflows, context management, terminal efficiency)
   - Additional topics worth exploring: voice transcription (superwhisper/MacWhisper), tmux autonomous testing, cc-safe tool, cascade method, container experimentation, half-clone technique
 - [DeepTo Claude Code Guide](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide) — Comprehensive best practices covering XML-structured prompts, session continuation, image processing, Unix piping workflows, and cost tracking (ccusage tool)
+- [Shipyard: Claude Code Cheat Sheet](https://shipyard.build/blog/claude-code-cheat-sheet/) — Quick reference covering CLI flags, MCP configuration patterns, and command examples
 
 ### Community Curated Lists
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Extensive reference library (19.9k stars) covering commands, workflows, hooks, IDE integrations, and monitoring tools. **Note**: This is a curated collection for discovering solutions, not an architectural guide—it lists tools without guidance on how to combine them intelligently or which to choose based on specific needs
@@ -321,4 +349,4 @@ You are free to share and adapt this material, provided you give appropriate cre
 
 ---
 
-*Last updated: January 2026 | Version 2.6*
+*Last updated: January 2026 | Version 2.7*

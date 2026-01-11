@@ -12,6 +12,7 @@ Ready-to-use templates for Claude Code configuration.
 | [`hooks/`](./hooks/) | Event-driven automation scripts |
 | [`config/`](./config/) | Configuration file templates |
 | [`memory/`](./memory/) | CLAUDE.md memory file templates |
+| [`scripts/`](./scripts/) | Utility scripts for setup and diagnostics |
 
 ## Quick Start
 
@@ -81,6 +82,15 @@ Ready-to-use templates for Claude Code configuration.
 |------|---------|
 | [CLAUDE.md.project-template](./memory/CLAUDE.md.project-template) | Team project memory |
 | [CLAUDE.md.personal-template](./memory/CLAUDE.md.personal-template) | Personal global memory |
+
+### Scripts
+| File | Purpose | Output |
+|------|---------|--------|
+| [audit-scan.sh](./scripts/audit-scan.sh) | Fast setup audit scanner | JSON / Human |
+| [check-claude.sh](./scripts/check-claude.sh) | Health check diagnostics | Human |
+| [clean-reinstall-claude.sh](./scripts/clean-reinstall-claude.sh) | Clean reinstall procedure | Human |
+
+> **Usage**: `./audit-scan.sh` for human output, `./audit-scan.sh --json` for JSON output
 
 ---
 
