@@ -13,6 +13,8 @@ Ready-to-use templates for Claude Code configuration.
 | [`config/`](./config/) | Configuration file templates |
 | [`memory/`](./memory/) | CLAUDE.md memory file templates |
 | [`scripts/`](./scripts/) | Utility scripts for setup and diagnostics |
+| [`github-actions/`](./github-actions/) | CI/CD workflows for GitHub Actions |
+| [`workflows/`](./workflows/) | Advanced development workflow guides |
 
 ## Quick Start
 
@@ -91,6 +93,20 @@ Ready-to-use templates for Claude Code configuration.
 | [clean-reinstall-claude.sh](./scripts/clean-reinstall-claude.sh) | Clean reinstall procedure | Human |
 
 > **Usage**: `./audit-scan.sh` for human output, `./audit-scan.sh --json` for JSON output
+
+### GitHub Actions
+| File | Trigger | Purpose |
+|------|---------|---------|
+| [claude-pr-auto-review.yml](./github-actions/claude-pr-auto-review.yml) | PR open/update | Auto code review with inline comments |
+| [claude-security-review.yml](./github-actions/claude-security-review.yml) | PR open/update | Security-focused scan (OWASP) |
+| [claude-issue-triage.yml](./github-actions/claude-issue-triage.yml) | Issue opened | Auto-triage with labels and severity |
+
+> **See [github-actions/README.md](./github-actions/README.md) for setup instructions and customization**
+
+### Workflows
+| File | Purpose |
+|------|---------|
+| [database-branch-setup.md](./workflows/database-branch-setup.md) | Isolated feature dev with database branches (Neon/PlanetScale) |
 
 ---
 

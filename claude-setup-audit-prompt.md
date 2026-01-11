@@ -528,4 +528,4 @@ Here's an example of what the audit report looks like:
 
 ---
 
-*Last updated: January 2026 | Version 2.2 - Optimized with bash scanning*
+*Last updated: January 2026 | Version 2.8 - Optimized with bash scanning*

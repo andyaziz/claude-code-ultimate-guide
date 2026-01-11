@@ -174,7 +174,15 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts |
 | [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
 
-**[See Complete Catalog](./examples/README.md)** — Includes agents, skills, config templates
+### GitHub Actions (CI/CD)
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| [claude-pr-auto-review.yml](./examples/github-actions/claude-pr-auto-review.yml) | PR open | Auto code review with inline comments |
+| [claude-security-review.yml](./examples/github-actions/claude-security-review.yml) | PR open | Security scan (OWASP Top 10) |
+| [claude-issue-triage.yml](./examples/github-actions/claude-issue-triage.yml) | Issue opened | Auto-triage with labels |
+
+**[See Complete Catalog](./examples/README.md)** — Includes agents, skills, memory templates, config files, workflows
 
 ---
 

@@ -8873,4 +8873,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 2.6
+**Last updated**: January 2026 | **Version**: 2.8
