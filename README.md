@@ -66,6 +66,7 @@ claude
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
 | Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | 1 curl |
 | Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | 30 sec |
+| Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | 10 min |
 
 ### ⚡ Audit Your Setup
 
@@ -147,6 +148,93 @@ Based on ALL this context, provide:
 - Non-duplicate suggestions: Only recommends agents/commands you don't already have
 
 **Want maximum depth?** Use [claude-setup-audit-prompt.md](./claude-setup-audit-prompt.md) with `claude --ultrathink`
+
+### 🧠 Knowledge Quiz
+
+Test your Claude Code knowledge with an interactive CLI quiz. **159 curated questions** covering all 10 guide sections, with immediate feedback and documentation links.
+
+```bash
+# Quick start
+cd quiz && npm install && npm start
+
+# With options
+node quiz/src/index.js --profile senior --topics 2,4,7 --count 10
+```
+
+<details>
+<summary><strong>Example Session</strong> (click to expand)</summary>
+
+```
+============================================================
+   CLAUDE CODE KNOWLEDGE QUIZ
+============================================================
+
+? Select your profile: Senior Developer (40 min to mastery)
+? Select topics to quiz: All topics (recommended)
+
+------------------------------------------------------------
+Question 1/20 [Core Concepts]
+
+At what context percentage should you use /compact?
+
+  A) 0-50%
+  B) 50-70%
+  C) 70-90%
+  D) Only at 100%
+
+? Your answer: C
+
+✓ CORRECT!
+
+------------------------------------------------------------
+Question 2/20 [Hooks]
+
+What exit code should a PreToolUse hook return to BLOCK an operation?
+
+  A) 0
+  B) 1
+  C) 2
+  D) -1
+
+? Your answer: A
+
+✗ INCORRECT. The correct answer is C) 2
+
+Explanation:
+Exit code 2 blocks the operation. Exit code 0 allows it to proceed.
+Other exit codes are treated as errors and logged but don't block.
+
+See: english-ultimate-claude-code-guide.md#72-creating-hooks
+
+------------------------------------------------------------
+   QUIZ COMPLETE
+------------------------------------------------------------
+
+Overall Score: 16/20 (80%)
+
+By Category:
+  Core Concepts       6/7  (86%)  [████████░░]
+  Agents              5/7  (71%)  [███████░░░]
+  Hooks               5/6  (83%)  [████████░░]
+
+Weak Areas (< 75%):
+  - Agents: Review section 4 in the guide
+
+? What would you like to do? Retry wrong questions only
+```
+
+</details>
+
+**Features**:
+- **4 profiles**: Junior (15q), Senior (20q), Power User (25q), PM (10q)
+- **10 topic categories** matching guide sections
+- **Immediate feedback** with explanations and doc links
+- **Score tracking** with category breakdown and weak area identification
+- **Session history** saved to `~/.claude-quiz/`
+- **Replay options**: Retry wrong questions or start fresh
+- **Cross-platform**: Works on macOS, Linux, and Windows
+
+**See**: [Quiz Documentation](./quiz/README.md) | [Contribute Questions](./quiz/templates/question-template.yaml)
 
 ### 🎯 By Role (Tailored Learning Paths)
 
@@ -387,7 +475,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 2.9.9 | January 2026 | Crafted with Claude*
+*Version 3.0.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

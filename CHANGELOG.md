@@ -6,6 +6,48 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-01-12
+
+### Added
+- **quiz/** - Interactive CLI quiz to test Claude Code knowledge (MAJOR FEATURE)
+  - 159 curated questions across 10 categories (matching guide sections)
+  - 4 user profiles: Junior (15q), Senior (20q), Power User (25q), PM (10q)
+  - Immediate feedback with explanations and documentation links
+  - Score tracking with category breakdown and weak area identification
+  - Session persistence to `~/.claude-quiz/` for progress history
+  - Replay options: retry wrong questions or start fresh quiz
+  - Optional dynamic question generation via `claude -p`
+  - Cross-platform: Node.js (works on macOS, Linux, Windows)
+
+- **README.md** - New "Knowledge Quiz" section in navigation
+  - Added quiz to "Not Sure Where to Start?" table
+  - Collapsible example session showing quiz flow
+  - Links to quiz documentation and contribution template
+
+### Files Created
+```
+quiz/
+├── package.json           # Node.js config
+├── README.md              # Full documentation with examples
+├── src/
+│   ├── index.js           # Entry point + CLI args
+│   ├── ui.js              # Terminal display
+│   ├── prompts.js         # User prompts (inquirer)
+│   ├── questions.js       # YAML loading + filtering
+│   ├── quiz.js            # Quiz engine
+│   ├── score.js           # Score tracking
+│   ├── session.js         # Persistence
+│   └── dynamic.js         # claude -p generation
+├── questions/             # 10 YAML files (159 questions)
+└── templates/
+    └── question-template.yaml
+```
+
+### Stats
+- 20+ new files
+- 159 questions covering all guide sections
+- New learning tool for the community
+
 ## [2.9.9] - 2026-01-12
 
 ### Enhanced
