@@ -45,9 +45,19 @@ check_file() {
   [[ -f "$1" ]] && echo "true" || echo "false"
 }
 
-count_files() {
+count_md_files() {
   if [[ -d "$1" ]]; then
-    find "$1" -maxdepth 1 -type f 2>/dev/null | wc -l | tr -d ' '
+    # Count all .md files recursively (commands/skills can have subfolders)
+    find "$1" -type f -name "*.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' '
+  else
+    echo "0"
+  fi
+}
+
+count_script_files() {
+  if [[ -d "$1" ]]; then
+    # Count hook scripts (.sh, .js, .py, .ts)
+    find "$1" -type f \( -name "*.sh" -o -name "*.js" -o -name "*.py" -o -name "*.ts" \) 2>/dev/null | wc -l | tr -d ' '
   else
     echo "0"
   fi
@@ -93,12 +103,12 @@ LOCAL_CLAUDE_MD=$(check_file "./.claude/CLAUDE.md")
 PROJECT_SETTINGS=$(check_file "./.claude/settings.json")
 LOCAL_SETTINGS=$(check_file "./.claude/settings.local.json")
 
-# Extensions
-AGENTS_COUNT=$(count_files "./.claude/agents")
-COMMANDS_COUNT=$(count_files "./.claude/commands")
-SKILLS_COUNT=$(count_files "./.claude/skills")
-HOOKS_COUNT=$(count_files "./.claude/hooks")
-RULES_COUNT=$(count_files "./.claude/rules")
+# Extensions (count .md files recursively, hooks are scripts)
+AGENTS_COUNT=$(count_md_files "./.claude/agents")
+COMMANDS_COUNT=$(count_md_files "./.claude/commands")
+SKILLS_COUNT=$(count_md_files "./.claude/skills")
+HOOKS_COUNT=$(count_script_files "./.claude/hooks")
+RULES_COUNT=$(count_md_files "./.claude/rules")
 
 # Tech stack detection
 TECH_STACK="unknown"

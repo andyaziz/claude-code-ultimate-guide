@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.6] - 2026-01-12
+
+### Fixed
+- **audit-scan.sh** - Count files recursively in subfolders
+  - Commands in subfolders (e.g., `commands/tech/`, `commands/product/`) now counted
+  - Split into `count_md_files()` for .md and `count_script_files()` for hooks (.sh/.js/.py/.ts)
+  - Excludes README.md from counts
+  - Bug found: Was reporting 0 commands when 10 existed in subfolders
+
+### Stats
+- 1 file modified (audit-scan.sh, ~15 lines)
+- Critical fix for accurate extension counting
+
 ## [2.9.5] - 2026-01-12
 
 ### Added
