@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.2] - 2026-01-12
+
+### Added
+- **personalized-onboarding-prompt.md** - Interactive onboarding prompt (~200 lines)
+  - Multilingual support: User chooses preferred language first
+  - 3 experience levels: Beginner (🟢), Intermediate (🟡), Power User (🔴)
+  - Progressive exploration with deeper/next/skip controls
+  - Tailored learning paths per level
+  - Optional practical exercises
+  - Self-paced interactive Q&A format
+
+- **README.md** - Added onboarding prompt to "Not Sure Where to Start?" table
+  - New row: "Want a guided tour" → Personalized Onboarding → ~15 min
+
+### Stats
+- 1 new file created (personalized-onboarding-prompt.md, ~200 lines)
+- 1 file modified (README.md)
+- Focus on accessible, multilingual onboarding experience
+
+## [3.0.1] - 2026-01-12
+
+### Added
+- **Custom Statusline Setup** documentation
+  - New section in `english-ultimate-claude-code-guide.md` (lines 990-1027)
+  - [ccstatusline](https://github.com/sirmalloc/ccstatusline) as recommended solution
+  - Enhanced statusline displays: model, git branch, file changes (+/-), context metrics
+  - Custom script option with JSON stdin format
+  - `/statusline` command reference for auto-generation
+  - Added to `cheatsheet-en.md` (lines 130-133)
+
+### Stats
+- 2 files modified (english-ultimate-claude-code-guide.md ~38 lines, cheatsheet-en.md ~4 lines)
+- Focus on developer experience and terminal customization
+
 ## [3.0.0] - 2026-01-12
 
 ### Added

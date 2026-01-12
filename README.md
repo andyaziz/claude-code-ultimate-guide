@@ -67,6 +67,7 @@ claude
 | Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | 1 curl |
 | Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | 30 sec |
 | Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | 10 min |
+| Want a guided tour | [Personalized Onboarding](./personalized-onboarding-prompt.md) | ~15 min |
 
 ### ⚡ Audit Your Setup
 
@@ -475,7 +476,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.0.0 | January 2026 | Crafted with Claude*
+*Version 3.0.2 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
