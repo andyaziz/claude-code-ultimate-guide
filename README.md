@@ -93,33 +93,54 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 
 ### 🔬 Deep Audit (Personalized Recommendations)
 
-Get a comprehensive audit with health score, prioritized findings, and custom templates for your project:
+Get a comprehensive, **context-aware** audit that analyzes your project's README, CLAUDE.md files, and business domain to provide tailored recommendations:
+
+> 🔒 **Privacy**: Everything runs locally on your machine. The script only downloads reference files from this repo—your project files (README, CLAUDE.md) are read locally and sent only to your own Claude CLI. Nothing is sent back to this repository or any third party.
 
 **Quick Version** (~10 sec):
 ```bash
 curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash -s -- --json | claude -p "Analyze this Claude Code setup. Give: 1) Health score 0-100 2) Top 3 quick wins 3) CLAUDE.md template for detected stack. Be concise."
 ```
 
-**Full Audit** (~30 sec, recommended):
+**Full Audit with Context** (~30 sec, recommended):
 ```bash
-# Copy entire block
+# Claude Code Deep Audit - Context-Aware Version
+# Downloads reference files, reads YOUR local files, analyzes with Claude
 REF=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/claude-code-reference.yaml)
 SCAN=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash -s -- --json 2>/dev/null)
+README_CONTENT=$(head -100 README.md 2>/dev/null || echo "No README.md found")
+CLAUDE_MD=$(cat CLAUDE.md 2>/dev/null || echo "No CLAUDE.md found")
+LOCAL_CLAUDE_MD=$(cat .claude/CLAUDE.md 2>/dev/null || echo "No .claude/CLAUDE.md found")
+
 claude -p "Reference:
 $REF
 
-My setup:
+Scan results:
 $SCAN
 
-Audit my Claude Code setup. Output:
+Project README (first 100 lines):
+$README_CONTENT
+
+Project CLAUDE.md:
+$CLAUDE_MD
+
+Local .claude/CLAUDE.md:
+$LOCAL_CLAUDE_MD
+
+Based on ALL this context (tech stack, business domain, existing instructions), provide:
 1. Health Score (0-100) with priority breakdown
 2. Findings table: Priority|Element|Status|Action
-3. Top 3 quick wins (<5 min)
-4. CLAUDE.md template (~60 lines) for my stack
-5. Suggested agents/commands/hooks for my project type"
+3. Top 3 quick wins (<5 min) tailored to THIS project's domain
+4. CLAUDE.md template (~60 lines) that incorporates existing instructions + improvements
+5. Suggested agents/commands/hooks specific to THIS project's business context
+6. Ideas to leverage Claude Code for this specific domain"
 ```
 
-**What you get**: Health score, prioritized findings, stack-specific CLAUDE.md template, suggested extensions
+**What you get**:
+- Health score with prioritized findings
+- Stack-specific CLAUDE.md template that builds on your existing instructions
+- Domain-aware suggestions (e.g., EdTech → session planning agents, E-commerce → inventory commands)
+- Custom agents/commands/hooks ideas tailored to your project
 
 **Want maximum depth?** Use [claude-setup-audit-prompt.md](./claude-setup-audit-prompt.md) with `claude --ultrathink`
 
@@ -362,7 +383,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 2.9.6 | January 2026 | Crafted with Claude*
+*Version 2.9.7 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

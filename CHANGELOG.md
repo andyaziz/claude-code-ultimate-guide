@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.7] - 2026-01-12
+
+### Enhanced
+- **README.md** - Deep Audit now context-aware
+  - Full Audit command now reads project's README.md, CLAUDE.md, and .claude/CLAUDE.md
+  - Claude analyzes business domain to provide tailored recommendations
+  - Domain-specific suggestions (EdTech → session agents, E-commerce → inventory commands)
+  - Privacy notice: all data stays local, nothing sent back to repo
+
+### Stats
+- 1 file modified (README.md)
+- Deep Audit now provides personalized, domain-aware recommendations
+
 ## [2.9.6] - 2026-01-12
 
 ### Fixed
