@@ -341,8 +341,13 @@ fi
 
 # Single Source of Truth pattern
 HAS_SSOT="false"
+NEEDS_SSOT_REFACTOR="false"
 if [[ -f "./CLAUDE.md" ]]; then
   grep -qE "^@|/docs/|/conventions/" "./CLAUDE.md" 2>/dev/null && HAS_SSOT="true"
+  # Warning: large CLAUDE.md without @references should use SSoT pattern
+  if [[ $CLAUDE_MD_LINES -gt 100 && $CLAUDE_MD_REFS -eq 0 ]]; then
+    NEEDS_SSOT_REFACTOR="true"
+  fi
 fi
 
 # === OUTPUT ===
@@ -381,6 +386,7 @@ if [[ "$OUTPUT_MODE" == "json" ]]; then
   "quality": {
     "has_security_hooks": $HAS_SECURITY_HOOKS,
     "has_ssot_references": $HAS_SSOT,
+    "needs_ssot_refactor": $NEEDS_SSOT_REFACTOR,
     "claude_md_lines": $CLAUDE_MD_LINES,
     "claude_md_refs": $CLAUDE_MD_REFS
   },
@@ -432,7 +438,9 @@ else
 
   if [[ "$PROJECT_CLAUDE_MD" == "true" ]]; then
     echo -e "  ${BLUE}ℹ️${NC}  CLAUDE.md: $CLAUDE_MD_LINES lines, $CLAUDE_MD_REFS @references"
-    if [[ $CLAUDE_MD_LINES -gt 200 ]]; then
+    if [[ "$NEEDS_SSOT_REFACTOR" == "true" ]]; then
+      echo -e "    ${RED}⚠️${NC}  Large file without @refs → Consider SSoT pattern (split into @docs/)"
+    elif [[ $CLAUDE_MD_LINES -gt 200 ]]; then
       echo -e "    ${YELLOW}⚠️${NC}  Consider shortening (>200 lines)"
     fi
   fi

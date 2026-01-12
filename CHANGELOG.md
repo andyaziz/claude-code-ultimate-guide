@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.9] - 2026-01-12
+
+### Enhanced
+- **audit-scan.sh** - SSoT refactor warning
+  - New `needs_ssot_refactor` flag: true if CLAUDE.md >100 lines with 0 @references
+  - Human output shows red warning suggesting SSoT pattern (split into @docs/)
+  - JSON output includes `needs_ssot_refactor` in quality section
+
+- **README.md** - Improved Full Audit prompt for incremental suggestions
+  - Added IMPORTANT instruction to focus on incremental improvements, not generic advice
+  - Health score now penalizes large CLAUDE.md without @refs
+  - Quick wins must be domain-specific, not generic
+  - If CLAUDE.md exists: suggest 3-5 improvements instead of full template
+  - Agents/commands suggestions must not duplicate existing ones
+
+### Stats
+- 2 files modified
+- Audit now provides targeted, incremental recommendations
+
 ## [2.9.8] - 2026-01-12
 
 ### Enhanced

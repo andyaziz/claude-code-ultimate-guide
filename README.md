@@ -127,22 +127,24 @@ $CLAUDE_MD
 Local .claude/CLAUDE.md:
 $LOCAL_CLAUDE_MD
 
-Based on ALL this context (tech stack, business domain, existing instructions), provide:
+IMPORTANT: Focus on INCREMENTAL improvements to existing setup. Don't suggest creating things that already exist. If CLAUDE.md exists, suggest specific improvements to it rather than a full rewrite.
+
+Based on ALL this context, provide:
 1. Stack Recap: runtime, framework, test runner, bundler, database, key integrations detected
-2. Health Score (0-100) with priority breakdown
-3. Findings table: Priority|Element|Status|Action
-4. Top 3 quick wins (<5 min) tailored to THIS project's domain
-5. CLAUDE.md template (~100 lines) that incorporates existing instructions + improvements
-6. Suggested agents/commands/hooks specific to THIS project's business context
-7. Ideas to leverage Claude Code for this specific domain and integrations"
+2. Health Score (0-100) - be strict: penalize missing SSoT pattern if >100 lines without @refs
+3. Findings table: Priority|Element|Status|Action (only gaps, not what exists)
+4. Top 3 quick wins (<5 min) - MUST be specific to THIS project's domain (not generic advice)
+5. If CLAUDE.md exists: list 3-5 specific improvements (not a full template). If missing: provide ~100 line template
+6. Suggested agents/commands/hooks that DON'T duplicate existing ones - check extensions count first
+7. Ideas to leverage Claude Code for this specific domain and detected integrations"
 ```
 
 **What you get**:
 - **Stack recap**: Runtime, framework, test runner, bundler, database, and key integrations auto-detected
-- Health score with prioritized findings
-- Stack-specific CLAUDE.md template (~100 lines) that builds on your existing instructions
+- Strict health score (penalizes large CLAUDE.md without @refs)
+- **Incremental improvements**: Specific fixes for YOUR setup, not generic advice
 - Domain-aware suggestions (e.g., EdTech → session planning agents, E-commerce → inventory commands)
-- Integration-aware ideas (e.g., Stripe → payment testing commands, Sentry → error monitoring hooks)
+- Non-duplicate suggestions: Only recommends agents/commands you don't already have
 
 **Want maximum depth?** Use [claude-setup-audit-prompt.md](./claude-setup-audit-prompt.md) with `claude --ultrathink`
 
@@ -385,7 +387,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 2.9.8 | January 2026 | Crafted with Claude*
+*Version 2.9.9 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
