@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.4] - 2026-01-12
+
+### Added
+- **examples/modes/** - New folder for behavioral modes
+  - `MODE_Learning.md` - Complete Learning Mode ready to copy to `~/.claude/`
+  - `README.md` - Installation guide with SuperClaude framework reference
+- **examples/README.md** - Updated with modes folder and templates
+
+### Stats
+- 2 new files created (MODE_Learning.md, modes/README.md)
+- 1 file modified (examples/README.md)
+- Focus on making SuperClaude Learning Mode plug-and-play
+
 ## [2.9.3] - 2026-01-12
 
 ### Added

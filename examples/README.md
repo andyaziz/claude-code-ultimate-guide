@@ -15,6 +15,7 @@ Ready-to-use templates for Claude Code configuration.
 | [`scripts/`](./scripts/) | Utility scripts for setup and diagnostics |
 | [`github-actions/`](./github-actions/) | CI/CD workflows for GitHub Actions |
 | [`workflows/`](./workflows/) | Advanced development workflow guides |
+| [`modes/`](./modes/) | Behavioral modes for Claude (SuperClaude) |
 
 ## Quick Start
 
@@ -32,6 +33,7 @@ Ready-to-use templates for Claude Code configuration.
 | Hooks | `.claude/hooks/` | `~/.claude/hooks/` |
 | Config | `.claude/` | `~/.claude/` |
 | Memory | `./CLAUDE.md` or `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` |
+| Modes | — | `~/.claude/MODE_*.md` |
 
 > **Windows**: Replace `~/.claude/` with `%USERPROFILE%\.claude\`
 
@@ -89,8 +91,10 @@ Ready-to-use templates for Claude Code configuration.
 | File | Purpose | Output |
 |------|---------|--------|
 | [audit-scan.sh](./scripts/audit-scan.sh) | Fast setup audit scanner | JSON / Human |
-| [check-claude.sh](./scripts/check-claude.sh) | Health check diagnostics | Human |
-| [clean-reinstall-claude.sh](./scripts/clean-reinstall-claude.sh) | Clean reinstall procedure | Human |
+| [check-claude.sh](./scripts/check-claude.sh) | Health check diagnostics (macOS/Linux) | Human |
+| [check-claude.ps1](./scripts/check-claude.ps1) | Health check diagnostics (Windows) | Human |
+| [clean-reinstall-claude.sh](./scripts/clean-reinstall-claude.sh) | Clean reinstall procedure (macOS/Linux) | Human |
+| [clean-reinstall-claude.ps1](./scripts/clean-reinstall-claude.ps1) | Clean reinstall procedure (Windows) | Human |
 
 > **Usage**: `./audit-scan.sh` for human output, `./audit-scan.sh --json` for JSON output
 
@@ -107,6 +111,13 @@ Ready-to-use templates for Claude Code configuration.
 | File | Purpose |
 |------|---------|
 | [database-branch-setup.md](./workflows/database-branch-setup.md) | Isolated feature dev with database branches (Neon/PlanetScale) |
+
+### Modes
+| File | Purpose | Activation |
+|------|---------|------------|
+| [MODE_Learning.md](./modes/MODE_Learning.md) | Just-in-time explanations | `--learn` flag |
+
+> **See [modes/README.md](./modes/README.md) for installation and SuperClaude framework reference**
 
 ---
 
