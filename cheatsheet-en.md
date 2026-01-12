@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 2.8.1 | **Last Updated**: January 2026
+**Version**: 3.0.2 | **Last Updated**: January 2026
 
 ---
 
@@ -126,6 +126,11 @@
 Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 ```
 **Watch `Ctx(u):`** → >70% = `/compact`, >85% = `/clear`
+
+**Enhanced statusline ([ccstatusline](https://github.com/sirmalloc/ccstatusline)):** Add to `~/.claude/settings.json`:
+```json
+{ "statusLine": { "type": "command", "command": "npx -y ccstatusline@latest", "padding": 0 } }
+```
 
 ### Actions by Symptom
 
@@ -373,4 +378,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 2.8.1*
+*Last updated: January 2026 | Version 3.0.2*

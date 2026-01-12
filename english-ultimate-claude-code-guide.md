@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.9.9
+**Version**: 3.0.2
 
 ---
 
@@ -986,6 +986,45 @@ Claude Code │ Ctx(u): 45% │ Cost: $0.23 │ Session: 1h 23m
 | `Ctx(u): 45%` | You've used 45% of context |
 | `Cost: $0.23` | API cost so far |
 | `Session: 1h 23m` | Time elapsed |
+
+### Custom Statusline Setup
+
+The default statusline can be enhanced with more detailed information like git branch, model name, and file changes.
+
+**Option 1: [ccstatusline](https://github.com/sirmalloc/ccstatusline) (recommended)**
+
+Add to `~/.claude/settings.json`:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  }
+}
+```
+
+This displays: `Model: Opus 4.5 | Ctx: 0 | ⎇ main | (+0,-0) | Cost: $0.27 | Session: 0m | Ctx(u): 0.0%`
+
+**Option 2: Custom script**
+
+Create your own script that:
+1. Reads JSON data from stdin (model, context, cost, git info)
+2. Outputs a single formatted line to stdout
+3. Supports ANSI colors for styling
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "/path/to/your/statusline-script.sh",
+    "padding": 0
+  }
+}
+```
+
+Use `/statusline` command in Claude Code to auto-generate a starter script.
 
 ### Context Zones
 
@@ -9009,4 +9048,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 2.9.9
+**Last updated**: January 2026 | **Version**: 3.0.2
