@@ -1,13 +1,14 @@
 # claude-code-reference.yaml
 # Quick lookup for Claude Code - ~2K tokens target
 # Source: english-ultimate-claude-code-guide.md
+# Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "2.9.1"
+version: "2.9.2"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
-# DEEP DIVE - Line references to main guide for detailed info
-# File: english-ultimate-claude-code-guide.md
+# DEEP DIVE - Line numbers in english-ultimate-claude-code-guide.md
+# Usage: Read file at line N for detailed documentation on topic
 # ════════════════════════════════════════════════════════════════
 deep_dive:
   installation: 185
