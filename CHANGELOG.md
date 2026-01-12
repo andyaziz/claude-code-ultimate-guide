@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.3] - 2026-01-12
+
+### Added
+- **README.md** - LLM Reference section with curl one-liner
+  - New row in "Not Sure Where to Start?" table
+  - `🤖 LLM Reference` section with instant curl command
+  - Use cases: ChatGPT/Claude/Gemini context, system prompts, `@` reference
+  - Clarification that YAML points to line numbers in full guide for deep dives
+- **english-ultimate-claude-code-guide.md** - Learning Mode documentation (~136 lines)
+  - SuperClaude Behavioral Modes overview table
+  - Complete Learning Mode installation guide (4 steps)
+  - Usage examples with `--learn`, `--learn focus:X`, `--learn batch` flags
+  - Offer format examples (standard and token-efficient)
+  - Integration matrix with other modes
+  - Priority rules and example session
+- **claude-code-reference.yaml** - Learning mode additions
+  - `deep_dive` refs: superclaude_modes, learning_mode
+  - `decide` section: learning flag
+  - `cli` section: --learn, --learn focus:X, --no-learn flags
+
+### Stats
+- 3 files modified (README.md, english-ultimate-claude-code-guide.md, claude-code-reference.yaml)
+- ~150 lines added across files
+- Focus on LLM context sharing and SuperClaude Learning Mode documentation
+
 ## [2.9.2] - 2026-01-12
 
 ### Added
