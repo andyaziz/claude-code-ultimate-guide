@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.0.2
+**Version**: 3.0.4
 
 ---
 
@@ -7930,6 +7930,8 @@ claude --add-dir ../shared-lib ../utils ../config
 
 ## 10.4 Troubleshooting
 
+> **Interactive Troubleshooting**: Use the `/diagnose` command for guided, interactive problem-solving. It auto-scans your environment and provides targeted solutions. See [examples/commands/diagnose.md](./examples/commands/diagnose.md).
+
 ### Quick Diagnostic Guide
 
 Use this symptom-based guide for rapid issue identification and resolution:
@@ -9048,4 +9050,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.0.2
+**Last updated**: January 2026 | **Version**: 3.0.4

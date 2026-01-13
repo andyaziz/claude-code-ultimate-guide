@@ -6,6 +6,87 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.4] - 2026-01-13
+
+### Added
+- **examples/commands/diagnose.md** - Interactive troubleshooting assistant (NEW)
+  - Bilingual support (FR/EN) with automatic language detection
+  - 12 problem categories: permissions, MCP servers, config, performance, installation, agents/skills
+  - Auto-fetches latest guide from GitHub for up-to-date troubleshooting data
+  - Integrates with `audit-scan.sh --json` for environment scanning
+  - Structured diagnostic output: root cause → solution → template → reference
+  - Common patterns documented: repeated permission prompts, MCP not found, context saturation
+  - Usage: Copy to `~/.claude/commands/` then invoke with `/diagnose`
+
+### Changed
+- **README.md** - Added `/diagnose` to commands table and navigation
+- **examples/README.md** - Added `/diagnose` to commands index
+- **cheatsheet-en.md** - Version bump to 3.0.4
+
+### Stats
+- 1 new file created (diagnose.md, ~210 lines)
+- 3 files modified (README.md, examples/README.md, cheatsheet-en.md)
+- Focus on self-service troubleshooting for common Claude Code issues
+
+## [3.0.3] - 2026-01-13
+
+### Enhanced
+- **audit-scan.sh v2.0** - Major improvements based on community feedback (2 test projects)
+  - **P0.1: MCP Detection globale** - Now detects both project-specific AND global MCPs from `~/.claude.json`
+    - Previously only checked `projects[path].mcpServers`, now also checks top-level `mcpServers`
+    - Shows separate counts: project MCPs vs global MCPs with their sources
+  - **P0.2: MCP documented vs configured** - New feature detecting MCPs mentioned in CLAUDE.md but not actually configured
+    - Scans CLAUDE.md files for known MCPs (serena, context7, sequential, playwright, morphllm, magic, filesystem)
+    - Warns when MCP is documented but missing from config: "Documented but NOT configured: serena"
+    - Helps catch configuration drift
+  - **P1.1: +35 integrations detected** - Expanded from ~25 to ~60 packages
+    - Chat/Communication: TalkJS, Knock, Stream
+    - Maps: MapLibre, Mapbox, Google Maps
+    - File Upload: Bytescale, UploadThing, Cloudinary
+    - Admin: Forest Admin, Refine
+    - Validation: Zod, Yup, Valibot
+    - UI Libraries: Chakra UI, Material UI, DaisyUI, Mantine
+    - Database providers: Neon, PlanetScale, Vercel Postgres, Upstash, Turso
+    - Analytics: Vercel Analytics, Mixpanel, Hotjar, Amplitude
+    - Feature flags: Vercel Flags, LaunchDarkly
+    - Forms: React Hook Form, Formik
+    - Auth: Kinde
+    - Payments: LemonSqueezy
+    - AI: Vercel AI SDK
+    - CMS: Payload CMS
+    - State: Jotai
+  - **P1.2: Test framework warning** - Now explicitly warns when no test framework detected
+    - Checks package.json deps, config files (jest.config.*, vitest.config.*), and test file patterns
+    - Shows ❌ "No test framework detected" in quality patterns
+  - **P1.3: MCP Recommendations** - Context-aware suggestions based on detected stack
+    - context7 recommended for modern frameworks (Next.js, React, Vue, etc.)
+    - sequential-thinking for complex architectures (with DB or NestJS/Next.js)
+    - playwright for projects without E2E testing
+    - serena for TypeScript projects
+  - **P2.1: SSoT detection élargie** - Now searches for @refs in codebase even without CLAUDE.md
+    - If >5 files contain `@*.md` references, considers SSoT pattern adopted
+  - **P2.2: shadcn/ui detection** - Special case handling (not in package.json)
+    - Detects presence of `components/ui/` or `src/components/ui/` folders
+  - **JSON output enhanced** with new fields:
+    - `quality.has_test_framework` (boolean)
+    - `mcp.project_servers`, `mcp.global_servers` (separated)
+    - `mcp.documented`, `mcp.missing` (doc vs config gap)
+    - `mcp.recommendations` (stack-based suggestions)
+  - **Human output enhanced**:
+    - New "🔌 MCP SERVERS" section with project/global breakdown
+    - Warning for documented but unconfigured MCPs
+    - Recommendations displayed with 💡 icon
+
+### Fixed
+- **audit-scan.sh** - `ALL_DEPS` unbound variable error when running outside Node.js projects
+  - Initialized `ALL_DEPS=""` before conditional blocks
+
+### Stats
+- 1 file modified (audit-scan.sh, ~200 lines added/modified)
+- Integration detection improved from ~25 to ~60 packages
+- MCP detection now covers all configuration locations
+- Based on feedback from Native Spaces (venue booking) and Méthode Aristote (EdTech) projects
+
 ## [3.0.2] - 2026-01-12
 
 ### Added

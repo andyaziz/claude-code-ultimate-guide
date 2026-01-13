@@ -63,6 +63,7 @@ Ready-to-use templates for Claude Code configuration.
 | [sonarqube.md](./commands/sonarqube.md) | `/sonarqube` | Analyze SonarCloud quality issues for PRs |
 | [generate-tests.md](./commands/generate-tests.md) | `/generate-tests` | Test generation |
 | [git-worktree.md](./commands/git-worktree.md) | `/git-worktree` | Isolated git worktree setup |
+| [diagnose.md](./commands/diagnose.md) | `/diagnose` | Interactive troubleshooting assistant (FR/EN) |
 
 ### Hooks
 | File | Event | Purpose |

@@ -68,6 +68,7 @@ claude
 | Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | 30 sec |
 | Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | 10 min |
 | Want a guided tour | [Personalized Onboarding](./personalized-onboarding-prompt.md) | ~15 min |
+| Having issues with Claude Code | [/diagnose command](./examples/commands/diagnose.md) | ~2 min |
 
 ### ⚡ Audit Your Setup
 
@@ -326,6 +327,7 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [/release-notes](./examples/commands/release-notes.md) | Generate release notes (3 formats) | CHANGELOG + PR body + Slack |
 | [/sonarqube](./examples/commands/sonarqube.md) | Analyze quality issues | Executive summary, action plans |
 | [/commit](./examples/commands/commit.md) | Conventional commits | Follows team conventions |
+| [/diagnose](./examples/commands/diagnose.md) | Interactive troubleshooting | Bilingual FR/EN, auto-scans environment |
 
 ### Security & Automation Hooks
 
@@ -476,7 +478,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.0.2 | January 2026 | Crafted with Claude*
+*Version 3.0.4 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
