@@ -70,6 +70,7 @@ npm install -g @anthropic-ai/claude-code && claude
 | Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | Interactive |
 | Want a guided tour | [Personalized Onboarding](./personalized-onboarding-prompt.md) | Interactive |
 | Having issues with Claude Code | [/diagnose command](./examples/commands/diagnose.md) | Quick fix |
+| Want mobile access to Claude Code | [Mobile Access Setup](./mobile-access-setup.md) | WIP |
 
 ### ⚡ Audit Your Setup
 

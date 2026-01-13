@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.7] - 2026-01-13
+
+### Added
+- **mobile-access-setup.md** - Mobile access guide for Claude Code (NEW, WIP/UNTESTED)
+  - Problem statement: Claude Code lacks native session relay/sync across devices
+  - Solution: ttyd + Tailscale for ToS-safe mobile access
+  - Complete setup script with tmux for persistent sessions
+  - Security considerations and ToS compliance notes
+  - Alternatives comparison (Happy Coder, Claude Code Web, tmux+SSH)
+  - Troubleshooting guide
+  - Marked as WIP/UNTESTED - community feedback welcome
+
+- **README.md** - Added mobile access guide to navigation table
+  - New row: "Want mobile access to Claude Code" → Mobile Access Setup → WIP
+
+### Stats
+- 1 new file created (mobile-access-setup.md, ~300 lines)
+- 2 files modified (README.md, cheatsheet-en.md version bump)
+- Focus on ToS-safe remote access without third-party wrappers
+
 ## [3.0.6] - 2026-01-13
 
 ### Changed
