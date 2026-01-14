@@ -8,6 +8,8 @@ Hooks are scripts that execute automatically on Claude Code events. They enable 
 |------|-------|---------|----------|
 | [dangerous-actions-blocker.sh](./bash/dangerous-actions-blocker.sh) | PreToolUse | Block dangerous commands/edits | Bash |
 | [security-check.sh](./bash/security-check.sh) | PreToolUse | Block secrets in commands | Bash |
+| [claudemd-scanner.sh](./bash/claudemd-scanner.sh) | SessionStart | Detect CLAUDE.md injection attacks | Bash |
+| [output-secrets-scanner.sh](./bash/output-secrets-scanner.sh) | PostToolUse | Detect secrets in tool outputs | Bash |
 | [auto-format.sh](./bash/auto-format.sh) | PostToolUse | Auto-format after edits | Bash |
 | [notification.sh](./bash/notification.sh) | Notification | Contextual macOS sound alerts | Bash (macOS) |
 | [security-check.ps1](./powershell/security-check.ps1) | PreToolUse | Block secrets in commands | PowerShell |
@@ -24,6 +26,99 @@ Hooks are scripts that execute automatically on Claude Code events. They enable 
 | `SessionStart` | At session start | Initialization, environment setup |
 | `SessionEnd` | At session end | Cleanup, session summary |
 | `Stop` | User interrupts operation | State saving, graceful shutdown |
+
+## Advanced Guardrails (NEW in v3.3.0)
+
+Advanced protection patterns inspired by production LLM systems.
+
+### prompt-injection-detector.sh
+
+**Event**: `PreToolUse`
+
+Detects and blocks prompt injection attempts before they reach Claude:
+
+**Detected Patterns**:
+- Role override: "ignore previous instructions", "you are now", "pretend to be"
+- Jailbreak attempts: "DAN mode", "developer mode", "no restrictions"
+- Delimiter injection: `</system>`, `[INST]`, `<<SYS>>`
+- Authority impersonation: "anthropic employee", "authorized to bypass"
+- Base64-encoded payloads (decoded and scanned)
+- Context manipulation: false claims about previous messages
+
+**Configuration**:
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "hooks": [{
+        "type": "command",
+        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/prompt-injection-detector.sh",
+        "timeout": 5000
+      }]
+    }]
+  }
+}
+```
+
+### output-validator.sh
+
+**Event**: `PostToolUse`
+
+Heuristic validation of Claude's outputs (no LLM call, pure bash):
+
+**Validation Checks**:
+- Placeholder paths: `/path/to/`, `/your/project/`
+- Placeholder content: `TODO:`, `your-api-key`, `example.com`
+- Potential secrets in output (regex patterns)
+- Uncertainty indicators (multiple "I'm not sure", "probably")
+- Incomplete implementations: `NotImplementedError`, `throw new Error`
+- Unverified reference claims
+
+**Behavior**: Warns via `systemMessage`, does not block. For deeper validation, use the `output-evaluator` agent.
+
+### session-logger.sh
+
+**Event**: `PostToolUse`
+
+Logs all Claude operations to JSONL files for monitoring and cost tracking:
+
+**Log Location**: `~/.claude/logs/activity-YYYY-MM-DD.jsonl`
+
+**Logged Data**:
+- Timestamp, session ID, tool name
+- File paths and commands (truncated)
+- Project name
+- Token estimates (input/output)
+
+**Analysis**: Use `session-stats.sh` script to analyze logs.
+
+**Environment Variables**:
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `CLAUDE_LOG_DIR` | `~/.claude/logs` | Log directory |
+| `CLAUDE_LOG_TOKENS` | `true` | Enable token estimation |
+| `CLAUDE_SESSION_ID` | auto | Custom session ID |
+
+See [Observability Guide](../../guide/observability.md) for full documentation.
+
+### pre-commit-evaluator.sh
+
+**Type**: Git pre-commit hook (not Claude hook)
+
+LLM-as-a-Judge evaluation before every commit. **Opt-in only** due to API costs.
+
+**Installation**:
+```bash
+cp pre-commit-evaluator.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+export CLAUDE_PRECOMMIT_EVAL=1  # Enable evaluation
+```
+
+**Cost**: ~$0.01-0.05 per commit (Haiku model)
+
+**Bypass**: `git commit --no-verify` or `CLAUDE_SKIP_EVAL=1 git commit`
+
+---
 
 ## Security Hooks
 
@@ -76,6 +171,72 @@ Focused on detecting secrets in commands:
 - AWS credentials
 - Private keys
 - Hardcoded tokens
+
+### claudemd-scanner.sh
+
+**Event**: `SessionStart`
+
+Scans CLAUDE.md files at session start for potential prompt injection attacks:
+
+**Detected Patterns**:
+- "ignore previous instructions" variants
+- Shell injection: `curl | bash`, `wget | sh`, `eval(`
+- Base64 encoded content (potential obfuscation)
+- Hidden instructions in HTML comments
+- Suspicious long lines (>500 chars)
+- Non-ASCII characters near sensitive keywords (homoglyph attacks)
+
+**Files Scanned**:
+- `CLAUDE.md` (project root)
+- `.claude/CLAUDE.md` (local override)
+- Any `.md` files in `.claude/` directory
+
+**Why This Matters**: When you clone an unfamiliar repository, a malicious CLAUDE.md could inject instructions that compromise your system. This hook warns you before Claude processes potentially dangerous instructions.
+
+**Configuration**:
+```json
+{
+  "hooks": {
+    "SessionStart": [{
+      "hooks": [{
+        "type": "command",
+        "command": ".claude/hooks/claudemd-scanner.sh",
+        "timeout": 5000
+      }]
+    }]
+  }
+}
+```
+
+### output-secrets-scanner.sh
+
+**Event**: `PostToolUse`
+
+Complements `security-check.sh` by scanning tool **outputs** (not inputs) for leaked secrets.
+
+**Detected Patterns**:
+- API Keys: OpenAI, Anthropic, AWS, GCP, Azure, Stripe, Twilio, SendGrid
+- Tokens: GitHub, GitLab, NPM, PyPI, JWT
+- Private Keys: RSA, EC, DSA, OpenSSH, PGP
+- Database URLs with embedded passwords
+- Generic `api_key=`, `secret=`, `password=` patterns
+
+**Why This Matters**: Claude might read a `.env` file and include credentials in its response or a commit. This hook catches secrets before they leak.
+
+**Configuration**:
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "hooks": [{
+        "type": "command",
+        "command": ".claude/hooks/output-secrets-scanner.sh",
+        "timeout": 5000
+      }]
+    }]
+  }
+}
+```
 
 ## Productivity Hooks
 

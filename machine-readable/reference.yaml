@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "2.9.9"
+version: "3.3.0"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -17,6 +17,8 @@ deep_dive:
   permission_modes: 596
   interaction_loop: 908
   context_management: 944
+  context_triage: 1058
+  session_vs_memory: 1091
   plan_mode: 1458
   rewind: 1636
   mental_model: 1675
@@ -24,10 +26,12 @@ deep_dive:
   memory_files: 2218
   claude_folder: 2349
   settings: 2400
+  claudemd_injection_warning: 2510
   precedence_rules: 2622
   agents: 2720
   agent_template: 2793
   agent_examples: 2901
+  agent_validation_checklist: 3116
   skills: 3279
   skill_template: 3357
   skill_examples: 3425
@@ -38,6 +42,7 @@ deep_dive:
   security_hooks: 4434
   mcp_servers: 4573
   mcp_config: 4771
+  mcp_security: 5373
   trinity_pattern: 5171
   cicd: 5329
   ide_integration: 6018

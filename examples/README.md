@@ -46,6 +46,7 @@ Ready-to-use templates for Claude Code configuration.
 | [test-writer.md](./agents/test-writer.md) | TDD/BDD test generation | Sonnet |
 | [security-auditor.md](./agents/security-auditor.md) | Security vulnerability detection | Sonnet |
 | [refactoring-specialist.md](./agents/refactoring-specialist.md) | Clean code refactoring | Sonnet |
+| [output-evaluator.md](./agents/output-evaluator.md) | LLM-as-a-Judge quality gate | Haiku |
 
 ### Skills
 | File | Purpose |
@@ -64,6 +65,7 @@ Ready-to-use templates for Claude Code configuration.
 | [generate-tests.md](./commands/generate-tests.md) | `/generate-tests` | Test generation |
 | [git-worktree.md](./commands/git-worktree.md) | `/git-worktree` | Isolated git worktree setup |
 | [diagnose.md](./commands/diagnose.md) | `/diagnose` | Interactive troubleshooting assistant (FR/EN) |
+| [validate-changes.md](./commands/validate-changes.md) | `/validate-changes` | LLM-as-a-Judge pre-commit validation |
 
 ### Hooks
 | File | Event | Purpose |
@@ -72,6 +74,10 @@ Ready-to-use templates for Claude Code configuration.
 | [security-check.*](./hooks/) | PreToolUse | Block secrets in commands |
 | [auto-format.*](./hooks/) | PostToolUse | Auto-format after edits |
 | [notification.sh](./hooks/bash/notification.sh) | Notification | Contextual macOS sound alerts |
+| [prompt-injection-detector.sh](./hooks/bash/prompt-injection-detector.sh) | PreToolUse | Detect prompt injection attempts |
+| [output-validator.sh](./hooks/bash/output-validator.sh) | PostToolUse | Heuristic output validation |
+| [session-logger.sh](./hooks/bash/session-logger.sh) | PostToolUse | Log operations for monitoring |
+| [pre-commit-evaluator.sh](./hooks/bash/pre-commit-evaluator.sh) | Git hook | LLM-as-a-Judge pre-commit |
 
 > **See [hooks/README.md](./hooks/README.md) for complete documentation and examples**
 
@@ -96,6 +102,7 @@ Ready-to-use templates for Claude Code configuration.
 | [check-claude.ps1](./scripts/check-claude.ps1) | Health check diagnostics (Windows) | Human |
 | [clean-reinstall-claude.sh](./scripts/clean-reinstall-claude.sh) | Clean reinstall procedure (macOS/Linux) | Human |
 | [clean-reinstall-claude.ps1](./scripts/clean-reinstall-claude.ps1) | Clean reinstall procedure (Windows) | Human |
+| [session-stats.sh](./scripts/session-stats.sh) | Analyze session logs & costs | JSON / Human |
 
 > **Usage**: `./audit-scan.sh` for human output, `./audit-scan.sh --json` for JSON output
 

@@ -6,6 +6,91 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.3.0] - 2026-01-14
+
+### Added - LLM Handbook Integration + Google Agent Whitepaper
+
+This release combines learnings from the LLM Engineers Handbook (guardrails, observability, evaluation) and Google's Agent Whitepaper (context triage, security patterns, validation checklists).
+
+#### Advanced Guardrails
+- **examples/hooks/bash/prompt-injection-detector.sh** - PreToolUse hook detecting:
+  - Role override attempts ("ignore previous instructions", "you are now")
+  - Jailbreak patterns ("DAN mode", "developer mode")
+  - Delimiter injection (`</system>`, `[INST]`, `<<SYS>>`)
+  - Authority impersonation and base64-encoded payloads
+- **examples/hooks/bash/output-validator.sh** - PostToolUse heuristic validation:
+  - Placeholder content detection (`/path/to/`, `TODO:`, `example.com`)
+  - Potential secrets in output (regex patterns)
+  - Uncertainty indicators and incomplete implementations
+- **examples/hooks/bash/claudemd-scanner.sh** - SessionStart hook (NEW):
+  - Scans CLAUDE.md files for prompt injection attacks before session
+  - Detects: "ignore previous instructions", shell injection (`curl | bash`), base64 obfuscation
+  - Warns about suspicious patterns in repository memory files
+- **examples/hooks/bash/output-secrets-scanner.sh** - PostToolUse hook (NEW):
+  - Scans tool outputs for leaked secrets (API keys, tokens, private keys)
+  - Catches secrets before they appear in responses or commits
+  - Detects: OpenAI/Anthropic/AWS keys, GitHub tokens, database URLs
+
+#### Observability & Monitoring
+- **examples/hooks/bash/session-logger.sh** - PostToolUse operation logging:
+  - JSONL format to `~/.claude/logs/activity-YYYY-MM-DD.jsonl`
+  - Token estimation, project tracking, session IDs
+- **examples/scripts/session-stats.sh** - Log analysis script:
+  - Daily/weekly/monthly summaries
+  - Cost estimation with configurable rates
+  - Tool usage and project breakdowns
+- **guide/observability.md** - Full observability documentation (~180 lines):
+  - Setup instructions, cost tracking, patterns
+  - Limitations clearly documented
+
+#### LLM-as-a-Judge Evaluation
+- **examples/agents/output-evaluator.md** - Quality gate agent (Haiku):
+  - Scores: Correctness, Completeness, Safety (0-10)
+  - Verdicts: APPROVE, NEEDS_REVIEW, REJECT
+  - JSON output format for automation
+- **examples/commands/validate-changes.md** - `/validate-changes` command:
+  - Pre-commit validation workflow
+  - Integrates with output-evaluator agent
+- **examples/hooks/bash/pre-commit-evaluator.sh** - Git pre-commit hook:
+  - Opt-in LLM evaluation before commits
+  - Cost: ~$0.01-0.05/commit (Haiku)
+  - Bypass with `--no-verify` or `CLAUDE_SKIP_EVAL=1`
+
+#### Google Agent Whitepaper Integration
+- **guide/ultimate-guide.md Section 2.2.4** - Context Triage Guide (NEW):
+  - What to keep vs evacuate when approaching context limits
+  - Priority matrix: Critical (current task) → Important (recent decisions) → Evacuate (old context)
+  - Recovery patterns for session continuation
+- **guide/ultimate-guide.md Section 3.1.3** - CLAUDE.md Injection Warning (NEW):
+  - Security risks when cloning unfamiliar repositories
+  - Recommendation to use `claudemd-scanner.sh` hook
+  - Examples of malicious patterns to watch for
+- **guide/ultimate-guide.md Section 4.2.4** - Agent Validation Checklist (NEW):
+  - 12-point checklist before deploying custom agents
+  - Covers: tool restrictions, output validation, error handling, cost control
+  - Based on Google's agent validation framework
+- **guide/ultimate-guide.md Section 8.6** - MCP Security (NEW):
+  - Tool Shadowing attacks: malicious MCP tools mimicking legitimate ones
+  - Confused Deputy attacks: MCP servers tricked into unauthorized actions
+  - Mitigation strategies and trust verification patterns
+- **guide/ultimate-guide.md Section 3.3.3** - Session vs Memory (NEW):
+  - Clarifies session context (ephemeral) vs persistent memory (Serena write_memory)
+  - When to use each for long-running projects
+  - Recovery patterns after context limits
+
+### Changed
+- **examples/hooks/README.md** - Added "Advanced Guardrails" section with all new hooks
+- **examples/README.md** - Updated index with all new files
+- **guide/README.md** - Added observability.md to contents
+
+### Stats
+- 10 new files created
+- 8 files modified
+- 5 new guide sections added
+- Focus: Production LLM patterns + Security hardening + Context management
+
+---
+
 ## [3.2.0] - 2026-01-14
 
 ### Added
