@@ -588,6 +588,12 @@ if [[ "$OUTPUT_MODE" == "json" ]]; then
     "claude_md_lines": $CLAUDE_MD_LINES,
     "claude_md_refs": $CLAUDE_MD_REFS
   },
+  "privacy": {
+    "env_excluded": $([ -f "./.claude/settings.json" ] && grep -q '\.env' "./.claude/settings.json" 2>/dev/null && echo "true" || echo "false"),
+    "has_db_mcp": $(echo "$MCP_ALL_SERVERS" | grep -qiE "postgres|neon|supabase|mysql|database" 2>/dev/null && echo "true" || echo "false"),
+    "opt_out_link": "https://claude.ai/settings/data-privacy-controls",
+    "guide_link": "guide/data-privacy.md"
+  },
   "mcp": {
     "configured": $([ -n "$MCP_SERVERS" ] && echo "true" || echo "false"),
     "count": $MCP_COUNT,
@@ -648,6 +654,24 @@ else
       echo -e "    ${YELLOW}⚠️${NC}  Consider shortening (>200 lines)"
     fi
   fi
+
+  echo -e "\n${BLUE}🔐 PRIVACY CHECK${NC}"
+  # Check excludePatterns for sensitive files
+  HAS_ENV_EXCLUSION="false"
+  if [[ -f "./.claude/settings.json" ]]; then
+    grep -q '\.env' "./.claude/settings.json" 2>/dev/null && HAS_ENV_EXCLUSION="true"
+  fi
+
+  [[ "$HAS_ENV_EXCLUSION" == "true" ]] && echo -e "  ${GREEN}✅${NC} .env excluded in settings" || echo -e "  ${RED}⚠️${NC}  .env NOT excluded (add to excludePatterns)"
+
+  # Check for database MCP servers (production risk)
+  if echo "$MCP_ALL_SERVERS" | grep -qiE "postgres|neon|supabase|mysql|database" 2>/dev/null; then
+    echo -e "  ${YELLOW}⚠️${NC}  Database MCP detected → ensure NOT production data"
+  fi
+
+  # Privacy reminders
+  echo -e "  ${CYAN}💡${NC} Opt-out training: https://claude.ai/settings/data-privacy-controls"
+  echo -e "  ${CYAN}💡${NC} Full guide: guide/data-privacy.md"
 
   echo -e "\n${BLUE}🔌 MCP SERVERS${NC}"
   if [[ -n "$MCP_ALL_SERVERS" ]]; then

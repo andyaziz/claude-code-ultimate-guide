@@ -10,6 +10,12 @@
 
 ---
 
+> **Privacy Notice**: Claude Code sends your prompts, file contents, and MCP results to Anthropic servers.
+> - **Default**: 5 years retention (training enabled) | **Opt-out**: 30 days | **Enterprise**: 0
+> - **Action**: [Disable training](https://claude.ai/settings/data-privacy-controls) | [Full privacy guide](./guide/data-privacy.md)
+
+---
+
 **Start here:**
 - [Cheat Sheet](./guide/cheatsheet.md) — print this, start coding
 - [15-min Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) — first workflow

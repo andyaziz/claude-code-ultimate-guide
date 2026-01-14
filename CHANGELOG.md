@@ -6,6 +6,54 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-01-14
+
+### Added
+- **guide/data-privacy.md** - Comprehensive data privacy documentation (NEW, ~200 lines)
+  - TL;DR retention table: 5 years (default) | 30 days (opt-out) | 0 (Enterprise ZDR)
+  - Data flow diagram showing what leaves your machine
+  - Known risks with MCP database connections
+  - Protection measures (excludePatterns, hooks, MCP safety)
+  - Quick checklist for immediate action
+
+- **README.md** - Privacy notice encart (3 lines after transparency note)
+  - Retention summary with action link
+  - Direct link to opt-out and full guide
+
+- **guide/ultimate-guide.md** - Section 2.6 "Data Flow & Privacy" (~45 lines)
+  - Data types sent table
+  - Retention policies table
+  - Link to dedicated guide
+  - Updated TOC and quick jump navigation
+
+- **tools/onboarding-prompt.md** - Phase 0.5 Privacy Awareness
+  - Privacy notice shown after level assessment
+  - Asks user about privacy settings configuration
+
+- **tools/audit-prompt.md** - Privacy configuration checks
+  - Phase 1.2: PRIVACY CONFIGURATION bash checks
+  - Phase 2.1: Privacy Configuration checklist
+  - Glossary: "Data Retention" and "excludePatterns" terms
+
+- **examples/scripts/audit-scan.sh** - PRIVACY CHECK section
+  - Human output: .env exclusion check, DB MCP warning, opt-out link
+  - JSON output: `"privacy"` object with env_excluded, has_db_mcp, opt_out_link, guide_link
+
+- **examples/scripts/check-claude.sh** - Privacy reminder section
+  - Shows retention info and opt-out link during health check
+
+- **examples/hooks/bash/privacy-warning.sh** - SessionStart hook (NEW)
+  - Displays privacy reminder box once per terminal session
+  - Suppresses with `PRIVACY_WARNING_SHOWN=1` env var
+
+- **guide/cheatsheet.md** - Golden Rule #7 added
+  - "Know what's sent — prompts, files, MCP results → Anthropic"
+
+### Stats
+- 2 new files created (data-privacy.md, privacy-warning.sh)
+- 8 files modified (README, guide, cheatsheet, audit-scan, check-claude, onboarding, audit-prompt)
+- Focus on user awareness of data retention and actionable opt-out
+
 ## [3.1.0] - 2026-01-13
 
 ### Changed

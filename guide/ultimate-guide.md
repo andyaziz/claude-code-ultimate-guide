@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.1.0
+**Version**: 3.2.0
 
 ---
 
@@ -112,6 +112,7 @@ Context full → /compact or /clear
   - [2.3 Plan Mode](#23-plan-mode)
   - [2.4 Rewind](#24-rewind)
   - [2.5 Mental Model](#25-mental-model)
+  - [2.6 Data Flow & Privacy](#26-data-flow--privacy)
 - [3. Memory & Settings](#3-memory--settings)
   - [3.1 Memory Files (CLAUDE.md)](#31-memory-files-claudemd)
   - [3.2 The .claude/ Folder Structure](#32-the-claude-folder-structure)
@@ -875,7 +876,7 @@ Keep Copilot/Cursor for:
 
 # 2. Core Concepts
 
-_Quick jump:_ [The Interaction Loop](#21-the-interaction-loop) · [Context Management](#22-context-management) · [Plan Mode](#23-plan-mode) · [Rewind](#24-rewind) · [Mental Model](#25-mental-model)
+_Quick jump:_ [The Interaction Loop](#21-the-interaction-loop) · [Context Management](#22-context-management) · [Plan Mode](#23-plan-mode) · [Rewind](#24-rewind) · [Mental Model](#25-mental-model) · [Data Flow & Privacy](#26-data-flow--privacy)
 
 ---
 
@@ -2210,6 +2211,48 @@ cat claudedocs/templates/code-review.xml | \
 > - Working with junior developers who need structured communication patterns
 
 > **Source**: [DeepTo Claude Code Guide - XML-Structured Prompts](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)
+
+## 2.6 Data Flow & Privacy
+
+> **Important**: Everything you share with Claude Code is sent to Anthropic servers. Understanding this data flow is critical for protecting sensitive information.
+
+### What Gets Sent to Anthropic
+
+When you use Claude Code, the following data leaves your machine:
+
+| Data Type | Example | Risk Level |
+|-----------|---------|------------|
+| Your prompts | "Fix the login bug" | Low |
+| Files Claude reads | `.env`, `src/app.ts` | **High** if contains secrets |
+| MCP query results | SQL query results with user data | **High** if production data |
+| Command outputs | `env \| grep API` output | Medium |
+| Error messages | Stack traces with file paths | Low |
+
+### Retention Policies
+
+| Configuration | Retention | How to Enable |
+|---------------|-----------|---------------|
+| **Default** | 5 years | (default state - training enabled) |
+| **Opt-out** | 30 days | [claude.ai/settings](https://claude.ai/settings/data-privacy-controls) |
+| **Enterprise (ZDR)** | 0 days | Enterprise contract |
+
+**Immediate action**: [Disable training data usage](https://claude.ai/settings/data-privacy-controls) to reduce retention from 5 years to 30 days.
+
+### Protecting Sensitive Data
+
+**1. Exclude sensitive files** in `.claude/settings.json`:
+
+```json
+{
+  "excludePatterns": [".env*", "**/credentials*", "**/*.pem"]
+}
+```
+
+**2. Never connect production databases** to MCP servers. Use dev/staging with anonymized data.
+
+**3. Use security hooks** to block reading of sensitive files (see [Section 7.4](#74-hooks-automating-workflows)).
+
+> **Full guide**: For complete privacy documentation including known risks, community incidents, and enterprise considerations, see [Data Privacy & Retention Guide](./data-privacy.md).
 
 ---
 

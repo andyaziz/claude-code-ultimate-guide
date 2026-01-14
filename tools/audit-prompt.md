@@ -205,6 +205,29 @@ echo -e "\n=== DOCUMENTATION ==="
 for d in docs/ docs/conventions/ documentation/; do
   [ -d "$d" ] && echo "✅ $d exists"
 done
+
+# Privacy configuration
+echo -e "\n=== PRIVACY CONFIGURATION ==="
+if [ -f "./.claude/settings.json" ]; then
+  if grep -q "\.env" ./.claude/settings.json 2>/dev/null; then
+    echo "✅ .env excluded in settings"
+  else
+    echo "⚠️  .env NOT in excludePatterns"
+  fi
+else
+  echo "⚠️  No settings.json - .env files may be read"
+fi
+
+# Check for database MCP servers (privacy risk)
+if command -v jq &> /dev/null && [ -f ~/.claude.json ]; then
+  DB_MCP=$(jq -r --arg path "$CURRENT_DIR" ".projects[\$path].mcpServers // {} | keys[]" ~/.claude.json 2>/dev/null | grep -iE "postgres|neon|supabase|mysql|database" || true)
+  if [ -n "$DB_MCP" ]; then
+    echo "⚠️  Database MCP detected: $DB_MCP"
+    echo "   → Ensure NOT connected to production data"
+  fi
+fi
+
+echo "💡 Opt-out training: https://claude.ai/settings/data-privacy-controls"
 '
 ```
 
@@ -272,6 +295,12 @@ For each category, evaluate against these criteria based on Phase 1 scan results
 - [ ] Security hooks (PreToolUse) for sensitive operations
 - [ ] Auto-formatting hooks (PostToolUse) if needed
 - [ ] Context enrichment (UserPromptSubmit) if useful
+
+**Privacy Configuration (Guide Section 2.6)**
+- [ ] Training opt-out verified at claude.ai/settings
+- [ ] excludePatterns includes `.env*`, `credentials*`, `*.pem`
+- [ ] MCP database servers NOT connected to production
+- [ ] Team aware data is sent to Anthropic (5 years default, 30 days opt-out)
 
 **MCP Servers (Guide Section 8)**
 - [ ] Serena configured if large codebase (indexation + memory)
@@ -484,6 +513,8 @@ Here's an example of what the audit report looks like:
 | **Trinity Pattern** | Combining Plan Mode + Think Levels + MCP for complex tasks |
 | **Verify Gate** | CI/CD pattern: build → lint → test → typecheck before merge |
 | **Context Zones** | Green (0-50%), Yellow (50-70%), Red (70%+) - context usage thresholds |
+| **Data Retention** | Anthropic stores conversations: 5 years (default), 30 days (opt-out), 0 days (Enterprise ZDR) |
+| **excludePatterns** | Settings to prevent Claude from reading sensitive files like `.env`, credentials |
 
 ### Priority Levels Explained
 

@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.1.0 | **Last Updated**: January 2026
+**Version**: 3.2.0 | **Last Updated**: January 2026
 
 ---
 
@@ -314,6 +314,7 @@ claude -p "fix typos" --dangerously-skip-permissions
 4. **Plan Mode first** for complex/risky tasks
 5. **Create CLAUDE.md** for every project
 6. **Commit frequently** after each completed task
+7. **Know what's sent** — prompts, files, MCP results → Anthropic ([opt-out training](https://claude.ai/settings/data-privacy-controls))
 
 ---
 
@@ -378,4 +379,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 3.0.7*
+*Last updated: January 2026 | Version 3.2.0*

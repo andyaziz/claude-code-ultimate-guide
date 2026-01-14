@@ -26,6 +26,11 @@ else
     echo "✗ ANTHROPIC_API_KEY not set"
 fi
 
+echo -e "\n--- Privacy Reminder ---"
+echo "⚠️  Your prompts and file contents are sent to Anthropic"
+echo "   Default retention: 5 years (training) | Opt-out: 30 days"
+echo "   → Disable training: https://claude.ai/settings/data-privacy-controls"
+
 echo -e "\n--- MCP Servers ---"
 claude mcp list
 
