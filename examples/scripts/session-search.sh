@@ -107,8 +107,10 @@ extract_preview() {
         head -1 | \
         sed 's/.*"content":"\([^"]*\).*/\1/' | \
         sed 's/\\n/ /g' | \
+        sed 's/<[^>]*>//g' | \
         sed 's/@[^ ]*//g' | \
         sed 's/  */ /g' | \
+        tr -cd '[:print:] ' | \
         cut -c1-"$max_len" | \
         tr -d '\n')
 
@@ -198,13 +200,23 @@ check_pattern() {
     return 0
 }
 
+# Escape string for JSON output
+json_escape() {
+    local str="$1"
+    # Escape backslashes first, then quotes, then filter non-printable
+    str="${str//\\/\\\\}"
+    str="${str//\"/\\\"}"
+    printf '%s' "$str" | tr -cd '[:print:] '
+}
+
 # Display a single result
 display_result() {
     local date="$1" proj="$2" id="$3" msg="$4"
 
     if [[ "$OUTPUT_JSON" == true ]]; then
+        local escaped_msg=$(json_escape "$msg")
         printf '{"date":"%s","project":"%s","id":"%s","preview":"%s","resume":"claude --resume %s"}' \
-            "$date" "$proj" "$id" "${msg//\"/\\\"}" "$id"
+            "$date" "$proj" "$id" "$escaped_msg" "$id"
     else
         printf "${C_CYAN}%s${C_RESET} │ ${C_YELLOW}%-22s${C_RESET} │ %.50s...\n" "$date" "$proj" "$msg"
         printf "  ${C_DIM}claude --resume %s${C_RESET}\n\n" "$id"

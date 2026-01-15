@@ -8,6 +8,57 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.7.0] - 2026-01-15
+
+### Added - Session Search v2.1
+
+Major upgrade to the session search utility (`cs`) with new features and bug fixes.
+
+#### New Features
+
+| Feature | Description | Example |
+|---------|-------------|---------|
+| **Multi-word AND search** | All words must match (was broken in v1) | `cs "prisma migration"` |
+| **Project filter** | Filter by project name (substring) | `cs -p myproject "bug"` |
+| **Date filter** | Filter by date (today, 7d, YYYY-MM-DD) | `cs --since 7d` |
+| **JSON output** | Machine-readable output for scripting | `cs --json "api" \| jq .` |
+| **Timeout** | 3-second timeout prevents long searches | Automatic |
+| **Clean previews** | XML tags stripped, unicode filtered | No more `<local-command-caveat>` |
+
+#### Performance
+
+| Operation | Time |
+|-----------|------|
+| Cache lookup | ~16ms |
+| Index rebuild | ~6s (239 sessions) |
+| Fulltext search | 3-4s (timeout-bounded) |
+
+#### Usage Examples
+
+```bash
+cs                          # 10 most recent sessions
+cs "Prisma migration"       # Multi-word AND search
+cs -p MethodeAristote "api" # Filter by project + keyword
+cs --since 7d               # Last 7 days
+cs --since today -n 20      # Today's sessions
+cs --json "test" | jq .     # JSON for scripting
+```
+
+#### Files Modified
+
+- `examples/scripts/session-search.sh` - Script v2.1 (367 lines)
+- `guide/observability.md` - Documentation updated with new options
+
+#### Quality Score Progression
+
+| Version | Score | Key Improvements |
+|---------|-------|------------------|
+| v1.0 | 6/10 | Basic functionality |
+| v2.0 | 8/10 | +AND search, +filters, +JSON |
+| v2.1 | **9.3/10** | +JSON fix, +clean previews |
+
+---
+
 ## [3.6.1] - 2026-01-15
 
 ### Fixed - Critical Factual Corrections
