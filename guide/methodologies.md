@@ -13,8 +13,9 @@ This is a quick reference for 15 structured development methodologies that have 
 1. [Decision Tree](#decision-tree-what-do-you-need)
 2. [The 15 Methodologies](#the-15-methodologies)
 3. [SDD Tools Reference](#sdd-tools-reference)
-4. [Combination Patterns](#combination-patterns)
-5. [Sources](#sources)
+4. [Writing Effective Specs](#writing-effective-specs)
+5. [Combination Patterns](#combination-patterns)
+6. [Sources](#sources)
 
 ---
 
@@ -213,6 +214,46 @@ Workflow: Proposal → Review → Apply → Archive
 
 ---
 
+## Writing Effective Specs
+
+> Based on analysis of 2,500+ agent configuration files.
+> Source: [Addy Osmani](https://addyosmani.com/blog/good-spec/)
+
+### The Six Essential Components
+
+| Component | What to Include | Example |
+|-----------|-----------------|---------|
+| **Commands** | Executable with flags | `npm test -- --coverage` |
+| **Testing** | Framework, coverage, locations | `vitest, 80%, tests/` |
+| **Project structure** | Explicit directories | `src/`, `lib/`, `tests/` |
+| **Code style** | One example > paragraphs | Show a real function |
+| **Git workflow** | Branch, commit, PR format | `feat/name`, conventional commits |
+| **Boundaries** | Permission tiers | See below |
+
+### Permission Tiers
+
+| Tier | Symbol | Use For |
+|------|--------|---------|
+| Always do | ✅ | Safe actions, no approval (lint, format) |
+| Ask first | ⚠️ | High-impact changes (delete, publish) |
+| Never do | 🚫 | Hard stops (commit secrets, force push main) |
+
+### Curse of Instructions
+
+> ⚠️ Research shows **more instructions = worse adherence** to each one.
+>
+> Solution: Feed only relevant spec sections per task, not the entire document.
+
+### Monolithic vs Modular Specs
+
+| Project Size | Approach |
+|--------------|----------|
+| Small (<10 files) | Single spec file |
+| Medium (10-50 files) | Sectioned spec, feed per task |
+| Large (50+ files) | Sub-agent routing by domain |
+
+---
+
 ## Combination Patterns
 
 Recommended stacks by situation:
@@ -263,6 +304,7 @@ Recommended stacks by situation:
 ### Methodology References (Tier 2)
 
 **SDD & Spec-First**
+- Addy Osmani: [How to Write Good Specs for AI Agents](https://addyosmani.com/blog/good-spec/)
 - Martin Fowler: [SDD Tools Analysis](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html)
 - InfoQ: [Spec-Driven Development](https://www.infoq.com/articles/spec-driven-development/)
 - Kinde: [Beyond TDD - Why SDD is the Next Step](https://kinde.com/learn/ai-for-software-engineering/best-practice/beyond-tdd-why-spec-driven-development-is-the-next-step/)
