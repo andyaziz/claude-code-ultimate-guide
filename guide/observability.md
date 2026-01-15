@@ -63,10 +63,15 @@ source ~/.zshrc
 
 **Usage:**
 ```bash
-cs                    # List 10 most recent sessions (10ms)
-cs "authentication"   # Full-text search (400ms)
-cs -n 20              # Show 20 results
-cs --rebuild          # Force index rebuild
+cs                          # List 10 most recent sessions (~15ms)
+cs "authentication"         # Single keyword search (~400ms)
+cs "Prisma migration"       # Multi-word AND search (both must match)
+cs -n 20                    # Show 20 results
+cs -p myproject "bug"       # Filter by project name
+cs --since 7d               # Sessions from last 7 days
+cs --since today            # Today's sessions only
+cs --json "api" | jq .      # JSON output for scripting
+cs --rebuild                # Force index rebuild
 ```
 
 **Output:**
@@ -82,9 +87,10 @@ Copy-paste the `claude --resume` command to continue any session.
 
 ### How It Works
 
-1. **Index mode** (no keyword): Builds/uses cached TSV index of all sessions. Refreshes every hour. ~10ms lookup.
-2. **Search mode** (with keyword): Greps full JSONL content. ~400ms for 200+ sessions.
-3. **Filters**: Automatically excludes agent/subagent sessions (internal automation, not user conversations).
+1. **Index mode** (no filters): Uses cached TSV index. Auto-refreshes when sessions change. ~15ms lookup.
+2. **Search mode** (with keyword/filters): Full-text search with 3s timeout. Multi-word queries use AND logic.
+3. **Filters**: `--project` (substring match), `--since` (supports `today`, `yesterday`, `7d`, `YYYY-MM-DD`)
+4. **Output**: Human-readable by default, `--json` for scripting. Excludes agent/subagent sessions.
 
 ### Alternative: Python Tools
 
