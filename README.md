@@ -16,12 +16,35 @@
 
 ---
 
-**Start here:**
-- [Cheat Sheet](./guide/cheatsheet.md) — print this, start coding
-- [15-min Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) — first workflow
-- [Audit your setup](./examples/scripts/audit-scan.sh) — quick scan
+## Get Started in 60 Seconds
 
-**Go deeper** (optional): [Learning paths by role](#-by-role-tailored-learning-paths) | [Full guide](./guide/ultimate-guide.md)
+```bash
+# Interactive onboarding - adapts to your level and goals
+claude -p "$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/tools/onboarding-prompt.md)"
+```
+
+**Or browse directly:** [Cheat Sheet](./guide/cheatsheet.md) | [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) | [Full Guide](./guide/ultimate-guide.md)
+
+---
+
+## 5 Rules to Remember
+
+1. **Review diffs** before accepting changes
+2. **`/compact` at 70%** context usage (check with `/status`)
+3. **Be specific**: WHAT + WHERE + HOW + VERIFY
+4. **Plan Mode first** for risky/complex tasks (Shift+Tab×2)
+5. **Create CLAUDE.md** for every project
+
+---
+
+## Choose Your Path
+
+| I want to... | Go here |
+|--------------|---------|
+| Learn step by step | Run the onboarding command above |
+| Find something specific | [Guide Navigation](#-guide-navigation) |
+| Test my knowledge | [Quiz](./quiz/) |
+| Fix a problem | [Troubleshooting](./guide/ultimate-guide.md#troubleshooting) |
 
 ---
 
@@ -52,32 +75,6 @@
 - **Anthropic API key** — [Get one here](https://console.anthropic.com/)
 
 ---
-
-## Choose Your Path
-
-### 🧭 Not Sure Where to Start?
-
-| If you... | Start here | Depth |
-|-----------|------------|-------|
-| Just installed Claude Code | [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) | Essentials |
-| Want to understand core concepts | [Junior Path](#-by-role-tailored-learning-paths) | Foundation |
-| Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | Intermediate |
-| Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | Comprehensive |
-| Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | Overview |
-| Want TDD/BDD with Claude | [Workflows](./guide/workflows/) | Practical |
-| Need a dev methodology reference | [Methodologies](./guide/methodologies.md) | Reference |
-| Want to understand internals | [Architecture](./guide/architecture.md) | Deep dive |
-| Need data privacy guidance | [Data Privacy](./guide/data-privacy.md) | Quick read |
-| Need security hardening | [Security Hardening](./guide/security-hardening.md) | Essential |
-| Want to track costs & sessions | [Observability](./guide/observability.md) | Monitoring |
-| Choosing turnkey vs. autonomous approach | [Adoption Guide](./guide/adoption-approaches.md) | Quick read |
-| Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | Quick scan |
-| Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | Reference |
-| Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | Quick scan |
-| Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | Interactive |
-| Want a guided tour | [Personalized Onboarding](./tools/onboarding-prompt.md) | Interactive |
-| Having issues with Claude Code | [/diagnose command](./examples/commands/diagnose.md) | Quick fix |
-| Want mobile access to Claude Code | [Mobile Access Setup](./tools/mobile-access.md) | WIP |
 
 ### ⚡ Audit Your Setup
 
@@ -249,11 +246,8 @@ Weak Areas (< 75%):
 
 ### 🎯 By Role (Tailored Learning Paths)
 
-<table>
-<tr>
-<td width="50%">
-
-**Junior Developer** (Foundation path)
+<details>
+<summary><strong>Junior Developer</strong> — Foundation path (6 steps)</summary>
 
 1. [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) — Install & first workflow
 2. [Essential Commands](./guide/ultimate-guide.md#13-essential-commands) — The 7 commands
@@ -262,10 +256,10 @@ Weak Areas (< 75%):
 5. [TDD Workflow](./guide/workflows/tdd-with-claude.md) — Test-first development
 6. [Cheat Sheet](./guide/cheatsheet.md) — Print this
 
-</td>
-<td width="50%">
+</details>
 
-**Senior Developer** (Intermediate path)
+<details>
+<summary><strong>Senior Developer</strong> — Intermediate path (6 steps)</summary>
 
 1. [Core Concepts](./guide/ultimate-guide.md#2-core-concepts) — Mental model
 2. [Plan Mode](./guide/ultimate-guide.md#23-plan-mode) — Safe exploration
@@ -274,12 +268,10 @@ Weak Areas (< 75%):
 5. [Hooks](./guide/ultimate-guide.md#7-hooks) — Event automation
 6. [CI/CD Integration](./guide/ultimate-guide.md#93-cicd-integration) — Pipelines
 
-</td>
-</tr>
-<tr>
-<td width="50%">
+</details>
 
-**Power User** (Comprehensive path)
+<details>
+<summary><strong>Power User</strong> — Comprehensive path (7 steps)</summary>
 
 1. [Complete Guide](./guide/ultimate-guide.md) — End-to-end
 2. [Architecture](./guide/architecture.md) — How Claude Code works
@@ -289,10 +281,10 @@ Weak Areas (< 75%):
 6. [Observability](./guide/observability.md) — Monitor costs & sessions
 7. [Examples](./examples/) — Production templates
 
-</td>
-<td width="50%">
+</details>
 
-**Product Manager** (Overview path)
+<details>
+<summary><strong>Product Manager</strong> — Overview path (5 steps)</summary>
 
 1. [What's Inside](#-complete-toolkit) — Scope
 2. [Golden Rules](#-golden-rules) — Key principles
@@ -300,9 +292,7 @@ Weak Areas (< 75%):
 4. [Adoption Approaches](./guide/adoption-approaches.md) — Team strategies
 5. [Context Management](./guide/ultimate-guide.md#22-context-management) — Why it matters
 
-</td>
-</tr>
-</table>
+</details>
 
 ---
 

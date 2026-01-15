@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.5.0"
+version: "3.6.0"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -314,3 +314,82 @@ rules:
   4: "Plan Mode first for complex/risky"
   5: "Create CLAUDE.md for every project"
   6: "Commit frequently after each task"
+
+# ════════════════════════════════════════════════════════════════
+# ONBOARDING MATRIX - Maps user profile → content sections
+# Used by tools/onboarding-prompt.md for personalized learning paths
+# ════════════════════════════════════════════════════════════════
+onboarding_matrix:
+  # Format: goal.level_time → list of deep_dive keys to cover
+
+  get_started:
+    beginner_5min: [rules, commands, shortcuts]
+    beginner_15min: [rules, workflow, essential_commands, context.zones]
+    beginner_30min: [rules, workflow, essential_commands, context_management, permission_modes]
+
+  optimize:
+    intermediate_15min: [context_management, context_triage, plan_mode]
+    intermediate_30min: [context_management, plan_mode, memory_files, cost_optimization]
+    power_30min: [context_triage, trinity_pattern, batch_operations]
+
+  build_agents:
+    intermediate_30min: [agents, agent_template, agent_examples]
+    power_30min: [agents, agent_template, skills, skill_template, commands]
+    power_60min: [agents, skills, commands, hooks, agent_validation_checklist]
+
+  fix_problem:
+    any_any: [troubleshooting, fix, context.symptoms]
+
+  learn_everything:
+    beginner_60min: [workflow, essential_commands, context_management, memory_files, plan_mode]
+    intermediate_120min: [plan_mode, agents, skills, hooks, mcp_servers]
+    power_120min: [architecture, mcp_servers, hooks, trinity_pattern, cicd]
+
+# ════════════════════════════════════════════════════════════════
+# ONBOARDING QUESTIONS - Structure for interactive profiling
+# ════════════════════════════════════════════════════════════════
+onboarding_questions:
+  mandatory:
+    goal:
+      ask: "What's your goal right now?"
+      options:
+        get_started: "🚀 Get started quickly"
+        optimize: "📈 Optimize my workflow"
+        build_agents: "🏗️ Build custom agents/skills"
+        fix_problem: "🐛 Fix a problem"
+        learn_everything: "📚 Learn everything"
+
+    level:
+      ask: "Experience with Claude Code?"
+      options:
+        beginner: "🟢 Beginner (never used / just installed)"
+        intermediate: "🟡 Intermediate (daily use)"
+        power: "🔴 Power User (know basics, want advanced)"
+
+  optional:
+    time:
+      ask: "How much time do you have?"
+      options:
+        5min: "⚡ 5-10 min"
+        15min: "⏱️ 15-30 min"
+        30min: "🎯 30-60 min"
+        60min: "📚 1+ hour"
+        120min: "📖 2+ hours"
+      default: "30min"
+
+    style:
+      ask: "How do you prefer to learn?"
+      options:
+        explain: "📖 Explanations (tell me why)"
+        examples: "💻 Examples (show me code)"
+        reference: "🎯 Quick reference (just the facts)"
+        handson: "🏋️ Hands-on (let me try)"
+      trigger: "Only ask if time >= 30min"
+
+  # Logic for progressive questioning
+  question_flow:
+    fix_problem: "goal only → skip to troubleshooting"
+    get_started: "goal → level"
+    optimize: "goal → level → time"
+    build_agents: "goal → level → time"
+    learn_everything: "goal → level → time → style"
