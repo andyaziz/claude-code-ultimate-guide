@@ -276,6 +276,24 @@ claude /status
 
 ---
 
+## 8. Intellectual Property Considerations
+
+> **Disclaimer**: This is not legal advice. Consult a qualified attorney for your specific situation.
+
+When using AI code generation tools, discuss these points with your legal team:
+
+| Consideration | What to Discuss |
+|---------------|-----------------|
+| **Ownership** | Copyright status of AI-generated code remains legally unsettled in most jurisdictions |
+| **License contamination** | Training data may include open-source code with copyleft licenses (GPL, AGPL) that could affect your codebase |
+| **Vendor indemnification** | Some enterprise plans offer legal protection (e.g., Microsoft Copilot Enterprise includes IP indemnification) |
+| **Sector compliance** | Regulated industries (healthcare, finance, government) may have additional IP requirements |
+
+This guide focuses on Claude Code usage—not legal strategy. For IP guidance, consult specialized legal resources or your organization's legal counsel.
+
+---
+
 ## Changelog
 
+- 2026-01: Added intellectual property considerations section
 - 2026-01: Initial version - documenting retention policies and protective measures

@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.7.1] - 2026-01-15
+
+### Added
+
+- **Intellectual Property Considerations** section in `guide/data-privacy.md`
+  - Disclaimer about legal advice limitations
+  - Key considerations: ownership, license contamination, vendor indemnification, sector compliance
+  - Guidance to consult legal counsel for specific situations
+
+---
+
 ## [3.7.0] - 2026-01-15
 
 ### Added - Session Search v2.1
