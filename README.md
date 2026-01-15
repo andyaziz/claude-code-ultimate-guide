@@ -68,6 +68,7 @@
 | Need a dev methodology reference | [Methodologies](./guide/methodologies.md) | Reference |
 | Want to understand internals | [Architecture](./guide/architecture.md) | Deep dive |
 | Need data privacy guidance | [Data Privacy](./guide/data-privacy.md) | Quick read |
+| Need security hardening | [Security Hardening](./guide/security-hardening.md) | Essential |
 | Want to track costs & sessions | [Observability](./guide/observability.md) | Monitoring |
 | Choosing turnkey vs. autonomous approach | [Adoption Guide](./guide/adoption-approaches.md) | Quick read |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | Quick scan |
@@ -282,10 +283,11 @@ Weak Areas (< 75%):
 
 1. [Complete Guide](./guide/ultimate-guide.md) — End-to-end
 2. [Architecture](./guide/architecture.md) — How Claude Code works
-3. [MCP Servers](./guide/ultimate-guide.md#8-mcp-servers) — Extended capabilities
-4. [Trinity Pattern](./guide/ultimate-guide.md#91-the-trinity) — Advanced workflows
-5. [Observability](./guide/observability.md) — Monitor costs & sessions
-6. [Examples](./examples/) — Production templates
+3. [Security Hardening](./guide/security-hardening.md) — MCP vetting, injection defense
+4. [MCP Servers](./guide/ultimate-guide.md#8-mcp-servers) — Extended capabilities
+5. [Trinity Pattern](./guide/ultimate-guide.md#91-the-trinity) — Advanced workflows
+6. [Observability](./guide/observability.md) — Monitor costs & sessions
+7. [Examples](./examples/) — Production templates
 
 </td>
 <td width="50%">
@@ -316,6 +318,7 @@ Weak Areas (< 75%):
 | **[Methodologies](./guide/methodologies.md)** | 15 development methodologies reference | ~20 minutes |
 | **[Workflows](./guide/workflows/)** | Practical guides (TDD, SDD, Plan-Driven) | ~30 minutes |
 | **[Data Privacy](./guide/data-privacy.md)** | Data retention and privacy guide | ~10 minutes |
+| **[Security Hardening](./guide/security-hardening.md)** | MCP vetting, injection defense, CVEs | ~25 minutes |
 | **[Observability](./guide/observability.md)** | Session monitoring and cost tracking | ~15 minutes |
 | **[LLM Reference](./machine-readable/reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |

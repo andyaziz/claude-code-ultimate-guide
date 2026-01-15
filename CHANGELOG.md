@@ -12,12 +12,15 @@ Documentation alignment and navigation improvements.
 
 #### README.md Updates
 - **Repository Structure**: Added guide/workflows/, examples/modes/, examples/config/, examples/memory/
-- **Core Documentation**: Added 4 entries (methodologies.md, workflows/, data-privacy.md, observability.md)
+- **Core Documentation**: Added 5 entries (methodologies.md, workflows/, data-privacy.md, security-hardening.md, observability.md)
 - **Slash Commands**: Added 4 commands (generate-tests, review-pr, git-worktree, validate-changes)
 - **Security Hooks**: Added 2 hooks + link to complete catalog
-- **🧭 Not Sure Where to Start?**: Added 5 navigation entries (Workflows, Methodologies, Architecture, Data Privacy, Observability)
-- **By Role Paths**: Enhanced all 4 paths with new resources
+- **🧭 Not Sure Where to Start?**: Added 6 navigation entries (Workflows, Methodologies, Architecture, Data Privacy, Security Hardening, Observability)
+- **By Role Paths**: Enhanced all 4 paths with new resources (Power User +1: Security Hardening)
 - **SEO Keywords**: Added 9 keywords (tdd ai, sdd, bdd, methodologies, architecture, workflows, data privacy, ai coding workflows)
+
+#### guide/README.md Updates
+- Added security-hardening.md to Contents table
 
 ---
 
