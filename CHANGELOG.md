@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Improved - README.md Navigation & Structure
+
+Documentation alignment and navigation improvements.
+
+#### README.md Updates
+- **Repository Structure**: Added guide/workflows/, examples/modes/, examples/config/, examples/memory/
+- **Core Documentation**: Added 4 entries (methodologies.md, workflows/, data-privacy.md, observability.md)
+- **Slash Commands**: Added 4 commands (generate-tests, review-pr, git-worktree, validate-changes)
+- **Security Hooks**: Added 2 hooks + link to complete catalog
+- **🧭 Not Sure Where to Start?**: Added 5 navigation entries (Workflows, Methodologies, Architecture, Data Privacy, Observability)
+- **By Role Paths**: Enhanced all 4 paths with new resources
+- **SEO Keywords**: Added 9 keywords (tdd ai, sdd, bdd, methodologies, architecture, workflows, data privacy, ai coding workflows)
+
+---
+
 ## [3.5.0] - 2026-01-14
 
 ### Added - Development Methodologies & Workflows

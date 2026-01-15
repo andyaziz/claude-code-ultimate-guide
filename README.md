@@ -64,6 +64,11 @@
 | Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | Intermediate |
 | Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | Comprehensive |
 | Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | Overview |
+| Want TDD/BDD with Claude | [Workflows](./guide/workflows/) | Practical |
+| Need a dev methodology reference | [Methodologies](./guide/methodologies.md) | Reference |
+| Want to understand internals | [Architecture](./guide/architecture.md) | Deep dive |
+| Need data privacy guidance | [Data Privacy](./guide/data-privacy.md) | Quick read |
+| Want to track costs & sessions | [Observability](./guide/observability.md) | Monitoring |
 | Choosing turnkey vs. autonomous approach | [Adoption Guide](./guide/adoption-approaches.md) | Quick read |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | Quick scan |
 | Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | Reference |
@@ -253,7 +258,8 @@ Weak Areas (< 75%):
 2. [Essential Commands](./guide/ultimate-guide.md#13-essential-commands) — The 7 commands
 3. [Context Management](./guide/ultimate-guide.md#22-context-management) — Critical concept
 4. [Memory Files](./guide/ultimate-guide.md#31-memory-files-claudemd) — Your first CLAUDE.md
-5. [Cheat Sheet](./guide/cheatsheet.md) — Print this
+5. [TDD Workflow](./guide/workflows/tdd-with-claude.md) — Test-first development
+6. [Cheat Sheet](./guide/cheatsheet.md) — Print this
 
 </td>
 <td width="50%">
@@ -262,9 +268,10 @@ Weak Areas (< 75%):
 
 1. [Core Concepts](./guide/ultimate-guide.md#2-core-concepts) — Mental model
 2. [Plan Mode](./guide/ultimate-guide.md#23-plan-mode) — Safe exploration
-3. [Agents](./guide/ultimate-guide.md#4-agents) — Custom AI personas
-4. [Hooks](./guide/ultimate-guide.md#7-hooks) — Event automation
-5. [CI/CD Integration](./guide/ultimate-guide.md#93-cicd-integration) — Pipelines
+3. [Methodologies](./guide/methodologies.md) — TDD, SDD, BDD reference
+4. [Agents](./guide/ultimate-guide.md#4-agents) — Custom AI personas
+5. [Hooks](./guide/ultimate-guide.md#7-hooks) — Event automation
+6. [CI/CD Integration](./guide/ultimate-guide.md#93-cicd-integration) — Pipelines
 
 </td>
 </tr>
@@ -274,10 +281,11 @@ Weak Areas (< 75%):
 **Power User** (Comprehensive path)
 
 1. [Complete Guide](./guide/ultimate-guide.md) — End-to-end
-2. [MCP Servers](./guide/ultimate-guide.md#8-mcp-servers) — Extended capabilities
-3. [Trinity Pattern](./guide/ultimate-guide.md#91-the-trinity) — Advanced workflows
-4. [Audit](./tools/audit-prompt.md) — Optimize setup
-5. [Examples](./examples/) — Production templates
+2. [Architecture](./guide/architecture.md) — How Claude Code works
+3. [MCP Servers](./guide/ultimate-guide.md#8-mcp-servers) — Extended capabilities
+4. [Trinity Pattern](./guide/ultimate-guide.md#91-the-trinity) — Advanced workflows
+5. [Observability](./guide/observability.md) — Monitor costs & sessions
+6. [Examples](./examples/) — Production templates
 
 </td>
 <td width="50%">
@@ -286,8 +294,9 @@ Weak Areas (< 75%):
 
 1. [What's Inside](#-complete-toolkit) — Scope
 2. [Golden Rules](#-golden-rules) — Key principles
-3. [Core Concepts](./guide/ultimate-guide.md#2-core-concepts) — High-level
-4. [Context Management](./guide/ultimate-guide.md#22-context-management) — Why it matters
+3. [Data Privacy](./guide/data-privacy.md) — Retention & compliance
+4. [Adoption Approaches](./guide/adoption-approaches.md) — Team strategies
+5. [Context Management](./guide/ultimate-guide.md#22-context-management) — Why it matters
 
 </td>
 </tr>
@@ -304,6 +313,10 @@ Weak Areas (< 75%):
 | **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference, 10 sections | ~3 hours (or by section) |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 minutes |
 | **[Architecture & Internals](./guide/architecture.md)** | How Claude Code works under the hood | ~25 minutes |
+| **[Methodologies](./guide/methodologies.md)** | 15 development methodologies reference | ~20 minutes |
+| **[Workflows](./guide/workflows/)** | Practical guides (TDD, SDD, Plan-Driven) | ~30 minutes |
+| **[Data Privacy](./guide/data-privacy.md)** | Data retention and privacy guide | ~10 minutes |
+| **[Observability](./guide/observability.md)** | Session monitoring and cost tracking | ~15 minutes |
 | **[LLM Reference](./machine-readable/reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
@@ -322,10 +335,18 @@ Weak Areas (< 75%):
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (8500+ lines)
+│   ├── ultimate-guide.md     # Complete reference (~9500 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
-│   └── adoption-approaches.md # Team implementation strategies
+│   ├── adoption-approaches.md # Team implementation strategies
+│   ├── data-privacy.md       # Data retention and privacy guide
+│   ├── methodologies.md      # 15 development methodologies reference
+│   ├── observability.md      # Session monitoring and cost tracking
+│   └── workflows/            # Practical workflow guides
+│       ├── tdd-with-claude.md
+│       ├── spec-first.md
+│       ├── plan-driven.md
+│       └── iterative-refinement.md
 │
 ├── tools/                    # 🔧 Interactive utilities
 │   ├── audit-prompt.md       # Setup audit with recommendations
@@ -347,7 +368,10 @@ claude-code-ultimate-guide/
 │   ├── skills/               # Reusable knowledge modules
 │   ├── scripts/              # Setup & diagnostic utilities
 │   ├── github-actions/       # CI/CD workflows
-│   └── ...
+│   ├── config/               # Configuration templates
+│   ├── memory/               # CLAUDE.md templates
+│   ├── modes/                # Behavioral modes (SuperClaude)
+│   └── workflows/            # Advanced workflow guides
 │
 └── quiz/                     # 🧠 Interactive knowledge quiz (159 questions)
 ```
@@ -367,14 +391,22 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [/sonarqube](./examples/commands/sonarqube.md) | Analyze quality issues | Executive summary, action plans |
 | [/commit](./examples/commands/commit.md) | Conventional commits | Follows team conventions |
 | [/diagnose](./examples/commands/diagnose.md) | Interactive troubleshooting | Bilingual FR/EN, auto-scans environment |
+| [/generate-tests](./examples/commands/generate-tests.md) | Generate test suites | TDD integration, coverage focus |
+| [/review-pr](./examples/commands/review-pr.md) | Review pull requests | Code quality analysis |
+| [/git-worktree](./examples/commands/git-worktree.md) | Manage git worktrees | Parallel development |
+| [/validate-changes](./examples/commands/validate-changes.md) | Validate code changes | Pre-commit checks |
 
 ### Security & Automation Hooks
 
 | Hook | Event | Purpose |
 |------|-------|---------|
 | [dangerous-actions-blocker.sh](./examples/hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block `rm -rf /`, force push, secrets |
+| [prompt-injection-detector.sh](./examples/hooks/bash/prompt-injection-detector.sh) | PreToolUse | Detect injection attempts |
+| [output-secrets-scanner.sh](./examples/hooks/bash/output-secrets-scanner.sh) | PostToolUse | Detect exposed secrets |
 | [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts |
 | [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
+
+**[See All 11 Hooks](./examples/hooks/)** — Includes session-logger, security-check, claudemd-scanner, and more
 
 ### GitHub Actions (CI/CD)
 
@@ -523,4 +555,6 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
-claude code agents, claude code hooks, claude code skills, agentic coding, ai pair programming -->
+claude code agents, claude code hooks, claude code skills, agentic coding, ai pair programming,
+tdd ai, test driven development ai, sdd spec driven development, bdd claude, development methodologies,
+claude code architecture, data privacy anthropic, claude code workflows, ai coding workflows -->
