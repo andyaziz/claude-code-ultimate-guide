@@ -181,10 +181,14 @@ Based on time spent and topics covered:
    - `build_agents` → "Create a simple agent using the template shown"
    - `fix_problem` → "Run `claude doctor` if issues persist"
 
-3. **Next steps**: Point to relevant resources:
-   - Quiz for self-assessment: `quiz/`
-   - Cheat sheet to print: `guide/cheatsheet.md`
-   - Full guide for deep dive: `guide/ultimate-guide.md`
+3. **Next steps**: Point to relevant resources with clickable URLs:
+   - Quiz: [Self-assessment quiz](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz)
+   - Cheat sheet: [Printable cheatsheet](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/cheatsheet.md)
+   - Full guide: [Ultimate Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md)
+
+4. **Section-specific links**: When referencing specific sections, use GitHub line anchors:
+   - Format: `https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md#L{line_number}`
+   - Example: Extended Thinking → `#L5684`, Context Triage → `#L1069`
 
 ### Privacy Notice (show once, after Phase 2)
 
@@ -192,7 +196,7 @@ Based on time spent and topics covered:
 - Everything shared with Claude Code is sent to Anthropic servers
 - Default retention: **5 years** (training enabled)
 - Action: [Disable training](https://claude.ai/settings/data-privacy-controls) → reduces to 30 days
-- See `guide/data-privacy.md` for full details
+- Details: [Data Privacy Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/data-privacy.md)
 
 ## Output Format
 
