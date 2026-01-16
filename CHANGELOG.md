@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Whitepapers PDF template modernized** (internal)
+  - New color palette: Slate + Indigo (WCAG AA compliant)
+  - Typography: Inter font, JetBrains Mono for code
+  - Cover page redesign: Claude Code logo, minimal white design
+  - Fixed nested markdown code blocks (42 blocks using `````markdown`)
+  - Added clickable GitHub links for all script references
+
 ---
 
 ## [3.8.0] - 2026-01-16
