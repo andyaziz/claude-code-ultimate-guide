@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Lines-9,600+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-87-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-49-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-159_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -129,7 +129,7 @@ Claude asks 2-4 questions then guides you through personalized content based on 
 - You read official docs → dense, no progression
 - You search tutorials → scattered, outdated in weeks
 
-**This guide:** Structured learning path with 87 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
+**This guide:** Structured learning path with 49 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
 
 | Traditional Docs | This Guide |
 |------------------|------------|
@@ -667,7 +667,7 @@ Get notified about major updates, new templates, and Claude Code best practices:
 
 ---
 
-*Version 3.8.1 | January 2026 | Crafted with Claude*
+*Version 3.8.2 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

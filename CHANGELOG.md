@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [3.8.2] - 2026-01-17
+
+### Added
+
+- **Landing Site Synchronization System**
+  - New script `scripts/check-landing-sync.sh` verifying 4 metrics:
+    - Version (`VERSION` vs landing index.html)
+    - Templates count (`find examples/` vs landing badges)
+    - Quiz questions (`questions.json` vs index.html + quiz.html)
+    - Guide lines (with ±500 tolerance)
+  - CLAUDE.md updated with sync documentation and expected output
+  - Landing site CLAUDE.md created with sync workflow and line numbers
+
+### Fixed
+
+- **Templates count corrected**: 87 → 49 in README.md badges and text
+  - Badge count was wrong since original creation
+  - Actual count verified with `find examples/ -type f`
+
+---
+
+## [3.8.1] - 2026-01-16
+
 ### Added
 
 - **PDF Generation documentation**

@@ -86,6 +86,81 @@ echo "3.7.0" > VERSION && ./scripts/sync-version.sh
 
 Check `IDEAS.md` for planned improvements and `CHANGELOG.md [Unreleased]` for work in progress.
 
+## Landing Site Synchronization
+
+**Important**: Ce guide a un site landing associé qui doit être mis à jour après certains changements.
+
+**Landing repo**: `/Users/florianbruniaux/Sites/perso/claude-code-ultimate-guide-landing/`
+
+### Éléments à synchroniser
+
+| Élément | Source (guide) | Destination (landing) |
+|---------|----------------|----------------------|
+| Version | `VERSION` | index.html footer + FAQ |
+| Templates count | Count `examples/` files | Badges, title, meta tags |
+| Guide lines | `wc -l guide/ultimate-guide.md` | Badges |
+| Golden Rules | README.md | index.html section |
+| FAQ | README.md | index.html FAQ |
+
+### Triggers de sync
+
+Après ces modifications, **rappeler** de mettre à jour le landing:
+
+1. **Version bump** → Modifier `VERSION` ici, puis landing
+2. **Ajout/suppression templates** → Recalculer count, mettre à jour landing
+3. **Modification Golden Rules ou FAQ** → Répercuter sur landing
+4. **Changement significatif du guide** (>100 lignes)
+
+### Commande de vérification
+
+```bash
+./scripts/check-landing-sync.sh
+```
+
+**Ce que fait le script (4 vérifications):**
+
+| Check | Source | Comparaison |
+|-------|--------|-------------|
+| Version | `VERSION` | index.html (footer + FAQ) |
+| Templates | `find examples/` | index.html + examples.html |
+| Quiz questions | `questions.json` | index.html + quiz.html |
+| Guide lines | `wc -l ultimate-guide.md` | index.html (tolérance ±500) |
+
+**Output attendu (si synchronisé):**
+```
+=== Landing Site Sync Check ===
+
+1. Version
+   Guide:   3.8.1
+   Landing: 3.8.1
+   OK
+
+2. Templates Count
+   Guide:         49 files
+   index.html:    49
+   examples.html: 49
+   OK
+
+3. Quiz Questions
+   questions.json: 159
+   index.html:     159
+   quiz.html:      159
+   OK
+
+4. Guide Lines
+   Actual:  9637
+   Landing: 9600+ (approximate)
+   OK (within tolerance)
+
+=== Summary ===
+All synced!
+```
+
+**En cas de mismatch:**
+- Le script indique quel fichier est désynchronisé
+- Exit code = nombre d'issues trouvées
+- Consulter `landing/CLAUDE.md` pour les numéros de ligne exacts à modifier
+
 ## Research Resources
 
 **Perplexity Pro disponible**: Pour toute recherche nécessitant des sources fiables ou des informations récentes sur Claude Code, Anthropic, ou les pratiques de développement assisté par IA:
