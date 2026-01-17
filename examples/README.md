@@ -2,6 +2,8 @@
 
 Ready-to-use templates for Claude Code configuration.
 
+> **[Browse Interactive Catalog](./index.html)** — View, copy, and download all templates with syntax highlighting
+
 ## Structure
 
 | Folder | Description |
@@ -53,6 +55,7 @@ Ready-to-use templates for Claude Code configuration.
 |------|---------|
 | [tdd-workflow.md](./skills/tdd-workflow.md) | Test-Driven Development process |
 | [security-checklist.md](./skills/security-checklist.md) | OWASP Top 10 security checks |
+| [pdf-generator.md](./skills/pdf-generator.md) | Professional PDF generation (Quarto/Typst) |
 
 ### Commands
 | File | Trigger | Purpose |

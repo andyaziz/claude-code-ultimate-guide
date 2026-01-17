@@ -6,7 +6,7 @@
 
 This repository provides everything needed to go from Claude Code beginner to power user:
 
-1. **Complete Guide** (`guide/ultimate-guide.md`) - 4700+ lines covering all aspects of Claude Code
+1. **Complete Guide** (`guide/ultimate-guide.md`) - 9,600+ lines covering all aspects of Claude Code
 2. **Cheatsheet** (`guide/cheatsheet.md`) - 1-page printable daily reference
 3. **Architecture Internals** (`guide/architecture.md`) - How Claude Code works under the hood (master loop, tools, context)
 4. **Audit Prompt** (`tools/audit-prompt.md`) - Self-contained prompt to analyze your Claude Code setup against best practices

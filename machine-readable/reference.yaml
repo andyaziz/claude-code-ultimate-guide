@@ -15,6 +15,10 @@ deep_dive:
   # Session management
   session_search: "guide/observability.md:29"
   session_search_script: "examples/scripts/session-search.sh"
+  # PDF Generation
+  pdf_generation: "guide/workflows/pdf-generation.md"
+  pdf_generator_skill: "examples/skills/pdf-generator.md"
+  whitepapers_example: "whitepapers/README.md"
   # Architecture internals (guide/architecture.md)
   architecture_master_loop: "guide/architecture.md:60"
   architecture_tools: "guide/architecture.md:130"

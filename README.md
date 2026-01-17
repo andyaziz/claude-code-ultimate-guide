@@ -163,15 +163,21 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 
 **Want deeper analysis?** Use [`tools/audit-prompt.md`](./tools/audit-prompt.md) for personalized recommendations (~3 min).
 
-### 🤖 LLM Reference
+### 🤖 For AI Assistants
 
-Give any AI assistant instant Claude Code expertise (~2K tokens):
+This guide is optimized for both human and AI consumption:
 
+| Resource | Purpose | Tokens |
+|----------|---------|--------|
+| **[llms.txt](./machine-readable/llms.txt)** | Standard context file for AI crawlers | ~1K |
+| **[reference.yaml](./machine-readable/reference.yaml)** | Structured index with line numbers | ~2K |
+
+**Quick load** (paste in any AI assistant):
 ```bash
 curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/machine-readable/reference.yaml
 ```
 
-**Use cases**: Paste output into ChatGPT/Claude/Gemini, add to system prompts, or reference in Claude Code with `@machine-readable/reference.yaml`
+**Use cases**: Inject into ChatGPT/Claude/Gemini, add to system prompts, reference in Claude Code with `@machine-readable/reference.yaml`
 
 **What's inside**: Decision trees, command reference, context zones, MCP servers, agent templates, troubleshooting—optimized for machine consumption. Points to line numbers in the [full guide](./guide/ultimate-guide.md) for deep dives.
 
@@ -431,7 +437,8 @@ claude-code-ultimate-guide/
 │       ├── tdd-with-claude.md
 │       ├── spec-first.md
 │       ├── plan-driven.md
-│       └── iterative-refinement.md
+│       ├── iterative-refinement.md
+│       └── pdf-generation.md
 │
 ├── tools/                    # 🔧 Interactive utilities
 │   ├── audit-prompt.md       # Setup audit with recommendations
@@ -517,7 +524,7 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [claude-security-review.yml](./examples/github-actions/claude-security-review.yml) | PR open | Security scan (OWASP Top 10) |
 | [claude-issue-triage.yml](./examples/github-actions/claude-issue-triage.yml) | Issue opened | Auto-triage with labels |
 
-**[See Complete Catalog](./examples/README.md)** — Includes agents, skills, memory templates, config files, workflows
+**[See Complete Catalog](./examples/README.md)** | **[Browse Interactive Catalog](./examples/index.html)** — Includes agents, skills, memory templates, config files, workflows
 
 ---
 
@@ -652,7 +659,15 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.7.1 | January 2026 | Crafted with Claude*
+## 📬 Stay Updated
+
+Get notified about major updates, new templates, and Claude Code best practices:
+
+**[Subscribe to the newsletter](https://buttondown.com/claude-code-guide)** — No spam, 1-2 emails/month max, unsubscribe anytime.
+
+---
+
+*Version 3.8.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

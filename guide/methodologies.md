@@ -51,6 +51,8 @@ Organized in a 6-tier pyramid from strategic orchestration down to optimization 
 - **When to use**: Complex enterprise projects needing governance
 - **When to avoid**: Small teams, MVPs, rapid prototyping
 
+> **Emerging**: [Ralph Inferno](https://github.com/sandstream/ralph-inferno) implements autonomous multi-persona workflows (Analyst→PM→UX→Architect→Business) with VM-based execution and self-correcting E2E loops. Experimental but interesting for "vibe coding at scale".
+
 ---
 
 ### Tier 2: Specification & Architecture
