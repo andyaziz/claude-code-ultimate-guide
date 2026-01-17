@@ -51,13 +51,13 @@ TEMPLATE_COUNT=$(find "$GUIDE_DIR/examples" -type f \( -name "*.md" -o -name "*.
 
 # Check index.html
 LANDING_TEMPLATES_INDEX=$(grep -oE '[0-9]+ Templates' "$LANDING_DIR/index.html" | head -1 | grep -oE '[0-9]+')
-# Check examples.html
-LANDING_TEMPLATES_EXAMPLES=$(grep -oE '[0-9]+ Templates' "$LANDING_DIR/examples.html" | head -1 | grep -oE '[0-9]+')
+# Check examples/index.html
+LANDING_TEMPLATES_EXAMPLES=$(grep -oE '[0-9]+ Templates' "$LANDING_DIR/examples/index.html" | head -1 | grep -oE '[0-9]+')
 
 echo -e "${BLUE}2. Templates Count${NC}"
 echo "   Guide:         $TEMPLATE_COUNT files"
 echo "   index.html:    $LANDING_TEMPLATES_INDEX"
-echo "   examples.html: $LANDING_TEMPLATES_EXAMPLES"
+echo "   examples/index.html: $LANDING_TEMPLATES_EXAMPLES"
 
 TEMPLATES_OK=true
 if [ "$TEMPLATE_COUNT" != "$LANDING_TEMPLATES_INDEX" ]; then
@@ -65,7 +65,7 @@ if [ "$TEMPLATE_COUNT" != "$LANDING_TEMPLATES_INDEX" ]; then
     TEMPLATES_OK=false
 fi
 if [ "$TEMPLATE_COUNT" != "$LANDING_TEMPLATES_EXAMPLES" ]; then
-    echo -e "   ${YELLOW}MISMATCH in examples.html${NC}"
+    echo -e "   ${YELLOW}MISMATCH in examples/index.html${NC}"
     TEMPLATES_OK=false
 fi
 if [ "$TEMPLATES_OK" = true ]; then
@@ -85,12 +85,12 @@ QUESTIONS_COUNT=$(grep -cE '"id": "[0-9]+-[0-9]+"' "$LANDING_DIR/questions.json"
 
 # Check what landing pages say
 LANDING_QUESTIONS_INDEX=$(grep -oE '[0-9]+ quiz questions' "$LANDING_DIR/index.html" | head -1 | grep -oE '[0-9]+')
-LANDING_QUESTIONS_QUIZ=$(grep -oE '[0-9]+ Questions' "$LANDING_DIR/quiz.html" | head -1 | grep -oE '[0-9]+')
+LANDING_QUESTIONS_QUIZ=$(grep -oE '[0-9]+ Questions' "$LANDING_DIR/quiz/index.html" | head -1 | grep -oE '[0-9]+')
 
 echo -e "${BLUE}3. Quiz Questions${NC}"
 echo "   questions.json: $QUESTIONS_COUNT"
 echo "   index.html:     $LANDING_QUESTIONS_INDEX"
-echo "   quiz.html:      $LANDING_QUESTIONS_QUIZ"
+echo "   quiz/index.html: $LANDING_QUESTIONS_QUIZ"
 
 QUESTIONS_OK=true
 if [ "$QUESTIONS_COUNT" != "$LANDING_QUESTIONS_INDEX" ]; then
@@ -98,7 +98,7 @@ if [ "$QUESTIONS_COUNT" != "$LANDING_QUESTIONS_INDEX" ]; then
     QUESTIONS_OK=false
 fi
 if [ "$QUESTIONS_COUNT" != "$LANDING_QUESTIONS_QUIZ" ]; then
-    echo -e "   ${YELLOW}MISMATCH in quiz.html${NC}"
+    echo -e "   ${YELLOW}MISMATCH in quiz/index.html${NC}"
     QUESTIONS_OK=false
 fi
 if [ "$QUESTIONS_OK" = true ]; then
@@ -141,8 +141,8 @@ else
     echo ""
     echo "To fix:"
     echo "  1. Edit: $LANDING_DIR/index.html"
-    echo "  2. Edit: $LANDING_DIR/examples.html (if templates changed)"
-    echo "  3. Edit: $LANDING_DIR/quiz.html (if questions changed)"
+    echo "  2. Edit: $LANDING_DIR/examples/index.html (if templates changed)"
+    echo "  3. Edit: $LANDING_DIR/quiz/index.html (if questions changed)"
     echo ""
     echo "See: $LANDING_DIR/CLAUDE.md for exact line numbers"
 fi
