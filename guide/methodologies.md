@@ -163,6 +163,7 @@ Meta-Agent (Orchestrator)
 | Name | What | Best For | Claude Fit |
 |------|------|----------|------------|
 | **Iterative Loops** | Autonomous refinement | Optimization | ⭐⭐⭐ Core |
+| **Fresh Context** | Reset per task, state in files | Long autonomous sessions | ⭐⭐⭐ Power users |
 | **Prompt Engineering** | Technique foundation | Everything | ⭐⭐⭐ Prerequisite |
 
 **Iterative Refinement Loops** — Autonomous convergence:
@@ -175,6 +176,8 @@ Meta-Agent (Orchestrator)
 - Few-Shot Learning: 2-3 examples of expected pattern
 - Structured Prompts: XML tags for organization
 - Position Matters: For long docs, place question at end
+
+**Fresh Context Pattern (Ralph Loop)** — Solves context rot by spawning fresh agent instances per task. State persists in git + progress files, not chat history. Ideal for long autonomous sessions (migrations, overnight runs). See [Ultimate Guide - Fresh Context Pattern](./ultimate-guide.md#fresh-context-pattern-ralph-loop) for implementation.
 
 ---
 

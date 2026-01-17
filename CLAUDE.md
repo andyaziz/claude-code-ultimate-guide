@@ -10,7 +10,7 @@ This repository is the **comprehensive documentation for Claude Code** (Anthropi
 
 ```
 guide/                    # Core documentation
-├── ultimate-guide.md     # Main guide (~9500 lines, the reference)
+├── ultimate-guide.md     # Main guide (~9900 lines, the reference)
 ├── cheatsheet.md         # 1-page printable summary
 ├── architecture.md       # How Claude Code works internally
 ├── methodologies.md      # TDD, SDD, BDD workflows
@@ -38,7 +38,7 @@ tools/                    # Interactive utilities
 
 | File | Purpose |
 |------|---------|
-| `VERSION` | Single source of truth for version (currently 3.8.1) |
+| `VERSION` | Single source of truth for version (currently 3.8.2) |
 | `guide/ultimate-guide.md` | The main reference (search here first) |
 | `guide/cheatsheet.md` | Quick reference for daily use |
 | `machine-readable/reference.yaml` | LLM-optimized index with line numbers |
@@ -136,9 +136,9 @@ Après ces modifications, **rappeler** de mettre à jour le landing:
    OK
 
 2. Templates Count
-   Guide:         49 files
-   index.html:    49
-   examples.html: 49
+   Guide:         57 files
+   index.html:    57
+   examples.html: 57
    OK
 
 3. Quiz Questions
@@ -148,8 +148,8 @@ Après ces modifications, **rappeler** de mettre à jour le landing:
    OK
 
 4. Guide Lines
-   Actual:  9637
-   Landing: 9600+ (approximate)
+   Actual:  9881
+   Landing: 9800+ (approximate)
    OK (within tolerance)
 
 === Summary ===
