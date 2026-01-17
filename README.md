@@ -667,7 +667,7 @@ Get notified about major updates, new templates, and Claude Code best practices:
 
 ---
 
-*Version 3.8.0 | January 2026 | Crafted with Claude*
+*Version 3.8.1 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

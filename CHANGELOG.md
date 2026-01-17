@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **PDF Generation documentation**
+  - New workflow guide: `guide/workflows/pdf-generation.md`
+  - New skill template: `examples/skills/pdf-generator.md`
+  - Covers Quarto + Typst stack, YAML frontmatter, design system, troubleshooting
+  - Updated `machine-readable/reference.yaml` with deep_dive entries
+
 ### Changed
 
 - **Whitepapers PDF template modernized** (internal)
