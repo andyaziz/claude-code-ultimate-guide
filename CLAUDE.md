@@ -168,10 +168,58 @@ All synced!
 - Je te fournirai les résultats avec les sources
 - Utile pour: nouvelles features Claude Code, best practices communauté, comparaisons d'outils, documentation officielle mise à jour
 
+## Claude Code Releases Tracking
+
+Ce repo maintient un historique condensé des releases officielles de Claude Code.
+
+### Fichiers
+
+| Fichier | Rôle |
+|---------|------|
+| `machine-readable/claude-code-releases.yaml` | Source de vérité (YAML) |
+| `guide/claude-code-releases.md` | Version lisible (Markdown) |
+| `scripts/update-cc-releases.sh` | Script de vérification des nouvelles versions |
+
+### Vérifier les nouvelles versions
+
+```bash
+./scripts/update-cc-releases.sh
+```
+
+Le script:
+1. Fetch le CHANGELOG officiel depuis GitHub
+2. Compare avec notre version trackée
+3. Affiche les nouvelles releases à condenser
+
+### Workflow de mise à jour
+
+1. **Vérifier**: `./scripts/update-cc-releases.sh`
+2. **MAJ YAML**: Ajouter nouvelle entrée dans `claude-code-releases.yaml`
+   - Mettre à jour `latest` et `updated`
+   - Ajouter l'entrée dans `releases` (condensée: 2-4 highlights max)
+   - Ajouter aux `breaking_summary` si applicable
+   - Ajouter aux `milestones` si feature majeure
+3. **MAJ Markdown**: Mettre à jour `claude-code-releases.md` en cohérence
+4. **Landing sync**: `./scripts/check-landing-sync.sh`
+5. **Commit**: `docs: update Claude Code releases (vX.Y.Z)`
+
+### Format des entrées YAML
+
+```yaml
+- version: "2.1.13"
+  date: "2026-01-20"
+  highlights:
+    - "Feature principale"
+    - "Autre feature notable"
+  breaking:
+    - "Description du breaking change (si applicable)"
+```
+
 ## Quick Lookups
 
 For answering questions about Claude Code:
 1. Search `machine-readable/reference.yaml` first (has line numbers to full guide)
 2. Use those line numbers to read relevant sections from `guide/ultimate-guide.md`
 3. Check `examples/` for ready-to-use templates
-4. Si info manquante ou incertaine → demander une recherche Perplexity
+4. Check `guide/claude-code-releases.md` for recent features/changes
+5. Si info manquante ou incertaine → demander une recherche Perplexity

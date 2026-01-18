@@ -240,7 +240,7 @@ Based on ALL this context, provide:
 - Domain-aware suggestions (e.g., EdTech → session planning agents, E-commerce → inventory commands)
 - Non-duplicate suggestions: Only recommends agents/commands you don't already have
 
-**Want maximum depth?** Use [tools/audit-prompt.md](./tools/audit-prompt.md) with `claude --ultrathink`
+**Want maximum depth?** Use [tools/audit-prompt.md](./tools/audit-prompt.md) (thinking is enabled by default with Opus 4.5)
 
 ### 🧠 Knowledge Quiz
 
@@ -389,6 +389,7 @@ Weak Areas (< 75%):
 | File | Purpose | Time Investment |
 |------|---------|-----------------|
 | **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference, 10 sections | ~3 hours (or by section) |
+| **[Claude Code Releases](./guide/claude-code-releases.md)** | Official release history (condensed) | 10 minutes |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 minutes |
 | **[Architecture & Internals](./guide/architecture.md)** | How Claude Code works under the hood | ~25 minutes |
 | **[Methodologies](./guide/methodologies.md)** | 15 development methodologies reference | ~20 minutes |
@@ -505,6 +506,7 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 |--------|---------|-------------|
 | [session-search.sh](./examples/scripts/session-search.sh) | Fast session search & resume | 15ms list, 400ms search |
 | [audit-scan.sh](./examples/scripts/audit-scan.sh) | Setup audit scanner | ~2s |
+| [update-cc-releases.sh](./scripts/update-cc-releases.sh) | Check for new Claude Code releases | ~1s |
 
 ### Security & Automation Hooks
 

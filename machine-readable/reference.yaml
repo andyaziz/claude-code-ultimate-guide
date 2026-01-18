@@ -12,6 +12,9 @@ updated: "2026-01"
 # For architecture internals, see guide/architecture.md
 # ════════════════════════════════════════════════════════════════
 deep_dive:
+  # Claude Code Releases
+  claude_code_releases: "guide/claude-code-releases.md"
+  claude_code_releases_yaml: "machine-readable/claude-code-releases.yaml"
   # Session management
   session_search: "guide/observability.md:29"
   session_search_script: "examples/scripts/session-search.sh"
@@ -96,7 +99,7 @@ decide:
   context_high: "/compact (>70%) or /clear (>90%)"
   repeating: "create agent or command"
   need_docs: "Context7 MCP"
-  deep_debug: "use extended thinking in prompts"
+  deep_debug: "use Opus (thinking enabled by default) - Alt+T to toggle"
 
 # ════════════════════════════════════════════════════════════════
 # PROMPTING FORMULA (see deep_dive.xml_prompting for details)

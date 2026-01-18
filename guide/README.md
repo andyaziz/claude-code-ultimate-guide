@@ -7,6 +7,7 @@ Core documentation for mastering Claude Code.
 | File | Description | Time |
 |------|-------------|------|
 | [ultimate-guide.md](./ultimate-guide.md) | Complete reference covering all Claude Code features | ~3 hours |
+| [claude-code-releases.md](./claude-code-releases.md) | Official release history (condensed) | 10 min |
 | [cheatsheet.md](./cheatsheet.md) | 1-page printable quick reference | 5 min |
 | [architecture.md](./architecture.md) | How Claude Code works internally (master loop, tools, context) | 25 min |
 | [learning-with-ai.md](./learning-with-ai.md) | Guide for juniors on using AI without losing skills | 15 min |

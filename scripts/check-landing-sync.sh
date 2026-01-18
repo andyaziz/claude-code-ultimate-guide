@@ -131,6 +131,26 @@ fi
 echo ""
 
 # ===================
+# 5. CLAUDE CODE VERSION
+# ===================
+CC_VERSION=$(grep "^latest:" "$GUIDE_DIR/machine-readable/claude-code-releases.yaml" | cut -d'"' -f2)
+# Landing may show this in a badge or section - check if exists
+LANDING_CC_VERSION=$(grep -oE 'Claude Code v[0-9]+\.[0-9]+\.[0-9]+' "$LANDING_DIR/index.html" 2>/dev/null | head -1 | sed 's/Claude Code v//' || echo "N/A")
+
+echo -e "${BLUE}5. Claude Code Version${NC}"
+echo "   Releases YAML: $CC_VERSION"
+echo "   Landing:       ${LANDING_CC_VERSION:-Not displayed}"
+if [ "$LANDING_CC_VERSION" = "N/A" ] || [ -z "$LANDING_CC_VERSION" ]; then
+    echo -e "   ${YELLOW}INFO${NC}: Landing doesn't display CC version (optional)"
+elif [ "$CC_VERSION" != "$LANDING_CC_VERSION" ]; then
+    echo -e "   ${YELLOW}MISMATCH${NC} → Update index.html CC version badge"
+    # Not counting as hard error since it's optional
+else
+    echo -e "   ${GREEN}OK${NC}"
+fi
+echo ""
+
+# ===================
 # SUMMARY
 # ===================
 echo "=== Summary ==="
