@@ -28,10 +28,15 @@ if [ ! -d "$LANDING_DIR" ]; then
 fi
 
 # ===================
-# 1. VERSION CHECK
+# 1. VERSION CHECK (Guide version, not Claude Code version)
 # ===================
 GUIDE_VERSION=$(cat "$GUIDE_DIR/VERSION" | tr -d '\n')
-LANDING_VERSION=$(grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' "$LANDING_DIR/index.html" | head -1 | sed 's/v//')
+# Look for guide version pattern (e.g., "Version 3.8.2" or "v3.8.2" in footer, not "Claude Code vX.Y.Z")
+LANDING_VERSION=$(grep -oE 'Version [0-9]+\.[0-9]+\.[0-9]+' "$LANDING_DIR/index.html" | head -1 | sed 's/Version //')
+# Fallback: try footer pattern if Version not found
+if [ -z "$LANDING_VERSION" ]; then
+    LANDING_VERSION=$(grep -E 'footer|Footer' -A5 "$LANDING_DIR/index.html" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+fi
 
 echo -e "${BLUE}1. Version${NC}"
 echo "   Guide:   $GUIDE_VERSION"
