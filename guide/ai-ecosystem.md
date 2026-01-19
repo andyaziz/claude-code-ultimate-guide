@@ -57,6 +57,63 @@ The goal is not to find "better" tools, but to chain the **right tool for each s
 
 ## 1. Perplexity AI (Research & Sourcing)
 
+### Complementarity Diagram
+
+The following diagram illustrates how Perplexity and Claude Code complement each other across the development workflow:
+
+```mermaid
+flowchart TB
+    subgraph PERPLEXITY["🔍 PERPLEXITY DOMAIN"]
+        direction TB
+        P1["Deep Research<br/>100+ sources synthesis"]
+        P2["Real-time Information<br/>Latest APIs, versions"]
+        P3["Source Verification<br/>Cited, verifiable facts"]
+        P4["Spec Generation<br/>Structured requirements"]
+    end
+
+    subgraph CLAUDE["⚡ CLAUDE CODE DOMAIN"]
+        direction TB
+        C1["Contextual Implementation<br/>Full codebase access"]
+        C2["Multi-file Editing<br/>Atomic changes"]
+        C3["Test Generation<br/>Pattern-aware"]
+        C4["CI/CD Integration<br/>Automated pipelines"]
+    end
+
+    subgraph OVERLAP["🔄 OVERLAP ZONE"]
+        direction TB
+        O1["Quick Factual Lookups<br/>→ Use Claude WebSearch"]
+        O2["Code Explanation<br/>→ Use Claude (contextual)"]
+    end
+
+    P4 -->|"spec.md"| C1
+
+    style PERPLEXITY fill:#e8f4f8,stroke:#0ea5e9
+    style CLAUDE fill:#fef3c7,stroke:#f59e0b
+    style OVERLAP fill:#f3e8ff,stroke:#a855f7
+```
+
+**Key Insight**: Perplexity answers "What should we build?" → Claude Code answers "How do we build it here?"
+
+### Decision Flow
+
+```mermaid
+flowchart LR
+    Q["Developer Question"] --> D{Need verified<br/>sources?}
+    D -->|Yes| P["Perplexity"]
+    D -->|No| D2{Need current<br/>context?}
+    D2 -->|Yes| C["Claude Code"]
+    D2 -->|No| D3{Quick lookup<br/>or deep research?}
+    D3 -->|Quick| CW["Claude WebSearch"]
+    D3 -->|Deep| P
+
+    P -->|"spec.md"| C
+    CW --> C
+
+    style P fill:#e8f4f8,stroke:#0ea5e9
+    style C fill:#fef3c7,stroke:#f59e0b
+    style CW fill:#fef3c7,stroke:#f59e0b
+```
+
 ### When to Use Perplexity Over Claude
 
 | Scenario | Use Perplexity | Use Claude |
