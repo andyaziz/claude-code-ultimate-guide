@@ -269,6 +269,33 @@ When context usage exceeds a threshold, Claude Code automatically summarizes old
 | Specific reads | Know what you need | Read exact files, not directories |
 | CLAUDE.md | Persistent context | Store conventions in memory files |
 
+### Session Degradation Limits
+
+**Confidence**: 70% (Tier 2 - Practitioner studies, arXiv research)
+
+Claude Code's effectiveness degrades predictably under certain conditions:
+
+| Condition | Observed Threshold | Symptom |
+|-----------|-------------------|---------|
+| Conversation turns | **15-25 turns** | Loses track of earlier constraints |
+| Token accumulation | **80-100K tokens** | Ignores requirements stated early in session |
+| Problem scope | **>5 files simultaneously** | Inconsistent changes, missed files |
+
+**Success rates by scope** (from practitioner studies):
+
+| Scope | Success Rate | Example |
+|-------|--------------|---------|
+| 1-3 files | ~85% | Fix bug in single module |
+| 4-7 files | ~60% | Refactor feature across components |
+| 8+ files | ~40% | Codebase-wide changes |
+
+**Mitigation strategies**:
+
+1. **Checkpoint prompts**: "Before continuing, recap the current requirements and constraints."
+2. **Session resets**: Start fresh for new tasks (`/clear`)
+3. **Scope tightly**: Break large tasks into focused sub-tasks
+4. **Use sub-agents**: Delegate exploration to `Task` tool to preserve main context
+
 ---
 
 ## 4. Sub-Agent Architecture

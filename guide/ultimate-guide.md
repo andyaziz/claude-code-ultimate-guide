@@ -107,7 +107,8 @@ Context full → /compact or /clear
   - [1.4 Permission Modes](#14-permission-modes)
   - [1.5 Productivity Checklist](#15-productivity-checklist)
   - [1.6 Migrating from Other AI Coding Tools](#16-migrating-from-other-ai-coding-tools)
-  - [1.7 Eight Beginner Mistakes](#17-eight-beginner-mistakes-and-how-to-avoid-them)
+  - [1.7 Trust Calibration](#17-trust-calibration-when-and-how-much-to-verify)
+  - [1.8 Eight Beginner Mistakes](#18-eight-beginner-mistakes-and-how-to-avoid-them)
 - [2. Core Concepts](#2-core-concepts)
   - [2.1 The Interaction Loop](#21-the-interaction-loop)
   - [2.2 Context Management](#22-context-management)
@@ -1035,7 +1036,164 @@ Keep Copilot/Cursor for:
 - Catching more issues through Claude reviews
 - Better understanding of unfamiliar code
 
-## 1.7 Eight Beginner Mistakes (and How to Avoid Them)
+## 1.7 Trust Calibration: When and How Much to Verify
+
+AI-generated code requires **proportional verification** based on risk level. Blindly accepting all output or paranoidly reviewing every line both waste time. This section helps you calibrate your trust.
+
+### The Problem: Verification Debt
+
+Research consistently shows AI code has higher defect rates than human-written code:
+
+| Metric | AI vs Human | Source |
+|--------|-------------|--------|
+| Logic errors | 1.75× more | [ACM study, 2025](https://dl.acm.org/doi/10.1145/3716848) |
+| Security flaws | 45% contain vulnerabilities | [Veracode GenAI Report, 2025](https://veracode.com/blog/genai-code-security-report) |
+| XSS vulnerabilities | 2.74× more | [CodeRabbit study, 2025](https://coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) |
+| PR size increase | +18% | [Jellyfish, 2025](https://jellyfish.co) |
+| Incidents per PR | +24% | [Cortex.io, 2026](https://cortex.io) |
+| Change failure rate | +30% | [Cortex.io, 2026](https://cortex.io) |
+
+**Key insight**: AI produces code faster but verification becomes the bottleneck. The question isn't "does it work?" but "how do I know it works?"
+
+### The Verification Spectrum
+
+Not all code needs the same scrutiny. Match verification effort to risk:
+
+| Code Type | Verification Level | Time Investment | Techniques |
+|-----------|-------------------|-----------------|------------|
+| **Boilerplate** (configs, imports) | Light skim | 10-30 sec | Glance, trust structure |
+| **Utility functions** (formatters, helpers) | Quick test | 1-2 min | One happy path test |
+| **Business logic** | Deep review + tests | 5-15 min | Line-by-line, edge cases |
+| **Security-critical** (auth, crypto, input validation) | Maximum + tools | 15-30 min | Static analysis, fuzzing, peer review |
+| **External integrations** (APIs, databases) | Integration tests | 10-20 min | Mock + real endpoint test |
+
+### Solo vs Team Verification
+
+**Solo Developer Strategy:**
+
+Without peer reviewers, compensate with:
+
+1. **High test coverage (>70%)**: Your safety net
+2. **Vibe Review**: An intermediate layer between "accept blindly" and "review every line":
+   - Read the commit message / summary
+   - Skim the diff for unexpected file changes
+   - Run the tests
+   - Quick sanity check in the app
+   - Ship if green
+3. **Static analysis tools**: ESLint, SonarQube, Semgrep catch what you miss
+4. **Time-boxing**: Don't spend 30 min reviewing a 10-line utility
+
+```
+Solo workflow:
+Generate → Vibe Review → Tests pass? → Ship
+                ↓
+        Tests fail? → Deep review → Fix
+```
+
+**Team Strategy:**
+
+With multiple developers:
+
+1. **AI first-pass review**: Let Claude or Copilot review first (catches 70-80% of issues)
+2. **Human sign-off required**: AI review ≠ approval
+3. **Domain experts for critical paths**: Security code → security-trained reviewer
+4. **Rotate reviewers**: Prevent blind spots from forming
+
+```
+Team workflow:
+Generate → AI Review → Human Review → Merge
+              ↓              ↓
+         Flag issues    Final approval
+```
+
+### The "Prove It Works" Checklist
+
+Before shipping AI-generated code, verify:
+
+**Functional correctness:**
+- [ ] Happy path works (manual test or automated)
+- [ ] Edge cases handled (null, empty, boundary values)
+- [ ] Error states graceful (no silent failures)
+
+**Security baseline:**
+- [ ] Input validation present (never trust user input)
+- [ ] No hardcoded secrets (grep for `password`, `secret`, `key`)
+- [ ] Auth/authz checks intact (didn't bypass existing guards)
+
+**Integration sanity:**
+- [ ] Existing tests still pass
+- [ ] No unexpected file changes in diff
+- [ ] Dependencies added are justified and audited
+
+**Code quality:**
+- [ ] Follows project conventions (naming, structure)
+- [ ] No obvious performance issues (N+1, memory leaks)
+- [ ] Comments explain "why" not "what"
+
+### Anti-Patterns to Avoid
+
+| Anti-Pattern | Problem | Better Approach |
+|--------------|---------|-----------------|
+| **"It compiles, ship it"** | Syntax ≠ correctness | Run at least one test |
+| **"AI wrote it, must be secure"** | AI optimizes for plausible, not safe | Always review security-critical code manually |
+| **"Tests pass, done"** | Tests might not cover the change | Check test coverage of modified lines |
+| **"Same as last time"** | Context changes, AI may generate different code | Each generation is independent |
+| **"Senior dev wrote the prompt"** | Seniority doesn't guarantee output quality | Review output, not input |
+| **"It's just boilerplate"** | Even boilerplate can hide issues | At minimum, skim for surprises |
+
+### Calibrating Over Time
+
+Your verification strategy should evolve:
+
+1. **Start cautious**: Review everything when new to Claude Code
+2. **Track failure patterns**: Where do bugs slip through?
+3. **Tighten critical paths**: Double-down on areas with past incidents
+4. **Relax low-risk areas**: Trust AI more for stable, tested code types
+5. **Periodic audits**: Spot-check "trusted" code occasionally
+
+**Mental model**: Think of AI as a capable junior developer. You wouldn't deploy their code unreviewed, but you also wouldn't rewrite everything they produce.
+
+### Putting It Together
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                 TRUST CALIBRATION FLOW                  │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  AI generates code                                      │
+│         │                                               │
+│         ▼                                               │
+│  ┌──────────────┐                                       │
+│  │ What type?   │                                       │
+│  └──────────────┘                                       │
+│    │    │    │                                          │
+│    ▼    ▼    ▼                                          │
+│  Boiler Business Security                               │
+│  -plate  logic   critical                               │
+│    │      │        │                                    │
+│    ▼      ▼        ▼                                    │
+│  Skim   Test +   Full review                            │
+│  only   review   + tools                                │
+│    │      │        │                                    │
+│    └──────┴────────┘                                    │
+│            │                                            │
+│            ▼                                            │
+│    Tests pass? ──No──► Debug & fix                      │
+│            │                                            │
+│           Yes                                           │
+│            │                                            │
+│            ▼                                            │
+│        Ship it                                          │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+> "AI lets you code faster—make sure you're not also failing faster."
+> — Adapted from Addy Osmani
+
+**Attribution**: This section draws from Addy Osmani's ["AI Code Review"](https://addyosmani.com/blog/code-review-ai/) (Jan 2026), research from ACM, Veracode, CodeRabbit, and Cortex.io.
+
+## 1.8 Eight Beginner Mistakes (and How to Avoid Them)
 
 Common pitfalls that slow down new Claude Code users:
 
@@ -3050,6 +3208,8 @@ Brief one-sentence description of what this project does.
 - Architecture decisions that aren't obvious from the code
 
 **Rule of thumb**: If Claude makes a mistake twice because of missing context, add that context to CLAUDE.md. Don't preemptively document everything.
+
+**Size guideline**: Keep CLAUDE.md files between **4-8KB total** (all levels combined). Practitioner studies show that context files exceeding 16K tokens degrade model coherence. Include architecture overviews, key conventions, and critical constraints—exclude full API references or extensive code examples (link to them instead).
 
 ### Level 1: Global (~/.claude/CLAUDE.md)
 
@@ -8110,6 +8270,7 @@ VERIFY:
 - Blame Claude for errors without reviewing your prompts
 - Work in isolation without checking community resources
 - Give up after first frustration
+- **Trust AI output without proportional verification** - AI code has 1.75× more logic errors than human-written code ([source](https://dl.acm.org/doi/10.1145/3716848)). Match verification effort to risk level (see [Section 1.7](#17-trust-calibration-when-and-how-much-to-verify))
 
 **✅ Do:**
 

@@ -17,6 +17,22 @@ If anyone tells you they've figured this out, they're ahead of the field or over
 
 ---
 
+## What We Do Know (Empirical Data)
+
+Some patterns have emerged from practitioner studies and team retrospectives:
+
+| Finding | Data | Implication |
+|---------|------|-------------|
+| **Scope matters most** | 1-3 files: ~85% success, 8+ files: ~40% | Start small, expand gradually |
+| **CLAUDE.md sweet spot** | 4-8KB optimal, >16K degrades coherence | Concise > comprehensive |
+| **Session limits** | 15-25 turns before constraint drift | Reset for new tasks |
+| **Script generation ROI** | 70-90% time savings reported | Best first use case |
+| **Exploration before implementation** | +20-30% decision quality | Ask for alternatives first |
+
+**Source**: MetalBear engineering blog, arXiv practitioner studies, Reddit engineering threads (2024-2025).
+
+---
+
 ## Starting Points (Not Prescriptions)
 
 | Your Context | One Approach to Try |

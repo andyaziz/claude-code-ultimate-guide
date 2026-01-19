@@ -12,6 +12,13 @@ updated: "2026-01"
 # For architecture internals, see guide/architecture.md
 # ════════════════════════════════════════════════════════════════
 deep_dive:
+  # AI-Assisted Development Workflows (from MetalBear/arXiv research)
+  exploration_workflow: "guide/workflows/exploration-workflow.md"
+  script_generation: "guide/workflows/iterative-refinement.md:192"
+  anti_anchoring_prompts: "examples/semantic-anchors/anchor-catalog.md:240"
+  session_limits: "guide/architecture.md:272"
+  claudemd_sizing: 3054
+  scope_success_rates: "guide/adoption-approaches.md:20"
   # Claude Code Releases
   claude_code_releases: "guide/claude-code-releases.md"
   claude_code_releases_yaml: "machine-readable/claude-code-releases.yaml"
@@ -49,6 +56,7 @@ deep_dive:
   installation: 187
   first_workflow: 268
   essential_commands: 317
+  trust_calibration: 1039
   working_with_images: 413
   wireframing_tools: 483
   figma_mcp: 520
@@ -87,7 +95,7 @@ deep_dive:
   ide_integration: 7070
   feedback_loops: 7140
   batch_operations: 7570
-  pitfalls: 7689
+  pitfalls: 8050
   git_best_practices: 8190
   subscription_limits: 1750
   cost_optimization: 8047

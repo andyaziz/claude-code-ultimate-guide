@@ -13,8 +13,10 @@ Prompt, observe, reprompt until satisfied. The core loop of effective AI-assiste
 3. [Feedback Patterns](#feedback-patterns)
 4. [Autonomous Loops](#autonomous-loops)
 5. [Integration with Claude Code](#integration-with-claude-code)
-6. [Anti-Patterns](#anti-patterns)
-7. [See Also](#see-also)
+6. [Script Generation Workflow](#script-generation-workflow)
+7. [Iteration Strategies](#iteration-strategies)
+8. [Anti-Patterns](#anti-patterns)
+9. [See Also](#see-also)
 
 ---
 
@@ -189,6 +191,79 @@ Good progress. Let's checkpoint:
 
 ---
 
+## Script Generation Workflow
+
+Script and automation generation delivers the highest ROI for iterative refinement—70-90% time savings in practitioner reports. Scripts are self-contained, testable in isolation, and yield immediate value.
+
+### The 3-7 Iteration Pattern
+
+Most production-ready scripts emerge after 3-7 iterations:
+
+| Iteration | Focus | Prompt Pattern |
+|-----------|-------|----------------|
+| 1 | Basic functionality | "Create a script that [goal]" |
+| 2-3 | Constraints + edge cases | "Add [constraint]. Handle [edge case]." |
+| 4-5 | Hardening | "Add error handling, logging, input validation" |
+| 6-7 | Polish | "Optimize for [metric]. Add usage docs." |
+
+### Example: Kubernetes Pod Manager (PowerShell)
+
+**Iteration 1 — Basic**
+```
+Create a PowerShell function to list pods in a Kubernetes namespace.
+```
+
+**Iteration 2 — Add filtering**
+```
+Add: filter by label selector and pod status.
+Show: pod name, status, age, restarts.
+```
+
+**Iteration 3 — Add actions**
+```
+Add: ability to delete pods matching filter.
+Require: confirmation before deletion.
+```
+
+**Iteration 4 — Error handling**
+```
+Handle: kubectl not found, invalid namespace, permission denied.
+Add: verbose logging with -Verbose flag.
+```
+
+**Iteration 5 — Production ready**
+```
+Add: dry-run mode, output to JSON for piping, help documentation.
+Ensure: works on Windows, Linux, macOS.
+```
+
+### Common Pitfalls
+
+| Pitfall | Example | Mitigation |
+|---------|---------|------------|
+| Hallucinated commands | `apt-get` on macOS | Specify OS: "Ubuntu 22.04 only" |
+| Security gaps | No input validation | Always request: "validate all user inputs" |
+| Over-engineering | Adds unnecessary libs | Request: "minimal dependencies, stdlib preferred" |
+| Context drift | Forgets requirements after iteration 5 | Checkpoint prompt: "Recap current requirements before next change" |
+| Platform assumptions | Assumes bash features in sh | Specify: "POSIX-compliant" or "bash 4+" |
+
+### Script Iteration Template
+
+```
+Current script: [paste or reference]
+
+Iteration goal: [specific improvement]
+
+Constraints:
+- Must preserve: [existing behavior to keep]
+- Must not: [things to avoid]
+- Target environment: [OS, shell, runtime]
+
+Success criteria: [how to verify this iteration works]
+```
+
+---
+
 ## Iteration Strategies
 
 ### Breadth-First
@@ -307,6 +382,7 @@ Perfect. Commit this as "feat: add debounce utility with full TypeScript support
 
 ## See Also
 
+- [exploration-workflow.md](./exploration-workflow.md) — Explore alternatives before iterating
 - [tdd-with-claude.md](./tdd-with-claude.md) — TDD is iterative refinement with tests
 - [plan-driven.md](./plan-driven.md) — Plan before iterating
 - [../methodologies.md](../methodologies.md) — Iterative Loops methodology

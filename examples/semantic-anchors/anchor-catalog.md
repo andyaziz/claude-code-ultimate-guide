@@ -237,6 +237,45 @@ LLMs are statistical pattern matchers. When you use **precise technical vocabula
 
 ---
 
+## Prompting Patterns
+
+### Anti-Anchoring Techniques
+
+LLMs can fixate on their first suggestion, narrowing your solution space. These patterns combat anchoring bias:
+
+| Pattern | Prompt Template | Effect |
+|---------|-----------------|--------|
+| Fresh start | "Ignore any prior ideas. Generate 4 novel approaches to [X]" | Forces diversity |
+| Reflection loop | "Generate 3 options, then critique each, then recommend" | Self-correction |
+| Quantified comparison | "Rank by [metric1], [metric2], [metric3] with scores 1-10" | Objective trade-offs |
+| Devil's advocate | "What are the strongest arguments against your recommendation?" | Surface hidden costs |
+| Constraint flip | "Now solve with [opposite constraint]" | Expand solution space |
+
+### Exploration Prompts
+
+Use these when you need multiple approaches before committing:
+
+| Goal | Semantic Anchor Prompt |
+|------|------------------------|
+| Architecture choice | "Compare [A], [B], [C] using C4 model criteria: context fit, container complexity, component count" |
+| Performance trade-off | "Analyze time complexity (Big O), space complexity, and cache-friendliness for each approach" |
+| Team fit | "Evaluate learning curve, debugging difficulty, and ecosystem maturity (1-10 scale)" |
+| Risk assessment | "For each option: what's the worst-case failure mode and recovery cost?" |
+
+### Iteration Prompts
+
+For progressive refinement of scripts and automation:
+
+| Stage | Prompt Pattern |
+|-------|----------------|
+| Initial | "Create a [language] script that [goal]. Include basic error handling." |
+| Constrain | "Add: [specific constraint]. Remove: [unwanted behavior]." |
+| Harden | "Add input validation, logging, and handle edge case: [specific case]." |
+| Optimize | "Optimize for [metric]. Target: [specific threshold]." |
+| Document | "Add usage examples and inline comments for non-obvious logic." |
+
+---
+
 ## CLAUDE.md Template with Semantic Anchors
 
 ```markdown

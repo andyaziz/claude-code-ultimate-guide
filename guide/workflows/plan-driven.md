@@ -244,6 +244,7 @@ Plans in `.claude/plans/` serve as decision documentation:
 
 ## See Also
 
+- [exploration-workflow.md](./exploration-workflow.md) — Explore alternatives before planning
 - [../ultimate-guide.md](../ultimate-guide.md) — Section 2.3 Plan Mode
 - [tdd-with-claude.md](./tdd-with-claude.md) — Combine with TDD
 - [spec-first.md](./spec-first.md) — Combine with Spec-First

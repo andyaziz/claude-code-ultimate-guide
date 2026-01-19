@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **ultimate-guide.md: Section 1.7 "Trust Calibration: When and How Much to Verify"** — New section (~155 lines)
+  - Research-backed stats table (ACM, Veracode, CodeRabbit, Cortex.io sources)
+  - Verification spectrum (boilerplate → security-critical)
+  - Solo vs Team verification strategies with workflow diagrams
+  - "Prove It Works" checklist (functional, security, integration, quality)
+  - Anti-patterns table (6 common mistakes)
+  - Attribution to Addy Osmani's "AI Code Review" (Jan 2026)
+- **ultimate-guide.md: New pitfall in Learning & Adoption section** — "Trust AI output without proportional verification"
+- **reference.yaml: trust_calibration deep_dive entry** — Line 1039
+
+### Changed
+
+- **ultimate-guide.md: Section renumbering** — "Eight Beginner Mistakes" moved from 1.7 → 1.8
+- **reference.yaml: pitfalls line number** — Updated 7689 → 8050 (shifted by new content)
+
+---
+
+- **learning-with-ai.md: "The Reality of AI Productivity" section** — New §3 (~55 lines)
+  - Productivity curve phases (Wow Effect → Targeted Gains → Sustainable Plateau)
+  - High-gain vs low/negative-gain task categorization
+  - Team success factors (guidelines, code review, mentorship)
+  - Cross-references to other sections for coherent narrative
+
+### Changed
+
+- **learning-with-ai.md: Three Patterns productivity trajectory table** — Shows productivity by pattern over time
+- **learning-with-ai.md: 70/30 Split research callout** — Links ratio to productivity research
+- **learning-with-ai.md: Case Study organizational link** — Connects to team success factors
+- **learning-with-ai.md: Sources section** — Added "Productivity Research" subsection with 5 sources (GitHub, McKinsey, Stack Overflow, Uplevel, DORA)
+- **learning-with-ai.md: ToC renumbered** — 14 sections (was 13)
+
 ## [3.9.5] - 2026-01-19
 
 ### Added
