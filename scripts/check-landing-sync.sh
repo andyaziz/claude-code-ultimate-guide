@@ -52,7 +52,8 @@ echo ""
 # ===================
 # 2. TEMPLATES COUNT
 # ===================
-TEMPLATE_COUNT=$(find "$GUIDE_DIR/examples" -type f \( -name "*.md" -o -name "*.sh" -o -name "*.ps1" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" \) | wc -l | tr -d ' ')
+# Count actual templates, excluding README/index documentation files
+TEMPLATE_COUNT=$(find "$GUIDE_DIR/examples" -type f \( -name "*.md" -o -name "*.sh" -o -name "*.ps1" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" \) -not -name "README.md" -not -name "index.md" | wc -l | tr -d ' ')
 
 # Check index.html
 LANDING_TEMPLATES_INDEX=$(grep -oE '[0-9]+ Templates' "$LANDING_DIR/index.html" | head -1 | grep -oE '[0-9]+')

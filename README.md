@@ -6,8 +6,8 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/Lines-10,900+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-65-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Lines-11,100+-blueviolet?style=for-the-badge" alt="Lines"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-61-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -82,18 +82,6 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 ---
 
 **Transparency note**: This guide reflects my personal experience after several months of daily Claude Code usage. I'm sharing what I've learned, not claiming expertise. The tool evolves constantly, and so does my understanding. [Feedback welcome](./CONTRIBUTING.md).
-
----
-
-> 🇫🇷 **Communauté francophone** | Tu veux parler de dev et d'IA ? Challenger des idées ? Présenter des outils ? En découvrir ?
-> **[Dev With AI](https://www.devw.ai/)** rassemble près de 1500 devs sur Slack, tous niveaux et toutes technos confondus — enthousiastes comme sceptiques.
-> Meetups à Paris, Bordeaux et Lyon.
-
----
-
-> **Privacy Notice**: Claude Code sends your prompts, file contents, and MCP results to Anthropic servers.
-> - **Default**: 5 years retention (training enabled) | **Opt-out**: 30 days | **Enterprise**: 0
-> - **Action**: [Disable training](https://claude.ai/settings/data-privacy-controls) | [Full privacy guide](./guide/data-privacy.md)
 
 ---
 
@@ -435,7 +423,7 @@ Weak Areas (< 75%):
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~10900 lines)
+│   ├── ultimate-guide.md     # Complete reference (~11100 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── adoption-approaches.md # Team implementation strategies
@@ -485,7 +473,7 @@ claude-code-ultimate-guide/
 Copy-paste templates from [`examples/`](./examples/) for immediate use:
 
 <details>
-<summary><strong>Slash Commands</strong> (15 commands)</summary>
+<summary><strong>Slash Commands</strong> (18 commands)</summary>
 
 | Command | Purpose | Highlights |
 |---------|---------|------------|
@@ -504,6 +492,9 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [/explain](./examples/commands/explain.md) | Code explanations (3 depths) | Files, functions, concepts |
 | [/optimize](./examples/commands/optimize.md) | Performance analysis | Runtime, memory, bundle |
 | [/ship](./examples/commands/ship.md) | Pre-deploy checklist | Tests, security, migrations |
+| [/learn:teach](./examples/commands/learn/teach.md) | Step-by-step explanations | Progressive depth, practical examples |
+| [/learn:quiz](./examples/commands/learn/quiz.md) | Test code understanding | Multi-level questions, interactive |
+| [/learn:alternatives](./examples/commands/learn/alternatives.md) | Compare approaches | Trade-offs, recommendations |
 
 </details>
 
@@ -618,6 +609,16 @@ This guide is the result of several months of daily practice with Claude Code. I
 
 Written in English for wider reach. French is my native language—I can translate directly or leverage AI + community for other languages. Request translations via [issues](../../issues).
 
+### Privacy
+
+Claude Code sends your prompts, file contents, and MCP results to Anthropic servers.
+- **Default**: 5 years retention (training enabled) | **Opt-out**: 30 days | **Enterprise**: 0
+- **Action**: [Disable training](https://claude.ai/settings/data-privacy-controls) | [Full privacy guide](./guide/data-privacy.md)
+
+### Community
+
+🇫🇷 **Communauté francophone**: [Dev With AI](https://www.devw.ai/) rassemble près de 1500 devs sur Slack — meetups à Paris, Bordeaux et Lyon.
+
 ---
 
 ## 🤝 Contributing
@@ -646,7 +647,7 @@ Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 ### Community Collections
 
-- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Extensive tool library (19.9k stars)
+- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Extensive tool library
 - [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) — Custom skills
 - [awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) — Full-stack agents
 
@@ -743,9 +744,11 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ## 📬 Stay Updated
 
-Get notified about major updates, new templates, and Claude Code best practices:
+Get notified about major updates and new templates:
 
-**[Subscribe to the newsletter](https://buttondown.com/claude-code-guide)** — No spam, 1-2 emails/month max, unsubscribe anytime.
+- **[Watch releases](../../releases)** — GitHub notifications for new versions only
+- **[Star & Watch](../../)** — All activity (releases, discussions, issues)
+- **[Discussions](../../discussions)** — Join the community, share workflows
 
 ---
 
