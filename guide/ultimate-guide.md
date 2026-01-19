@@ -3197,6 +3197,8 @@ monorepo/
 - When you work in `packages/api/`, it merges root + api CLAUDE.md
 - More specific files add to (don't replace) parent context
 
+**Conflict resolution**: If the same instruction appears in both files, the more specific (child) file takes precedence. Instructions are merged additively—child rules don't delete parent rules, they override conflicting ones.
+
 **What goes where**:
 
 | Location | Content |
@@ -3590,6 +3592,8 @@ Understanding when each memory method loads is critical for token optimization:
 
 **Key insight**: `.claude/rules/` is NOT on-demand. Every `.md` file in that directory loads at session start, consuming tokens. Reserve it for always-relevant conventions, not rarely-used guidelines.
 
+> **See also**: [Token Cost Estimation](#token-saving-techniques) for approximate token costs per file size.
+
 ### Path-Specific Rules (December 2025)
 
 Since December 2025, rules can target specific file paths using YAML frontmatter:
@@ -3611,6 +3615,11 @@ These rules only apply when working with API files:
 ```
 
 This enables progressive context loading—rules only appear when Claude works with matching files.
+
+**How matching works**:
+- Patterns use glob syntax (same as `.gitignore`)
+- Multiple rules can match the same file (all are loaded)
+- Rules without `paths:` frontmatter always load
 
 ---
 
@@ -8660,6 +8669,8 @@ You: "Implement the caching layer following the plan"
 | 500+ lines | 5,000+ tokens | Consider splitting |
 
 Note: These are loaded **once at session start**, not per request. A 200-line CLAUDE.md costs ~2K tokens upfront but doesn't grow during the session. The concern is the cumulative effect when combined with multiple `@includes` and all files in `.claude/rules/`.
+
+> **See also**: [Memory Loading Comparison](#memory-loading-comparison) for when each method loads.
 
 **1. Keep CLAUDE.md files concise:**
 
