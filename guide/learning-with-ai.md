@@ -264,7 +264,7 @@ After I accept generated code, help me verify understanding.
 3. What would break if we removed line X?"
 ```
 
-See [examples/commands/quiz.md](../examples/commands/quiz.md) for implementation.
+See [/learn:quiz command](../examples/commands/learn/quiz.md) for a more comprehensive version.
 
 ---
 
@@ -392,13 +392,15 @@ Full template: [examples/claude-md/learning-mode.md](../examples/claude-md/learn
 | Command | Purpose | When to Use |
 |---------|---------|-------------|
 | `/explain` | Explain existing code | Built-in — use on any confusing code |
-| `/quiz` | Test your understanding | After implementing a new concept |
-| `/alternatives` | Show other approaches | When you want to understand trade-offs |
-| `/teach <concept>` | Step-by-step explanation | When learning something new |
+| `/learn:quiz` | Test your understanding | After implementing a new concept |
+| `/learn:alternatives` | Show other approaches | When you want to understand trade-offs |
+| `/learn:teach <concept>` | Step-by-step explanation | When learning something new |
 
-#### Creating /quiz
+> **Note**: Commands use the `/learn:` namespace. Place files in `.claude/commands/learn/`.
 
-Create `.claude/commands/quiz.md`:
+#### Creating /learn:quiz
+
+Create `.claude/commands/learn/quiz.md`:
 
 ```markdown
 # Quiz Me
@@ -419,7 +421,7 @@ Test my understanding of the code I just wrote or accepted.
 $ARGUMENTS (optional: focus area like "error handling" or "performance")
 ```
 
-Full template: [examples/commands/quiz.md](../examples/commands/quiz.md)
+Full template: [examples/commands/learn/quiz.md](../examples/commands/learn/quiz.md)
 
 ---
 
@@ -841,7 +843,9 @@ See [methodologies.md](./methodologies.md) for:
 ### Templates & Examples
 
 - [Learning Mode CLAUDE.md](../examples/claude-md/learning-mode.md) — Configuration template
-- [/quiz Command](../examples/commands/quiz.md) — Self-testing slash command
+- [/learn:quiz Command](../examples/commands/learn/quiz.md) — Self-testing slash command
+- [/learn:teach Command](../examples/commands/learn/teach.md) — Step-by-step concept explanations
+- [/learn:alternatives Command](../examples/commands/learn/alternatives.md) — Compare different approaches
 - [Learning Capture Hook](../examples/hooks/bash/learning-capture.sh) — Automated insight logging
 
 ### External Resources
@@ -887,9 +891,10 @@ Applying known skills: 30% struggle, 70% AI
 ### Claude Code Commands for Learning
 
 ```
-/explain           — Understand existing code
-/quiz              — Test your understanding
-/teach <concept>   — Learn something new
+/explain              — Understand existing code
+/learn:quiz           — Test your understanding
+/learn:teach <topic>  — Learn something new
+/learn:alternatives   — Compare approaches
 ```
 
 ---

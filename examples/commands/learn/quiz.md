@@ -5,9 +5,9 @@ Test understanding of recently written or accepted code.
 ## Usage
 
 ```
-/quiz                           # Quiz on last code worked with
-/quiz error handling            # Focus on specific aspect
-/quiz --hard                    # More challenging questions
+/learn:quiz                     # Quiz on last code worked with
+/learn:quiz error handling      # Focus on specific aspect
+/learn:quiz --hard              # More challenging questions
 ```
 
 ## Instructions
@@ -52,7 +52,7 @@ Test understanding of recently written or accepted code.
 
 ## Focus Areas
 
-When focus is specified (e.g., `/quiz error handling`), prioritize questions about:
+When focus is specified (e.g., `/learn:quiz error handling`), prioritize questions about:
 
 | Focus | Question Themes |
 |-------|-----------------|
@@ -112,7 +112,7 @@ Summarize:
 ## Example Session
 
 ```
-User: /quiz
+User: /learn:quiz
 
 Claude: Looking at your last code - the useEffect hook for data fetching.
 

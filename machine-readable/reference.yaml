@@ -33,7 +33,9 @@ deep_dive:
   learning_30day_plan: "guide/learning-with-ai.md:710"
   learning_red_flags: "guide/learning-with-ai.md:770"
   learning_mode_template: "examples/claude-md/learning-mode.md"
-  quiz_command: "examples/commands/quiz.md"
+  learn_quiz_command: "examples/commands/learn/quiz.md"
+  learn_teach_command: "examples/commands/learn/teach.md"
+  learn_alternatives_command: "examples/commands/learn/alternatives.md"
   learning_capture_hook: "examples/hooks/bash/learning-capture.sh"
   # Architecture internals (guide/architecture.md)
   architecture_master_loop: "guide/architecture.md:60"

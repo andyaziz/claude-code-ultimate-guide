@@ -165,5 +165,7 @@ See [examples/hooks/bash/learning-capture.sh](../hooks/bash/learning-capture.sh)
 ## See Also
 
 - [Learning with AI Guide](../../guide/learning-with-ai.md) — Complete learning methodology
-- [/quiz Command](../commands/quiz.md) — Test your understanding
+- [/learn:quiz Command](../commands/learn/quiz.md) — Test your understanding
+- [/learn:teach Command](../commands/learn/teach.md) — Step-by-step concept explanations
+- [/learn:alternatives Command](../commands/learn/alternatives.md) — Compare different approaches
 - [Learning Capture Hook](../hooks/bash/learning-capture.sh) — Automated insight logging

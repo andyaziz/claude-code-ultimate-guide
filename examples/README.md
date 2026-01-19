@@ -71,7 +71,9 @@ Ready-to-use templates for Claude Code configuration.
 | [git-worktree.md](./commands/git-worktree.md) | `/git-worktree` | Isolated git worktree setup |
 | [diagnose.md](./commands/diagnose.md) | `/diagnose` | Interactive troubleshooting assistant (FR/EN) |
 | [validate-changes.md](./commands/validate-changes.md) | `/validate-changes` | LLM-as-a-Judge pre-commit validation |
-| [quiz.md](./commands/quiz.md) | `/quiz` | Self-testing for learning concepts |
+| [learn/quiz.md](./commands/learn/quiz.md) | `/learn:quiz` | Self-testing for learning concepts |
+| [learn/teach.md](./commands/learn/teach.md) | `/learn:teach` | Step-by-step concept explanations |
+| [learn/alternatives.md](./commands/learn/alternatives.md) | `/learn:alternatives` | Compare different approaches |
 | [catchup.md](./commands/catchup.md) | `/catchup` | Restore context after /clear |
 | [security.md](./commands/security.md) | `/security` | Quick OWASP security audit |
 | [refactor.md](./commands/refactor.md) | `/refactor` | SOLID-based code improvements |
