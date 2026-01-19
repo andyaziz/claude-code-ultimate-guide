@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.0"
+version: "3.9.1"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -96,6 +96,13 @@ deep_dive:
   troubleshooting: 9426
   cheatsheet: 9801
   daily_workflow: 9877
+  # AI Ecosystem (Section 11, ~line 10156)
+  ai_ecosystem: 10156
+  ai_ecosystem_complementarity: 10170
+  ai_ecosystem_tool_matrix: 10196
+  ai_ecosystem_workflows: 10221
+  ai_ecosystem_integration: 10347
+  ai_ecosystem_detailed: "guide/ai-ecosystem.md"
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)

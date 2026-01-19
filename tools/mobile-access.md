@@ -36,6 +36,55 @@ YOUR COMPUTER                     YOUR PHONE
 
 ---
 
+## Architecture Comparison
+
+### ttyd + Tailscale (Self-hosted)
+
+```
+YOUR COMPUTER                     YOUR PHONE
+┌─────────────────┐               ┌─────────────────┐
+│  Claude Code    │◄──────────────│  Browser        │
+│  (runs here)    │   Tailscale   │  (same session) │
+│  ┌───────────┐  │   VPN         │                 │
+│  │   ttyd    │  │               └─────────────────┘
+│  └───────────┘  │
+└─────────────────┘
+✅ ToS-Safe: CLI officiel, pas d'intermédiaire cloud
+```
+
+### Happy Coder (App native)
+
+```
+YOUR COMPUTER                     YOUR PHONE
+┌─────────────────┐               ┌─────────────────┐
+│  Claude Code    │               │  Happy App      │
+│  (CLI officiel) │◄─────────────►│  (Expo native)  │
+│       ▲         │   Local sync  │                 │
+│  subprocess     │               └─────────────────┘
+│  ┌───────────┐  │
+│  │ Happy Hub │  │
+│  └───────────┘  │
+└─────────────────┘
+✅ ToS-Safe: Wrapper local, subprocess Node.js
+```
+
+### Remoto.sh (Cloud relay)
+
+```
+REMOTO CLOUD                      YOUR PHONE
+┌─────────────────┐               ┌─────────────────┐
+│  Docker         │◄──────────────│  Browser        │
+│  Container      │   WebSocket   │                 │
+│  ┌───────────┐  │               └─────────────────┘
+│  │ Claude    │  │
+│  │ Code CLI  │  │
+│  └───────────┘  │
+└─────────────────┘
+⚠️ ToS Risk: Cloud wrapping = potentiel "proxy non autorisé"
+```
+
+---
+
 ## Why This Approach?
 
 ### ToS Considerations
@@ -260,19 +309,46 @@ sudo snap install ttyd --classic
 
 ---
 
-## Alternatives Considered
+## Alternatives Comparison
 
-| Solution | Pros | Cons | ToS Risk |
-|----------|------|------|----------|
-| **ttyd + Tailscale** ✅ | Simple, no wrapper, ToS-safe | Terminal UX on mobile | ✅ Safe |
-| Happy Coder (7.1K ⭐) | Native apps, polished | Wraps CLI | ⚠️ Unknown |
-| Claude Code Web (5.5K ⭐) | Rich UI | Wraps CLI | ⚠️ Unknown |
-| tmux + SSH | Zero deps | Needs SSH client on phone | ✅ Safe |
+| Solution | Type | Pros | Cons | ToS | Stars |
+|----------|------|------|------|-----|-------|
+| **ttyd + Tailscale** ✅ | Self-hosted | Gratuit, max contrôle, CLI officiel | Setup manuel, UX terminal | ✅ Safe | N/A |
+| [Happy Coder](https://github.com/slopus/happy) | App native | Voice, encryption, multi-instances, mobile-first | Dépendance projet tiers | ✅ Safe | 7.8K |
+| [Remoto.sh](https://remoto.sh) | Cloud relay | Setup rapide, browser only | Cloud wrapping, latence, coût | ⚠️ Risk | N/A |
+| tmux + SSH | Self-hosted | Zero deps, CLI officiel | Besoin client SSH mobile | ✅ Safe | N/A |
 
 We chose ttyd + Tailscale because:
 - It's just your terminal exposed via browser
 - No third-party wrapper around Claude Code
 - Zero ToS risk—you're using the official CLI
+
+---
+
+### Happy Coder - Alternative Recommandée
+
+Si vous préférez une **app native** plutôt qu'un terminal web :
+
+- **Repo** : [github.com/slopus/happy](https://github.com/slopus/happy)
+- **Stars** : 7.8K (janvier 2026)
+- **License** : MIT
+- **Stack** : Tauri (desktop) + Expo (mobile)
+- **Providers** : Claude Code, Codex, Gemini
+
+**Pourquoi ToS-safe** : Happy Coder est un wrapper local qui exécute le CLI officiel via subprocess Node.js. Pas d'appels API directs, pas de proxy cloud.
+
+**Installation** :
+```bash
+npm i -g happy-coder && happy
+```
+
+---
+
+### Remoto.sh - Alternative Cloud (avec risques)
+
+**Pourquoi risqué** : Remoto.sh utilise des conteneurs Docker cloud comme relay. Selon les ToS Anthropic (§4.2), les "proxies non autorisés qui masquent l'origine des requêtes" sont interdits. Des suspensions ont été signalées sur Reddit/HN pour usage similaire.
+
+> **Recommandation** : Préférer Happy Coder ou ttyd+Tailscale pour éviter les risques ToS.
 
 ---
 
@@ -282,6 +358,16 @@ We chose ttyd + Tailscale because:
 - [Tailscale](https://tailscale.com/) - Zero-config VPN
 - [ttyd + Claude Code Guide](https://aiengineerguide.com/blog/agentic-cli-browser-ttyd/) - Community tutorial
 - [VPS Setup Guide](https://joshualent.com/snippets/claude-phone/) - Alternative: run on VPS
+
+---
+
+## Sources
+
+- [Happy Coder GitHub](https://github.com/slopus/happy) - 7.8K ⭐, MIT license
+- [ttyd GitHub](https://github.com/tsl0922/ttyd) - Terminal web server
+- [Tailscale](https://tailscale.com/) - Zero-config VPN
+- [Remoto.sh](https://remoto.sh) - Cloud terminal (ToS risk noted)
+- ToS Anthropic §4.2 - Proxies non autorisés
 
 ---
 
@@ -296,4 +382,4 @@ Open an issue or PR on this repo.
 
 ---
 
-*Last updated: January 2026 | Status: WIP/UNTESTED*
+*Last updated: January 2026 | Status: WIP/UNTESTED | Data verified: Happy Coder 7.8K ⭐ (2026-01-19)*

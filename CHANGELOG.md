@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.1] - 2026-01-19
+
+### Added
+
+- **AI Ecosystem: Complementary Tools** — New Section 11 documenting tool complementarity
+  - `guide/ultimate-guide.md` Section 11 (~250 lines)
+    - 11.1 Why Complementarity Matters — Claude Code strengths vs gaps
+    - 11.2 Tool Matrix — Decision guide for when to use which tool
+    - 11.3 Practical Workflows — 4 pipelines (Research→Code, Visual→Code, Documentation, Presentation)
+    - 11.4 Integration Patterns — Full workflows with budget recommendations
+  - `guide/ai-ecosystem.md` (NEW, ~750 lines)
+    - Detailed guide for each complementary tool
+    - Perplexity AI (research with verified sources)
+    - Google Gemini (image understanding → code)
+    - Kimi/Moonshot (PPTX generation, 128K context)
+    - NotebookLM (doc synthesis + audio overviews)
+    - IDE tools (Cursor, Windsurf, Cline)
+    - UI Prototypers (v0, Bolt, Lovable)
+    - Ready-to-use prompts appendix
+    - Cost optimization strategies
+  - Updated `guide/README.md` with navigation link
+  - Updated main `README.md` navigation table
+  - Updated `machine-readable/reference.yaml` with 6 new line number references
+
+### Changed
+
+- **tools/mobile-access.md** - Enhanced with verified data and alternatives
+  - Added Architecture Comparison section with 3 ASCII diagrams (ttyd, Happy Coder, Remoto.sh)
+  - Restructured comparison table with Type/Pros/Cons/ToS/Stars columns
+  - Added Happy Coder section: 7.8K ⭐ (verified 2026-01-19), MIT, Tauri/Expo stack, ToS-safe
+  - Added Remoto.sh warning: ToS risk documented (Anthropic §4.2 proxy policy)
+  - Added Sources section with all referenced projects
+  - Updated footer with data verification date
+  - File expanded from 300 to 385 lines
+
 ## [3.9.0] - 2026-01-19
 
 ### Added

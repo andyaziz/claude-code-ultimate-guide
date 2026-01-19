@@ -557,6 +557,7 @@ Jump directly to any section in the [Ultimate Guide](./guide/ultimate-guide.md):
 | **[8. MCP Servers](./guide/ultimate-guide.md#8-mcp-servers)** | Extend Claude with databases, browsers, and external tools | Extended |
 | **[9. Advanced Patterns](./guide/ultimate-guide.md#9-advanced-patterns)** | Orchestrate Trinity workflows and CI/CD pipelines | Power user |
 | **[10. Reference](./guide/ultimate-guide.md#10-reference)** | Look up commands, shortcuts, and troubleshooting tips | Daily |
+| **[11. AI Ecosystem](./guide/ultimate-guide.md#11-ai-ecosystem-complementary-tools)** | Chain Claude Code with Perplexity, Gemini, Kimi, NotebookLM | Workflow |
 
 ---
 
@@ -741,7 +742,7 @@ Get notified about major updates, new templates, and Claude Code best practices:
 
 ---
 
-*Version 3.9.0 | January 2026 | Crafted with Claude*
+*Version 3.9.1 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

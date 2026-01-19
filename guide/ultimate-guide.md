@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.9.0
+**Version**: 3.9.1
 
 ---
 
@@ -169,6 +169,11 @@ Context full → /compact or /clear
   - [10.4 Troubleshooting](#104-troubleshooting)
   - [10.5 Cheatsheet](#105-cheatsheet)
   - [10.6 Daily Workflow & Checklists](#106-daily-workflow--checklists)
+- [11. AI Ecosystem: Complementary Tools](#11-ai-ecosystem-complementary-tools)
+  - [11.1 Why Complementarity Matters](#111-why-complementarity-matters)
+  - [11.2 Tool Matrix](#112-tool-matrix)
+  - [11.3 Practical Workflows](#113-practical-workflows)
+  - [11.4 Integration Patterns](#114-integration-patterns)
 - [Appendix: Templates Collection](#appendix-templates-collection)
   - [Appendix A: File Locations Reference](#appendix-a-file-locations-reference)
 
@@ -10151,6 +10156,253 @@ exit 0
 - `npm test` - Run tests
 ```
 
+---
+
+# 11. AI Ecosystem: Complementary Tools
+
+_Quick jump:_ [Why Complementarity](#111-why-complementarity-matters) · [Tool Matrix](#112-tool-matrix) · [Practical Workflows](#113-practical-workflows) · [Integration Patterns](#114-integration-patterns)
+
+---
+
+**Reading time**: 10 minutes
+
+**Skill level**: Intermediate
+
+**Goal**: Chain Claude Code with the right AI tools for optimal workflows
+
+> **TL;DR**: Claude Code excels at contextual reasoning and multi-file implementation. Combine it with Perplexity (research), Gemini (images), Kimi (slides), and NotebookLM (synthesis) for a complete AI-powered development workflow.
+
+## 11.1 Why Complementarity Matters
+
+Claude Code is designed to be your **implementation partner** with deep codebase understanding. It deliberately doesn't try to do everything—and that's a strength.
+
+### What Claude Code Does Best
+
+| Capability | Why Claude Excels |
+|-----------|------------------|
+| **Contextual reasoning** | Reads entire project, understands patterns |
+| **Multi-file editing** | Coordinates changes across modules |
+| **Test integration** | Generates tests that understand your code |
+| **CLI automation** | Perfect for CI/CD pipelines |
+| **Persistent memory** | CLAUDE.md files maintain context |
+
+### Where Other Tools Add Value
+
+| Gap | Why | Solution |
+|-----|-----|----------|
+| **Deep research with sources** | WebSearch is limited (~5-10 sources) | Perplexity Pro (100+ verified sources) |
+| **Image → Code** | No visual understanding | Gemini 2.5 (superior image analysis) |
+| **Slide generation** | No PPTX output capability | Kimi (native PowerPoint) |
+| **Audio synthesis** | No TTS capability | NotebookLM (podcast-style overviews) |
+| **Live browser prototyping** | No visual preview | v0.dev, Bolt (instant preview) |
+
+The goal isn't replacement—it's **chaining the right tool for each step**.
+
+## 11.2 Tool Matrix
+
+### Quick Decision Guide
+
+| I need to... | Use | Why Not Claude |
+|--------------|-----|----------------|
+| Implement a feature | **Claude Code** | ✅ Best choice |
+| Research before implementing | **Perplexity** | Limited sources, no citations |
+| Convert mockup to code | **Gemini → Claude** | Limited visual understanding |
+| Create stakeholder deck | **Claude → Kimi** | No PPTX export |
+| Understand new codebase quickly | **NotebookLM → Claude** | No audio synthesis |
+| Rapid UI prototype | **v0/Bolt → Claude** | No live preview |
+| Quick inline edits | **IDE + Copilot** | Context switching overhead |
+
+### Complementary Tools Overview
+
+| Tool | Primary Strength | Free Tier | Pro Cost |
+|------|-----------------|-----------|----------|
+| **[Perplexity](https://perplexity.ai)** | Research with verified sources | 5 Pro searches/day | $20/month |
+| **[Gemini](https://gemini.google.com)** | Image understanding → code | Generous | $19.99/month |
+| **[Kimi](https://kimi.ai)** | PPTX generation, 128K context | Generous | Free |
+| **[NotebookLM](https://notebooklm.google.com)** | Doc synthesis + audio | Full features | Free |
+| **[v0.dev](https://v0.dev)** | UI prototyping (Shadcn) | Limited | $20/month |
+| **[Cursor](https://cursor.sh)** | IDE with AI autocomplete | Limited | $20/month |
+
+## 11.3 Practical Workflows
+
+### Research → Code Pipeline
+
+Use when: You need to understand best practices before implementing.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1. PERPLEXITY (Deep Research Mode - 5 min)              │
+│                                                         │
+│    "Research JWT refresh token best practices for       │
+│     Next.js 15. Include security, common pitfalls,      │
+│     and compare jose vs jsonwebtoken libraries."        │
+│                                                         │
+│    → Output: 2000-word spec with 20+ sources           │
+│    → Export: Copy as Markdown → spec.md                │
+└───────────────────────────┬─────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────┐
+│ 2. CLAUDE CODE                                          │
+│    > claude                                             │
+│                                                         │
+│    "Implement JWT refresh per @spec.md.                 │
+│     Use jose library as recommended.                    │
+│     Add to src/lib/auth/. Include tests."               │
+│                                                         │
+│    → Output: Working implementation + tests            │
+└─────────────────────────────────────────────────────────┘
+```
+
+**When to use**: Any implementation requiring ecosystem knowledge, library comparisons, or security considerations.
+
+### Visual → Code Pipeline
+
+Use when: You have mockups, screenshots, or diagrams to implement.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1. GEMINI 2.5 PRO                                       │
+│                                                         │
+│    Upload: dashboard-mockup.png                         │
+│    "Convert to React component with Tailwind.           │
+│     Include responsive breakpoints and accessibility."  │
+│                                                         │
+│    → Output: Initial JSX + Tailwind code               │
+└───────────────────────────┬─────────────────────────────┘
+                            ↓ Copy to clipboard
+┌─────────────────────────────────────────────────────────┐
+│ 2. CLAUDE CODE                                          │
+│                                                         │
+│    "Integrate this component into our Next.js app:      │
+│     - Use our Button, Avatar components                 │
+│     - Add TypeScript types matching User interface      │
+│     - Connect to getUserProfile API hook                │
+│     - Add loading and error states"                     │
+│                                                         │
+│    → Output: Production-ready integrated component     │
+└─────────────────────────────────────────────────────────┘
+```
+
+**When to use**: Figma exports, whiteboard sketches, architecture diagrams, error screenshots.
+
+### Documentation Pipeline
+
+Use when: You need to quickly understand a new codebase or create audio overviews.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1. EXPORT DOCS (Claude Code)                            │
+│                                                         │
+│    "Combine all markdown from docs/ into one file.      │
+│     Include README.md and CLAUDE.md."                   │
+│                                                         │
+│    → Output: combined-docs.md                          │
+└───────────────────────────┬─────────────────────────────┘
+                            ↓ Upload to NotebookLM
+┌─────────────────────────────────────────────────────────┐
+│ 2. NOTEBOOKLM                                           │
+│                                                         │
+│    - Add combined-docs.md as source                     │
+│    - Click "Generate Audio Overview"                    │
+│    - Listen during commute (10-15 min)                  │
+│                                                         │
+│    → Output: Podcast-style system overview             │
+└───────────────────────────┬─────────────────────────────┘
+                            ↓ Take notes, return to Claude
+┌─────────────────────────────────────────────────────────┐
+│ 3. CLAUDE CODE                                          │
+│                                                         │
+│    "Based on my understanding from the audio:           │
+│     Help me deep-dive into the payment flow."           │
+│                                                         │
+│    → Output: Contextual explanation + code walkthrough │
+└─────────────────────────────────────────────────────────┘
+```
+
+**When to use**: Joining new team, reviewing unfamiliar codebase, onboarding prep.
+
+### Presentation Pipeline
+
+Use when: You need to communicate technical changes to stakeholders.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1. CLAUDE CODE                                          │
+│                                                         │
+│    "Summarize changes from last 5 commits.              │
+│     Format: Overview, Key Features, Breaking Changes,   │
+│     Migration Steps. Use business-friendly language."   │
+│                                                         │
+│    → Output: changes-summary.md                        │
+└───────────────────────────┬─────────────────────────────┘
+                            ↓ Upload to Kimi
+┌─────────────────────────────────────────────────────────┐
+│ 2. KIMI                                                 │
+│                                                         │
+│    "Create 10-slide deck for non-technical stakeholders.│
+│     One key message per slide.                          │
+│     Include summary and next steps."                    │
+│                                                         │
+│    → Output: stakeholder-update.pptx                   │
+└─────────────────────────────────────────────────────────┘
+```
+
+**When to use**: Sprint demos, release announcements, executive updates.
+
+## 11.4 Integration Patterns
+
+### Full Workflow: Research-Heavy Feature
+
+```bash
+# 1. Research (Perplexity - 10 min)
+# → "Best practices for WebSocket in Next.js 15"
+# → Export to websocket-spec.md
+
+# 2. Implementation (Claude Code - 40 min)
+claude
+> "Implement WebSocket per websocket-spec.md.
+   Add to src/lib/websocket/. Include reconnection."
+
+# 3. Stakeholder update (Kimi - 5 min)
+# → Upload changes + screenshots
+# → Generate 5-slide deck
+```
+
+### Full Workflow: Visual-Heavy Feature
+
+```bash
+# 1. UI Prototype (v0 - 10 min)
+# → Generate dashboard layout
+
+# 2. Visual refinement (Gemini - 5 min)
+# → Upload Figma polish → Get refined code
+
+# 3. Integration (Claude Code - 30 min)
+claude
+> "Integrate this dashboard.
+   Connect to our data hooks. Add TypeScript types."
+```
+
+### Recommended Tool Stack by Budget
+
+| Budget | Stack | Monthly |
+|--------|-------|---------|
+| **Minimal** | Claude Code + Perplexity Pro | $40-70 |
+| **Balanced** | + Gemini + Cursor | $80-110 |
+| **Power** | + v0 Pro | $100-130 |
+
+### Cost Optimization Tips
+
+1. **Use Haiku** for simple tasks (`/model haiku`)
+2. **Batch research** in Perplexity Deep Research sessions
+3. **Use free tiers**: NotebookLM, Kimi, Gemini Flash are free
+4. **Check context** regularly (`/status`) to avoid waste
+5. **Use Opus sparingly** - reserve for architectural decisions
+
+---
+
+> **📖 Deep Dive**: For detailed integration patterns, ready-to-use prompts, and tool comparisons, see the [complete AI Ecosystem guide](./ai-ecosystem.md).
+
 
 ## Further Reading
 
@@ -10564,4 +10816,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.9.0
+**Last updated**: January 2026 | **Version**: 3.9.1
