@@ -19,6 +19,7 @@ Ready-to-use templates for Claude Code configuration.
 | [`github-actions/`](./github-actions/) | CI/CD workflows for GitHub Actions |
 | [`workflows/`](./workflows/) | Advanced development workflow guides |
 | [`modes/`](./modes/) | Behavioral modes for Claude (SuperClaude) |
+| [`semantic-anchors/`](./semantic-anchors/) | Precise vocabulary for better LLM outputs |
 
 ## Quick Start
 
@@ -71,6 +72,12 @@ Ready-to-use templates for Claude Code configuration.
 | [diagnose.md](./commands/diagnose.md) | `/diagnose` | Interactive troubleshooting assistant (FR/EN) |
 | [validate-changes.md](./commands/validate-changes.md) | `/validate-changes` | LLM-as-a-Judge pre-commit validation |
 | [quiz.md](./commands/quiz.md) | `/quiz` | Self-testing for learning concepts |
+| [catchup.md](./commands/catchup.md) | `/catchup` | Restore context after /clear |
+| [security.md](./commands/security.md) | `/security` | Quick OWASP security audit |
+| [refactor.md](./commands/refactor.md) | `/refactor` | SOLID-based code improvements |
+| [explain.md](./commands/explain.md) | `/explain` | Code explanations (3 depth levels) |
+| [optimize.md](./commands/optimize.md) | `/optimize` | Performance analysis and roadmap |
+| [ship.md](./commands/ship.md) | `/ship` | Pre-deploy checklist |
 
 ### Hooks
 | File | Event | Purpose |
@@ -146,6 +153,13 @@ Ready-to-use templates for Claude Code configuration.
 | [MODE_Learning.md](./modes/MODE_Learning.md) | Just-in-time explanations | `--learn` flag |
 
 > **See [modes/README.md](./modes/README.md) for installation and SuperClaude framework reference**
+
+### Semantic Anchors
+| File | Purpose |
+|------|---------|
+| [anchor-catalog.md](./semantic-anchors/anchor-catalog.md) | Comprehensive catalog of precise technical terms for prompting |
+
+> **See [Section 2.7](../guide/ultimate-guide.md#27-semantic-anchors) in the guide for how to use semantic anchors**
 
 ---
 

@@ -510,7 +510,7 @@ Here's an example of what the audit report looks like:
 | **PostToolUse** | Hook that runs AFTER Claude executes a tool - great for formatting |
 | **Plan Mode** | Read-only exploration mode for safe analysis before making changes |
 | **Thinking Mode** | Extended thinking (Opus 4.5: ON by default). Toggle with Alt+T, configure in /config |
-| **Trinity Pattern** | Combining Plan Mode + Think Levels + MCP for complex tasks |
+| **Trinity Pattern** | Combining Plan Mode + Extended Thinking + MCP for complex tasks |
 | **Verify Gate** | CI/CD pattern: build → lint → test → typecheck before merge |
 | **Context Zones** | Green (0-50%), Yellow (50-70%), Red (70%+) - context usage thresholds |
 | **Data Retention** | Anthropic stores conversations: 5 years (default), 30 days (opt-out), 0 days (Enterprise ZDR) |

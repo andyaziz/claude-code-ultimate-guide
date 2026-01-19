@@ -37,7 +37,7 @@ This repository provides everything needed to go from Claude Code beginner to po
   - Context7 (library documentation lookup)
   - Sequential (structured multi-step reasoning)
   - Playwright (browser automation)
-- **Trinity Pattern**: Combining Plan Mode + Think Levels + MCP for complex tasks
+- **Trinity Pattern**: Combining Plan Mode + Extended Thinking + MCP for complex tasks
 - **CI/CD Integration**: Headless mode, GitHub Actions, Verify Gate pattern
 
 ### Best Practices
@@ -155,7 +155,7 @@ For fast LLM parsing, see `machine-readable/reference.yaml` (~2K tokens) - struc
 - Prompting formula (WHAT/WHERE/HOW/VERIFY)
 - Commands, shortcuts, CLI flags
 - Context management zones and symptoms
-- MCP servers, think levels, cost optimization
+- MCP servers, extended thinking, cost optimization
 - Anti-patterns and troubleshooting
 
 ## Keywords

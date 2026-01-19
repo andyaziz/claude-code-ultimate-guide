@@ -106,6 +106,8 @@ Context full → /compact or /clear
   - [1.3 Essential Commands](#13-essential-commands)
   - [1.4 Permission Modes](#14-permission-modes)
   - [1.5 Productivity Checklist](#15-productivity-checklist)
+  - [1.6 Migrating from Other AI Coding Tools](#16-migrating-from-other-ai-coding-tools)
+  - [1.7 Eight Beginner Mistakes](#17-eight-beginner-mistakes-and-how-to-avoid-them)
 - [2. Core Concepts](#2-core-concepts)
   - [2.1 The Interaction Loop](#21-the-interaction-loop)
   - [2.2 Context Management](#22-context-management)
@@ -174,7 +176,7 @@ Context full → /compact or /clear
 
 # 1. Quick Start (Day 1)
 
-_Quick jump:_ [Installation](#11-installation) · [First Workflow](#12-first-workflow) · [Essential Commands](#13-essential-commands) · [Permission Modes](#14-permission-modes) · [Productivity Checklist](#15-productivity-checklist) · [Migrating from Other Tools](#16-migrating-from-other-ai-coding-tools)
+_Quick jump:_ [Installation](#11-installation) · [First Workflow](#12-first-workflow) · [Essential Commands](#13-essential-commands) · [Permission Modes](#14-permission-modes) · [Productivity Checklist](#15-productivity-checklist) · [Migrating from Other Tools](#16-migrating-from-other-ai-coding-tools) · [Beginner Mistakes](#17-eight-beginner-mistakes-and-how-to-avoid-them)
 
 ---
 
@@ -1026,6 +1028,76 @@ Keep Copilot/Cursor for:
 - Spending less time on boilerplate and debugging
 - Catching more issues through Claude reviews
 - Better understanding of unfamiliar code
+
+## 1.7 Eight Beginner Mistakes (and How to Avoid Them)
+
+Common pitfalls that slow down new Claude Code users:
+
+### 1. ❌ Skipping the Plan
+
+**Mistake**: Jumping straight into "fix this bug" without explaining context.
+
+**Fix**: Use the WHAT/WHERE/HOW/VERIFY format:
+```
+WHAT: Fix login timeout error
+WHERE: src/auth/session.ts
+HOW: Increase token expiry from 1h to 24h
+VERIFY: Login persists after browser refresh
+```
+
+### 2. ❌ Ignoring Context Limits
+
+**Mistake**: Working until context hits 95% and responses degrade.
+
+**Fix**: Watch `Ctx(u):` in the status line. `/compact` at 70%, `/clear` at 90%.
+
+### 3. ❌ Using Vague Prompts
+
+**Mistake**: "Make this code better" or "Check for bugs"
+
+**Fix**: Be specific: "Refactor `calculateTotal()` to handle null prices without throwing"
+
+### 4. ❌ Accepting Changes Blindly
+
+**Mistake**: Hitting "y" without reading the diff.
+
+**Fix**: Always review diffs. Use "n" to reject, then explain what's wrong.
+
+### 5. ❌ No Version Control Safety
+
+**Mistake**: Making large changes without commits.
+
+**Fix**: Commit before big changes. Use feature branches. Claude can help: `/commit`
+
+### 6. ❌ Overly Broad Permissions
+
+**Mistake**: Setting `Bash(*)` or `--dangerously-skip-permissions`
+
+**Fix**: Start restrictive, expand as needed. Use allowlists: `Bash(npm test)`, `Bash(git *)`
+
+### 7. ❌ Mixing Unrelated Tasks
+
+**Mistake**: "Fix the auth bug AND refactor the database AND add new tests"
+
+**Fix**: One focused task per session. `/clear` between different tasks.
+
+### 8. ❌ Not Using CLAUDE.md
+
+**Mistake**: Repeating project context in every prompt.
+
+**Fix**: Create `CLAUDE.md` with your tech stack, conventions, and patterns. Claude reads it automatically.
+
+### Quick Self-Check
+
+Before your next session, verify:
+
+- [ ] I have a clear, specific goal
+- [ ] My project has a CLAUDE.md file
+- [ ] I'm on a feature branch (not main)
+- [ ] I know my context level (`/status`)
+- [ ] I'll review every diff before accepting
+
+> **Tip**: Bookmark Section 9.11 for detailed pitfall explanations and solutions.
 
 ---
 
@@ -2589,7 +2661,100 @@ cat claudedocs/templates/code-review.xml | \
 
 > **Source**: [DeepTo Claude Code Guide - XML-Structured Prompts](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)
 
-## 2.6 Data Flow & Privacy
+## 2.7 Semantic Anchors
+
+LLMs are statistical pattern matchers trained on massive text corpora. Using **precise technical vocabulary** helps Claude activate the right patterns in its training data, leading to higher-quality outputs.
+
+### Why Precision Matters
+
+When you say "clean code", Claude might generate any of dozens of interpretations. But when you say "SOLID principles with dependency injection following Clean Architecture layers", you anchor Claude to a specific, well-documented pattern from its training.
+
+**Key insight**: Technical terms act as GPS coordinates into Claude's knowledge. The more precise, the better the navigation.
+
+### Common Anchors for Claude Code
+
+| Vague Term | Semantic Anchor | Why It Helps |
+|------------|-----------------|--------------|
+| "error handling" | "Railway Oriented Programming with Either/Result monad" | Activates functional error patterns |
+| "clean code" | "SOLID principles, especially SRP and DIP" | Targets specific design principles |
+| "good tests" | "TDD London School with outside-in approach" | Specifies test methodology |
+| "good architecture" | "Hexagonal Architecture (Ports & Adapters)" | Names a concrete pattern |
+| "readable code" | "Screaming Architecture with intention-revealing names" | Triggers specific naming conventions |
+| "scalable design" | "CQRS with Event Sourcing" | Activates distributed patterns |
+| "documentation" | "arc42 template structure" | Specifies documentation framework |
+| "requirements" | "EARS syntax for requirements (Easy Approach to Requirements)" | Targets requirement format |
+| "API design" | "REST Level 3 with HATEOAS" | Specifies maturity level |
+| "security" | "OWASP Top 10 mitigations" | Activates security knowledge |
+
+### How to Use in CLAUDE.md
+
+Add semantic anchors to your project instructions:
+
+```markdown
+# Architecture Principles
+
+Follow these patterns:
+- **Architecture**: Hexagonal Architecture (Ports & Adapters) with clear domain boundaries
+- **Error handling**: Railway Oriented Programming - never throw, return Result<T, E>
+- **Testing**: TDD London School - mock collaborators, test behaviors not implementations
+- **Documentation**: ADR (Architecture Decision Records) for significant choices
+```
+
+### Combining with XML Tags
+
+Semantic anchors work powerfully with XML-structured prompts (Section 2.6):
+
+```xml
+<instruction>
+  Refactor the user service following Domain-Driven Design (Evans)
+</instruction>
+
+<constraints>
+  - Apply Hexagonal Architecture (Ports & Adapters)
+  - Use Repository pattern for persistence
+  - Implement Railway Oriented Programming for error handling
+  - Follow CQRS for read/write separation
+</constraints>
+
+<quality_criteria>
+  - Screaming Architecture: package structure reveals intent
+  - Single Responsibility Principle per class
+  - Dependency Inversion: depend on abstractions
+</quality_criteria>
+```
+
+### Semantic Anchors by Domain
+
+**Testing**:
+- TDD London School (mockist) vs Chicago School (classicist)
+- Property-Based Testing (QuickCheck-style)
+- Mutation Testing (PIT, Stryker)
+- BDD Gherkin syntax (Given/When/Then)
+
+**Architecture**:
+- Hexagonal Architecture (Ports & Adapters)
+- Clean Architecture (Onion layers)
+- CQRS + Event Sourcing
+- C4 Model (Context, Container, Component, Code)
+
+**Design Patterns**:
+- Gang of Four patterns (specify: Strategy, Factory, Observer...)
+- Domain-Driven Design tactical patterns (Aggregate, Repository, Domain Event)
+- Functional patterns (Monad, Functor, Railway)
+
+**Requirements**:
+- EARS (Easy Approach to Requirements Syntax)
+- User Story Mapping (Jeff Patton)
+- Jobs-to-be-Done framework
+- BDD scenarios
+
+> **💡 Pro tip**: When Claude produces generic code, try adding more specific anchors. "Use clean code" → "Apply Martin Fowler's Refactoring catalog, specifically Extract Method and Replace Conditional with Polymorphism."
+
+> **Full catalog**: See [examples/semantic-anchors/anchor-catalog.md](../examples/semantic-anchors/anchor-catalog.md) for a comprehensive reference organized by domain.
+
+> **Source**: Concept by Alexandre Soyer. Original catalog: [github.com/LLM-Coding/Semantic-Anchors](https://github.com/LLM-Coding/Semantic-Anchors) (Apache-2.0)
+
+## 2.8 Data Flow & Privacy
 
 > **Important**: Everything you share with Claude Code is sent to Anthropic servers. Understanding this data flow is critical for protecting sensitive information.
 
@@ -2645,7 +2810,7 @@ When you use Claude Code, the following data leaves your machine:
 
 > **Full guide**: For complete privacy documentation including known risks, community incidents, and enterprise considerations, see [Data Privacy & Retention Guide](./data-privacy.md).
 
-## 2.7 Under the Hood
+## 2.9 Under the Hood
 
 > **Reading time**: 5 minutes
 > **Goal**: Understand the core architecture that powers Claude Code
@@ -3906,6 +4071,48 @@ Skills are knowledge packages that agents can inherit.
 | **Agent** | Specialized role | Task tool delegation |
 | **Skill** | Knowledge module | Inherited by agents |
 | **Command** | Process workflow | Slash command |
+
+#### Detailed Comparison
+
+| Aspect | Commands | Skills | Agents |
+|--------|----------|--------|--------|
+| **What it is** | Prompt template | Knowledge module | Specialized worker |
+| **Location** | `.claude/commands/` | `.claude/skills/` | `.claude/agents/` |
+| **Invocation** | `/command-name` | Inherited via `@skill` | Task tool delegation |
+| **Execution** | In main conversation | Loaded into context | Separate subprocess |
+| **Context** | Shares main context | Adds to agent context | Isolated context |
+| **Best for** | Repeatable workflows | Reusable knowledge | Complex multi-step tasks |
+| **Token cost** | Low (template only) | Medium (knowledge loaded) | High (full agent) |
+| **Examples** | `/commit`, `/pr`, `/ship` | TDD, security-guardian | code-reviewer, architect |
+
+#### Decision Tree: Which to Use?
+
+```
+Is this a repeatable workflow with steps?
+├─ Yes → Use a COMMAND
+│        Example: /commit, /release-notes, /ship
+│
+└─ No → Is this specialized knowledge multiple agents need?
+        ├─ Yes → Use a SKILL
+        │        Example: TDD methodology, security checklist
+        │
+        └─ No → Does this need isolated context or parallel work?
+                ├─ Yes → Use an AGENT
+                │        Example: code-reviewer, performance-auditor
+                │
+                └─ No → Just write it in CLAUDE.md as instructions
+```
+
+#### Common Patterns
+
+| Need | Solution | Example |
+|------|----------|---------|
+| Run tests before commit | Command | `/commit` with test step |
+| Security review expertise | Skill + Agent | security-guardian skill → security-reviewer agent |
+| Parallel code review | Multiple agents | Launch 3 reviewer agents in parallel |
+| Quick git workflow | Command | `/pr`, `/ship` |
+| Architecture knowledge | Skill | architecture-patterns skill |
+| Complex debugging | Agent | debugging-specialist agent |
 
 ### Why Skills?
 
@@ -6058,7 +6265,7 @@ The most powerful Claude Code pattern combines three techniques:
 Thinking tokens are billed. With thinking enabled by default:
 - **Simple tasks**: Consider Alt+T to disable → faster responses, lower cost
 - **Complex tasks**: Leave enabled → better reasoning, worth the cost
-- **Sonnet/Haiku**: No extended thinking available (Opus 4.5 only)
+- **Sonnet/Haiku**: No extended thinking available (Opus 4.5 only). Note: The warning "Ultrathink no longer does anything" appears on **all models** (including Sonnet), even though the feature itself is Opus-only
 
 #### Migration for Existing Users
 
@@ -7167,6 +7374,98 @@ Explain using:
 **Key Decisions**: [bullet points]
 **Next Steps**: [if any]
 ```
+
+### Mermaid Diagram Generation
+
+Claude Code can generate Mermaid diagrams for visual documentation. This is useful for architecture documentation, flow visualization, and system understanding.
+
+#### Supported Diagram Types
+
+| Type | Use Case | Syntax Start |
+|------|----------|--------------|
+| **Flowchart** | Process flows, decision trees | `flowchart TD` |
+| **Sequence** | API calls, interactions | `sequenceDiagram` |
+| **Class** | OOP structure, relationships | `classDiagram` |
+| **ER** | Database schema | `erDiagram` |
+| **State** | State machines | `stateDiagram-v2` |
+| **Gantt** | Project timelines | `gantt` |
+
+#### Request Patterns
+
+**Architecture diagram:**
+```markdown
+Generate a Mermaid flowchart showing the authentication flow:
+1. User submits credentials
+2. Server validates
+3. JWT issued or error returned
+```
+
+**Database schema:**
+```markdown
+Create an ER diagram for our user management system
+showing User, Role, and Permission relationships.
+```
+
+**Sequence diagram:**
+```markdown
+Show me a Mermaid sequence diagram of how our
+checkout process calls payment API → inventory → notification services.
+```
+
+#### Example Outputs
+
+**Flowchart:**
+```mermaid
+flowchart TD
+    A[User Request] --> B{Authenticated?}
+    B -->|Yes| C[Process Request]
+    B -->|No| D[Return 401]
+    C --> E[Return Response]
+```
+
+**Sequence:**
+```mermaid
+sequenceDiagram
+    Client->>+API: POST /checkout
+    API->>+Payment: charge()
+    Payment-->>-API: success
+    API->>+Inventory: reserve()
+    Inventory-->>-API: confirmed
+    API-->>-Client: order_id
+```
+
+**Class:**
+```mermaid
+classDiagram
+    class User {
+        +String email
+        +String passwordHash
+        +login()
+        +logout()
+    }
+    class Role {
+        +String name
+        +Permission[] permissions
+    }
+    User "1" --> "*" Role
+```
+
+#### Where to Visualize
+
+| Platform | Support |
+|----------|---------|
+| **GitHub** | Native rendering in README, issues, PRs |
+| **VS Code** | Mermaid Preview extension |
+| **GitLab** | Native rendering |
+| **Notion** | Code block with mermaid language |
+| **mermaid.live** | Online editor with export |
+
+#### Integration Tips
+
+1. **In CLAUDE.md**: Ask Claude to document architecture decisions with diagrams
+2. **In PRs**: Include sequence diagrams for complex flows
+3. **In docs/**: Generate architecture.md with embedded diagrams
+4. **Export**: Use mermaid.live to export as PNG/SVG for presentations
 
 ## 9.8 Vibe Coding & Skeleton Projects
 
@@ -8548,6 +8847,165 @@ Time savings from effective Claude Code usage typically far outweigh API costs f
 
 ---
 
+## 9.15 Named Prompting Patterns
+
+**Reading time**: 5 minutes
+**Skill level**: Week 2+
+
+Memorable named patterns for effective Claude Code interaction. These patterns have emerged from community best practices and help you communicate more effectively.
+
+### The "As If" Pattern
+
+Set quality expectations by establishing context and standards.
+
+**Pattern**: "Implement as if you were a [role] at [high-standard company/context]"
+
+**Examples:**
+```markdown
+# High quality code
+Implement this authentication system as if you were a senior security engineer at a major bank.
+
+# Production readiness
+Review this code as if preparing for a SOC2 audit.
+
+# Performance focus
+Optimize this function as if it will handle 10,000 requests per second.
+```
+
+**Why it works**: Activates relevant knowledge patterns and raises output quality to match the stated context.
+
+### The Constraint Pattern
+
+Force creative solutions by adding explicit limitations.
+
+**Pattern**: "Solve this [with constraint X] [without using Y]"
+
+**Examples:**
+```markdown
+# Dependency constraint
+Implement this feature without adding any new dependencies.
+
+# Size constraint
+Solve this in under 50 lines of code.
+
+# Time constraint (execution)
+This must complete in under 100ms.
+
+# Simplicity constraint
+Use only standard library functions.
+```
+
+**Why it works**: Constraints prevent over-engineering and force focus on the essential solution.
+
+### The "Explain First" Pattern
+
+Force planning before implementation.
+
+**Pattern**: "Before implementing, explain your approach in [N] sentences"
+
+**Examples:**
+```markdown
+# Simple planning
+Before writing code, explain in 2-3 sentences how you'll approach this.
+
+# Detailed planning
+Before implementing, outline:
+1. What components you'll modify
+2. What edge cases you've considered
+3. What could go wrong
+
+# Trade-off analysis
+Before choosing an approach, explain 2-3 alternatives and why you'd pick one.
+```
+
+**Why it works**: Prevents premature coding and catches misunderstandings early. Especially useful for complex tasks.
+
+### The "Rubber Duck" Pattern
+
+Debug collaboratively by having Claude ask questions.
+
+**Pattern**: "I'm stuck on [X]. Ask me questions to help me figure it out."
+
+**Examples:**
+```markdown
+# Debugging
+I'm stuck on why this test is failing. Ask me questions to help diagnose the issue.
+
+# Design
+I can't decide on the right architecture. Ask me questions about my requirements.
+
+# Problem understanding
+I don't fully understand what I need to build. Ask clarifying questions.
+```
+
+**Why it works**: Often the problem is unclear requirements or assumptions. Questions surface hidden constraints.
+
+### The "Incremental" Pattern
+
+Build complex features step by step with validation.
+
+**Pattern**: "Let's build this incrementally. Start with [minimal version], then we'll add [features]."
+
+**Examples:**
+```markdown
+# Feature development
+Build the user registration incrementally:
+1. First: Basic form that saves to database
+2. Then: Email validation
+3. Then: Password strength requirements
+4. Finally: Email verification flow
+
+Show me step 1 first.
+
+# Refactoring
+Refactor this incrementally. First extract the validation logic,
+run tests, then we'll continue.
+```
+
+**Why it works**: Reduces risk, enables validation at each step, maintains working code throughout.
+
+### The "Boundary" Pattern
+
+Define explicit scope to prevent over-engineering.
+
+**Pattern**: "Only modify [X]. Don't touch [Y]."
+
+**Examples:**
+```markdown
+# File scope
+Only modify auth.ts. Don't change any other files.
+
+# Function scope
+Fix just the calculateTotal function. Don't refactor surrounding code.
+
+# Feature scope
+Add the logout button only. Don't add session management or remember-me features.
+```
+
+**Why it works**: Prevents scope creep and keeps changes focused and reviewable.
+
+### Pattern Combinations
+
+| Situation | Pattern Combination |
+|-----------|---------------------|
+| Critical feature | As If + Explain First + Incremental |
+| Quick fix | Constraint + Boundary |
+| Debugging session | Rubber Duck + Incremental |
+| Architecture decision | Explain First + As If |
+| Refactoring | Boundary + Incremental + Constraint |
+
+### Anti-Patterns to Avoid
+
+| Anti-Pattern | Problem | Better Approach |
+|--------------|---------|-----------------|
+| "Make it perfect" | Undefined standard | Use "As If" with specific context |
+| "Fix everything" | Scope explosion | Use "Boundary" pattern |
+| "Just do it" | No validation | Use "Explain First" |
+| "Make it fast" | Vague constraint | Specify: "under 100ms" |
+| Overwhelming detail | Context pollution | Focus on relevant constraints only |
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -8569,6 +9027,10 @@ Before moving to Section 10 (Reference), verify you understand:
 - [ ] **Continuous Improvement**: Refine over multiple sessions with learning mindset
 - [ ] **Best Practices**: Do/Don't patterns for professional work
 - [ ] **Development Methodologies**: TDD, SDD, BDD, and other structured approaches
+
+**Communication Patterns**:
+- [ ] **Named Prompting Patterns**: As If, Constraint, Explain First, Rubber Duck, Incremental, Boundary
+- [ ] **Mermaid Diagrams**: Generate visual documentation for architecture and flows
 
 ### What's Next?
 

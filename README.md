@@ -6,8 +6,8 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/Lines-9,800+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-56-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Lines-10,200+-blueviolet?style=for-the-badge" alt="Lines"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-62-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-217_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -133,7 +133,7 @@ Claude asks 2-4 questions then guides you through personalized content based on 
 - You read official docs → dense, no progression
 - You search tutorials → scattered, outdated in weeks
 
-**This guide:** Structured learning path with 55 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
+**This guide:** Structured learning path with 60+ copy-paste templates. Your mileage may vary—but this saves you the exploration time.
 
 | Traditional Docs | This Guide |
 |------------------|------------|
@@ -432,7 +432,7 @@ Weak Areas (< 75%):
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~9800 lines)
+│   ├── ultimate-guide.md     # Complete reference (~10200 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── adoption-approaches.md # Team implementation strategies
@@ -499,6 +499,12 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [/review-pr](./examples/commands/review-pr.md) | Review pull requests | Code quality analysis |
 | [/git-worktree](./examples/commands/git-worktree.md) | Manage git worktrees | Parallel development |
 | [/validate-changes](./examples/commands/validate-changes.md) | Validate code changes | Pre-commit checks |
+| [/catchup](./examples/commands/catchup.md) | Restore context after /clear | Git history, TODOs, project state |
+| [/security](./examples/commands/security.md) | Quick OWASP security audit | Secrets, injection, dependencies |
+| [/refactor](./examples/commands/refactor.md) | SOLID-based improvements | Violation detection, risk levels |
+| [/explain](./examples/commands/explain.md) | Code explanations (3 depths) | Files, functions, concepts |
+| [/optimize](./examples/commands/optimize.md) | Performance analysis | Runtime, memory, bundle |
+| [/ship](./examples/commands/ship.md) | Pre-deploy checklist | Tests, security, migrations |
 
 ### Utility Scripts
 
@@ -649,6 +655,67 @@ Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 ---
 
+## 🌐 Ecosystem & Positioning
+
+### Quick Start vs Deep Understanding
+
+| I need... | Best Resource |
+|-----------|---------------|
+| Install templates NOW | → [claude-code-templates](https://github.com/davila7/claude-code-templates) (CLI, 17k⭐) |
+| Discover community tools | → [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) |
+| Visual walkthrough | → [Claude-Code-Everything](https://github.com/wesammustafa/Claude-Code-Everything) (screenshots, BMAD) |
+| Understand & master | → **This guide** |
+| Debug issues | → **This guide** → [Troubleshooting](./guide/ultimate-guide.md#troubleshooting) |
+
+### What Makes This Guide Different
+
+| Feature | claude-code-templates | awesome-claude-code | This Guide |
+|---------|----------------------|---------------------|------------|
+| **Focus** | Distribution | Curation | Education |
+| **Approach** | Install & use | Discover & link | Learn & master |
+| **Content** | Aggregated | Aggregated | Original |
+| **Architecture docs** | ❌ | ❌ | ✅ Unique |
+| **Methodologies (TDD/SDD)** | ❌ | ❌ | ✅ Unique |
+| **Interactive quiz** | ❌ | ❌ | ✅ 217 questions |
+| **Machine-readable index** | ❌ | ❌ | ✅ YAML with line numbers |
+
+**Recommended path**:
+1. Read this guide (2-3h) → Understand the concepts
+2. Use CLI tools for installation → Faster setup
+3. Return here for debugging/advanced patterns
+
+### Quick Template Install
+
+Install templates from this guide directly into your project:
+
+```bash
+# Base URL for convenience
+URL="https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/scripts/install-templates.sh"
+
+# List all available templates
+curl -fsSL "$URL" | bash -s -- list
+
+# Install specific templates
+curl -fsSL "$URL" | bash -s -- command pr
+curl -fsSL "$URL" | bash -s -- hook dangerous-actions-blocker
+curl -fsSL "$URL" | bash -s -- agent security-reviewer
+```
+
+<details>
+<summary><strong>All template types</strong></summary>
+
+| Type | Install | Examples |
+|------|---------|----------|
+| **agent** | `bash -s -- agent <name>` | security-reviewer, code-reviewer |
+| **hook** | `bash -s -- hook <name>` | dangerous-actions-blocker, auto-format |
+| **command** | `bash -s -- command <name>` | pr, release-notes, commit |
+| **skill** | `bash -s -- skill <name>` | TDD, pdf-generator |
+| **memory** | `bash -s -- memory <name>` | minimal, comprehensive, nextjs |
+
+</details>
+
+---
+
 ## 📄 License
 
 Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Free to share and adapt with attribution and same-license distribution.
@@ -674,7 +741,7 @@ Get notified about major updates, new templates, and Claude Code best practices:
 
 ---
 
-*Version 3.8.2 | January 2026 | Crafted with Claude*
+*Version 3.9.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

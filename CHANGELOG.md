@@ -6,43 +6,111 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.0] - 2026-01-19
+
 ### Added
+
+- **6 new slash commands** (Sprint 1 + Sprint 2 implementation)
+  - `examples/commands/catchup.md` - Restore context after `/clear` (137 lines)
+    - Git history analysis (last 10 commits, recent diffs)
+    - TODO/FIXME scanning across codebase
+    - Project state summary with actionable next steps
+  - `examples/commands/security.md` - Quick OWASP security audit (149 lines)
+    - Secrets detection (API keys, tokens, passwords)
+    - Injection vulnerability scanning (SQL, XSS, command)
+    - Dependency audit integration
+    - Severity-based output (Critical/High/Medium/Low)
+  - `examples/commands/refactor.md` - SOLID-based code improvements (195 lines)
+    - SOLID violation detection with examples
+    - Risk level assessment for each suggestion
+    - Atomic commit recommendations
+  - `examples/commands/explain.md` - Code explanations with 3 depth levels (174 lines)
+    - Simple (TL;DR), Standard, Deep modes
+    - Supports files, functions, concepts, flows
+    - Example outputs at each level
+  - `examples/commands/optimize.md` - Performance analysis and roadmap (195 lines)
+    - Runtime, memory, database, bundle analysis
+    - Profiling commands per language
+    - Prioritized optimization roadmap
+  - `examples/commands/ship.md` - Pre-deploy checklist (189 lines)
+    - Blocker/High/Recommended categorization
+    - Tests, lint, build, secrets, security audit
+    - Migration and rollback verification
+
+- **Named Prompting Patterns** section in `guide/ultimate-guide.md` (Section 9.15, ~155 lines)
+  - **"As If" Pattern**: Set quality expectations ("Implement as if senior engineer at Google")
+  - **Constraint Pattern**: Force creative solutions ("Solve without new dependencies")
+  - **"Explain First" Pattern**: Force planning before implementation
+  - **"Rubber Duck" Pattern**: Collaborative debugging through questions
+  - **Incremental Pattern**: Gradual complexity building
+  - **Boundary Pattern**: Define scope and constraints explicitly
+  - Combination examples and anti-patterns
+
+- **Mermaid Diagram Generation** section in `guide/ultimate-guide.md` (Section 9.7, ~90 lines)
+  - 6 diagram types: Flowchart, Sequence, Class, ER, State, Gantt
+  - Prompt templates for each type
+  - Visualization tools reference (GitHub, mermaid.live, VS Code)
+
+- **Eight Beginner Mistakes** checklist in `guide/ultimate-guide.md` (Section 1.7, ~70 lines)
+  - Based on competitive analysis vs Jo Vinkenroye's Mastery series
+  - 8 common mistakes with symptoms and solutions
+  - Prevention patterns for each mistake
+
+- **Commands vs Skills vs Agents** enhanced comparison table (Section 5.1, ~50 lines)
+  - Detailed comparison across 8 aspects
+  - When to use each type with decision criteria
+  - Combination patterns for complex workflows
 
 - **Learning with AI guide** for junior developers (`guide/learning-with-ai.md`, ~900 lines)
   - **Quick Self-Check** (L31-81): 5 diagnostic questions to assess AI dependency
   - **Three Developer Patterns** (L82-126): Dependent, Avoidant, Augmented profiles with action paths
-  - **UVAL Protocol** (L127-352): Understand → Verify → Apply → Learn framework with Claude Code implementations
-  - **Claude Code for Learning** (L353-469): CLAUDE.md configuration, slash commands, hooks for learning mode
+  - **UVAL Protocol** (L127-352): Understand → Verify → Apply → Learn framework
+  - **Claude Code for Learning** (L353-469): CLAUDE.md configuration, slash commands, hooks
   - **Breaking Dependency** (L470-517): Recovery plan for over-reliant developers
   - **Embracing AI** (L518-709): Onboarding for AI-skeptical developers
   - **30-Day Progression Plan** (L710-769): Week-by-week AI ratio progression
   - **Red Flags Checklist** (L770-850): Warning signs and corrective actions
-  - Case study: Méthode Aristote principles (human supervision + AI assistance)
 
 - **Learning mode templates** (3 new files)
   - `examples/claude-md/learning-mode.md`: CLAUDE.md template for learning-focused development
-  - `examples/commands/quiz.md`: /quiz slash command for self-testing (5 difficulty levels)
+  - `examples/commands/quiz.md`: /quiz slash command for self-testing
   - `examples/hooks/bash/learning-capture.sh`: Stop event hook for daily learning capture
 
 - **Wireframing & Figma MCP documentation** in `guide/ultimate-guide.md` (+143 lines)
-  - **Wireframing Tools for AI Development** (L483-518): Comparison table for Excalidraw, tldraw, Frame0, Paper+Photo with MCP support indicators
-  - **Figma MCP Integration** (L520-583): Official Anthropic MCP server setup, available tools (`get_design_context`, `get_variable_defs`, `get_code_connect_map`), workflow examples
-  - **Image Optimization for Claude Vision** (L585-624): Resolution guidelines, token calculation formula, format recommendations
-  - New config template: `examples/mcp-configs/figma.json`
-  - Updated `machine-readable/reference.yaml` with new entries and shifted line numbers
+  - Wireframing tools comparison (Excalidraw, tldraw, Frame0, Paper+Photo)
+  - Figma MCP Integration with official Anthropic server
+  - Image Optimization for Claude Vision with resolution guidelines
 
 ### Changed
 
-- **README.md**: Added prominent "Visit Website" badge linking to landing page
-- **Templates count**: 52 → 55 in README.md badges (3 new learning templates)
-- **Navigation updated**: `guide/README.md`, `examples/hooks/README.md` with new learning resources
-- **Reference index expanded**: `machine-readable/reference.yaml` with 10 new deep_dive entries for learning topics
+- **README.md** updates:
+  - Lines badge: 9,800+ → 10,200+
+  - Templates badge: 56 → 62 (55 → 60+ in text)
+  - Commands table: Added 6 new commands
+  - Version: 3.8.2 → 3.9.0
+  - Added prominent "Visit Website" badge linking to landing page
+
+- **examples/README.md**: Added 6 new commands to Commands table
+
+- **scripts/install-templates.sh**: Updated commands list with new templates
+
+- **guide/ultimate-guide.md**:
+  - Table of Contents updated with sections 1.6, 1.7
+  - Section 9 Recap enhanced with Communication Patterns checklist
+  - Guide expanded by ~385 lines (9,881 → 10,266)
 
 - **Semantic search tools priority**: grepai now recommended over mgrep
-  - `guide/ultimate-guide.md`: Sections reordered (grepai first as "Recommended", mgrep as "Alternative")
-  - `guide/cheatsheet.md`: MCP Servers table updated (mgrep → grepai)
-  - `quiz/questions/08-mcp-servers.yaml`: Question 08-013 updated to reference grepai
-  - Rationale: grepai is fully open-source, runs locally (privacy), and offers call graph analysis
+  - Sections reordered (grepai first as "Recommended", mgrep as "Alternative")
+  - `guide/cheatsheet.md`: MCP Servers table updated
+  - Rationale: grepai is fully open-source, runs locally (privacy)
+
+### Stats
+
+- 6 new command files created (~1,039 lines total)
+- ~385 lines added to ultimate-guide.md
+- Templates count: 56 → 62
+- Focus on competitive analysis gaps vs community resources
+- Named patterns and beginner-friendly content added
 
 ---
 

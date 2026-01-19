@@ -15,6 +15,8 @@ deep_dive:
   # Claude Code Releases
   claude_code_releases: "guide/claude-code-releases.md"
   claude_code_releases_yaml: "machine-readable/claude-code-releases.yaml"
+  # Template Installation
+  install_templates_script: "scripts/install-templates.sh"
   # Session management
   session_search: "guide/observability.md:29"
   session_search_script: "examples/scripts/session-search.sh"
@@ -57,38 +59,40 @@ deep_dive:
   fresh_context_pattern: 1289
   plan_mode: 1822
   rewind: 2000
-  mental_model: 2082
-  xml_prompting: 2139
-  memory_files: 2787
-  claude_folder: 2938
-  settings: 2989
-  precedence_rules: 3211
-  agents: 3309
-  agent_template: 3382
-  agent_examples: 3520
-  skills: 3898
-  skill_template: 3976
-  skill_examples: 4044
-  commands: 4323
-  command_template: 4393
-  hooks: 4646
-  hook_templates: 4791
-  security_hooks: 5053
-  mcp_servers: 5194
-  mcp_config: 5488
-  mcp_security: 5856
-  cicd: 6157
-  ide_integration: 6846
-  feedback_loops: 6916
-  batch_operations: 7254
-  pitfalls: 7373
-  git_best_practices: 7642
-  cost_optimization: 8108
-  commands_table: 8598
-  shortcuts_table: 8631
-  troubleshooting: 8757
-  cheatsheet: 9132
-  daily_workflow: 9208
+  mental_model: 2154
+  xml_prompting: 2211
+  semantic_anchors: 2664
+  semantic_anchors_catalog: "examples/semantic-anchors/anchor-catalog.md"
+  memory_files: 2952
+  claude_folder: 3103
+  settings: 3154
+  precedence_rules: 3376
+  agents: 3474
+  agent_template: 3547
+  agent_examples: 3685
+  skills: 4063
+  skill_template: 4183
+  skill_examples: 4251
+  commands: 4530
+  command_template: 4600
+  hooks: 4853
+  hook_templates: 4998
+  security_hooks: 5260
+  mcp_servers: 5401
+  mcp_config: 5695
+  mcp_security: 6063
+  cicd: 6381
+  ide_integration: 7070
+  feedback_loops: 7140
+  batch_operations: 7570
+  pitfalls: 7689
+  git_best_practices: 7957
+  cost_optimization: 8423
+  commands_table: 9076
+  shortcuts_table: 9109
+  troubleshooting: 9235
+  cheatsheet: 9610
+  daily_workflow: 9686
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -324,6 +328,26 @@ rules:
   4: "Plan Mode first for complex/risky"
   5: "Create CLAUDE.md for every project"
   6: "Commit frequently after each task"
+
+# ════════════════════════════════════════════════════════════════
+# ECOSYSTEM - Related resources & positioning
+# ════════════════════════════════════════════════════════════════
+ecosystem:
+  this_guide:
+    focus: "Education - Learn & master"
+    unique: ["architecture docs", "TDD/SDD methodologies", "217-question quiz", "YAML index"]
+  complementary:
+    claude_code_templates:
+      url: "github.com/davila7/claude-code-templates"
+      focus: "Distribution - Install & use (CLI)"
+      stars: "17k+"
+    awesome_claude_code:
+      url: "github.com/hesreallyhim/awesome-claude-code"
+      focus: "Curation - Discover & link"
+    claude_code_everything:
+      url: "github.com/wesammustafa/Claude-Code-Everything"
+      focus: "Visual walkthrough - Screenshots, BMAD method"
+  install_templates: "scripts/install-templates.sh"
 
 # ════════════════════════════════════════════════════════════════
 # ONBOARDING MATRIX - Maps user profile → content sections
