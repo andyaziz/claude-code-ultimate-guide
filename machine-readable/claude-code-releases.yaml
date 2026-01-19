@@ -365,6 +365,8 @@ breaking_summary:
     - "Command injection fix in bash processing (v2.1.2)"
     - "Wildcard permission rules compound commands fix (v2.1.7)"
     - "Shell line continuation permission bypass fix (v2.1.6)"
+  behavior:
+    - "ultrathink/think keywords now cosmetic only — thinking default with Opus 4.5 (v2.0.67)"
 
 # ════════════════════════════════════════════════════════════════
 # MILESTONE FEATURES (quick reference)
