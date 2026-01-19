@@ -2235,6 +2235,8 @@ Understanding how Claude Code "thinks" makes you more effective.
 3. **Your Intent**: Claude needs clear instructions
 4. **Hidden Files**: Claude respects .gitignore by default
 
+> **⚠️ Pattern Amplification**: Claude mirrors the patterns it finds. In well-structured codebases, it produces consistent, idiomatic code. In messy codebases without clear abstractions, it perpetuates the mess. If your code lacks good patterns, provide them explicitly in CLAUDE.md or use semantic anchors (Section 2.7).
+
 ### Communicating Effectively
 
 **Good prompt**:
