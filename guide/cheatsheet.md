@@ -136,6 +136,15 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 { "statusLine": { "type": "command", "command": "npx -y ccstatusline@latest", "padding": 0 } }
 ```
 
+### Context Thresholds
+
+| Context % | Status | Action |
+|-----------|--------|--------|
+| 0-50% | Green | Work freely |
+| 50-70% | Yellow | Be selective |
+| 70-90% | Orange | `/compact` now |
+| 90%+ | Red | `/clear` required |
+
 ### Actions by Symptom
 
 | Sign | Action |
