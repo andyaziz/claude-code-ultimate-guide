@@ -8,7 +8,7 @@
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Lines-10,500+-blueviolet?style=for-the-badge" alt="Lines"/></a>
   <a href="./examples/"><img src="https://img.shields.io/badge/Templates-63-green?style=for-the-badge" alt="Templates"/></a>
-  <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-217_questions-orange?style=for-the-badge" alt="Quiz"/></a>
+  <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
 <p align="center">
@@ -244,7 +244,7 @@ Based on ALL this context, provide:
 
 ### 🧠 Knowledge Quiz
 
-Test your Claude Code knowledge with an interactive CLI quiz. **217 curated questions** covering all 14 guide sections, with immediate feedback and documentation links.
+Test your Claude Code knowledge with an interactive CLI quiz. **227 curated questions** covering all 14 guide sections, with immediate feedback and documentation links.
 
 ```bash
 # Quick start
@@ -397,6 +397,7 @@ Weak Areas (< 75%):
 | **[Data Privacy](./guide/data-privacy.md)** | Data retention and privacy guide | ~10 minutes |
 | **[Security Hardening](./guide/security-hardening.md)** | MCP vetting, injection defense, CVEs | ~25 minutes |
 | **[Observability](./guide/observability.md)** | Session monitoring and cost tracking | ~15 minutes |
+| **[AI Ecosystem](./guide/ai-ecosystem.md)** | Complementary tools (Perplexity, Gemini, Kimi) | ~25 minutes |
 | **[LLM Reference](./machine-readable/reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
@@ -477,7 +478,7 @@ claude-code-ultimate-guide/
 │   ├── ...
 │   └── 07-guide-reference.qmd
 │
-└── quiz/                     # 🧠 Interactive knowledge quiz (217 questions)
+└── quiz/                     # 🧠 Interactive knowledge quiz (227 questions)
 ```
 
 ---
@@ -677,7 +678,7 @@ Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 | **Content** | Aggregated | Aggregated | Original |
 | **Architecture docs** | ❌ | ❌ | ✅ Unique |
 | **Methodologies (TDD/SDD)** | ❌ | ❌ | ✅ Unique |
-| **Interactive quiz** | ❌ | ❌ | ✅ 217 questions |
+| **Interactive quiz** | ❌ | ❌ | ✅ 227 questions |
 | **Machine-readable index** | ❌ | ❌ | ✅ YAML with line numbers |
 
 **Recommended path**:
