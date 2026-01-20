@@ -116,7 +116,9 @@ deep_dive:
   ai_ecosystem_workflows: 10545
   ai_ecosystem_integration: 10671
   ai_ecosystem_detailed: "guide/ai-ecosystem.md"
-  ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:902"
+  ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
+  ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
+  voice_refine_skill: "examples/skills/voice-refine/SKILL.md"
   # Cowork documentation (expanded - see cowork/)
   cowork_hub: "cowork/README.md"
   cowork_summary: "guide/cowork.md"
@@ -130,7 +132,7 @@ deep_dive:
   cowork_faq: "cowork/reference/faq.md"
   cowork_prompts: "cowork/prompts/README.md"
   cowork_workflows: "cowork/workflows/README.md"
-  cowork_section: "guide/ai-ecosystem.md:701"
+  cowork_section: "guide/ai-ecosystem.md:760"
   cowork_ultimate_guide: 10725
 
 # ════════════════════════════════════════════════════════════════

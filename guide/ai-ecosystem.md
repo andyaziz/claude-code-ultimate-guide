@@ -13,11 +13,12 @@
 - [2. Google Gemini (Visual Understanding)](#2-google-gemini-visual-understanding)
 - [3. Kimi (PPTX & Long Document Generation)](#3-kimi-pptx--long-document-generation)
 - [4. NotebookLM (Synthesis & Audio)](#4-notebooklm-synthesis--audio)
-- [5. IDE-Based Tools (Cursor, Windsurf, Cline)](#5-ide-based-tools-cursor-windsurf-cline)
-- [6. UI Prototypers (v0, Bolt, Lovable)](#6-ui-prototypers-v0-bolt-lovable)
-- [7. Workflow Orchestration](#7-workflow-orchestration)
-- [8. Cost & Subscription Strategy](#8-cost--subscription-strategy)
-- [9. Claude Cowork (Research Preview)](#9-claude-cowork-research-preview)
+- [5. Voice-to-Text Tools (Wispr Flow, Superwhisper)](#5-voice-to-text-tools-wispr-flow-superwhisper)
+- [6. IDE-Based Tools (Cursor, Windsurf, Cline)](#6-ide-based-tools-cursor-windsurf-cline)
+- [7. UI Prototypers (v0, Bolt, Lovable)](#7-ui-prototypers-v0-bolt-lovable)
+- [8. Workflow Orchestration](#8-workflow-orchestration)
+- [9. Cost & Subscription Strategy](#9-cost--subscription-strategy)
+- [10. Claude Cowork (Research Preview)](#10-claude-cowork-research-preview)
 - [Appendix: Ready-to-Use Prompts](#appendix-ready-to-use-prompts)
 - [Alternative Providers (Community Workarounds)](#alternative-providers-community-workarounds)
 
@@ -445,7 +446,65 @@ After NotebookLM synthesis, export key insights to your project:
 
 ---
 
-## 5. IDE-Based Tools (Cursor, Windsurf, Cline)
+## 5. Voice-to-Text Tools (Wispr Flow, Superwhisper)
+
+**Philosophy**: "Vibe coding" — dictate intent, let AI implement
+
+Voice input delivers ~4x typing speed (~150 WPM vs ~40 WPM) with richer context.
+You say more when you don't have to type it.
+
+### Tool Comparison
+
+| Tool | Processing | Latency | Privacy | Price | Platform |
+|------|------------|---------|---------|-------|----------|
+| **Wispr Flow** | Cloud | ~500ms | SOC 2 certified | $12/mo | Mac, Win, iOS |
+| **Superwhisper** | Local | 1-2s | 100% offline | ~$50 one-time | Mac only |
+| **MacWhisper** | Local | Variable | 100% offline | $49 one-time | Mac only |
+
+### When Voice + Claude Code Shines
+
+| Scenario | Why voice wins |
+|----------|---------------|
+| Long context dumps | You naturally include constraints, edge cases, business context |
+| Brainstorming | Less self-filtering, more raw ideas |
+| Multi-agent management | Dictate to 3-4 Claude sessions simultaneously |
+| Accessibility | RSI, mobility constraints, eye strain |
+
+### Vibe Coding Workflow
+
+1. Open Claude Code or Cursor
+2. Activate voice (Wispr hotkey or system dictation)
+3. Dictate naturally: "I need a component that shows user stats,
+   it should have pagination because we have thousands of users,
+   and sorting by name or signup date, use our existing Tailwind setup"
+4. Let Claude process the verbose input
+5. Iterate vocally: "Add loading state and error handling"
+
+### Trade-offs
+
+| Advantage | Limitation |
+|-----------|------------|
+| ~4x faster input | ~3x more verbose output |
+| Richer context | Cloud privacy (Wispr) |
+| Flow state preserved | ~800MB RAM overhead |
+| Natural expression | Technical terms need training |
+
+### Recommendation
+
+| Profile | Tool |
+|---------|------|
+| Productivity-first | Wispr Flow Pro ($12/mo) |
+| Privacy-required | Superwhisper (Mac) |
+| Budget-conscious | MacWhisper ($49 one-time) |
+| Windows user | Wait for Wispr stability improvements |
+
+**Pro tip**: For complex prompts, consider a "refine" step to compress
+verbose voice input into structured prompts before sending to Claude.
+See `/voice-refine` skill template in `examples/skills/`.
+
+---
+
+## 6. IDE-Based Tools (Cursor, Windsurf, Cline)
 
 ### When IDE Tools Complement Claude Code
 
@@ -506,7 +565,7 @@ When you need Claude's deeper analysis:
 
 ---
 
-## 6. UI Prototypers (v0, Bolt, Lovable)
+## 7. UI Prototypers (v0, Bolt, Lovable)
 
 ### When to Use Prototypers
 
@@ -554,7 +613,7 @@ When you need Claude's deeper analysis:
 
 ---
 
-## 7. Workflow Orchestration
+## 8. Workflow Orchestration
 
 ### The Complete Pipeline
 
@@ -652,7 +711,7 @@ claude
 
 ---
 
-## 8. Cost & Subscription Strategy
+## 9. Cost & Subscription Strategy
 
 ### Monthly Cost Comparison
 
@@ -698,7 +757,7 @@ claude
 
 ---
 
-## 9. Claude Cowork (Research Preview)
+## 10. Claude Cowork (Research Preview)
 
 > **Research Preview** (January 2026) — Limited documentation, expect bugs, local-only access. No production use recommended yet.
 
