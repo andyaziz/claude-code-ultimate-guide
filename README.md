@@ -72,6 +72,16 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 
 ---
 
+## 👥 Not a Developer?
+
+**Claude Cowork** is the companion guide for non-technical users (knowledge workers, assistants, managers).
+
+Same agentic capabilities as Claude Code, but through a visual interface with no coding required.
+
+→ **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** — File organization, document generation, automated workflows
+
+---
+
 ## 🎯 Learning Paths
 
 <details>
