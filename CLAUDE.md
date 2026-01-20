@@ -86,6 +86,30 @@ echo "3.7.0" > VERSION && ./scripts/sync-version.sh
 
 Check `IDEAS.md` for planned improvements and `CHANGELOG.md [Unreleased]` for work in progress.
 
+## Model Configuration
+
+**Recommended mode**: `/model opusplan`
+
+**Rationale**: This documentation repository benefits from hybrid intelligence:
+- **Planning phase** (Opus + thinking): Architecture decisions, research synthesis, multi-file analysis
+- **Execution phase** (Sonnet): Doc updates, version syncing, template edits, formatting
+
+**OpusPlan workflow**:
+1. `/model opusplan` → Set hybrid mode
+2. `/plan` or `Shift+Tab × 2` → Plan with Opus (thinking enabled)
+3. `Shift+Tab` → Execute with Sonnet (faster, cheaper)
+
+**Typical task breakdown**:
+| Task Type | Model | Justification |
+|-----------|-------|---------------|
+| Doc edits, typo fixes | Sonnet | Straightforward, no deep reasoning |
+| Version sync, formatting | Sonnet | Mechanical pattern matching |
+| Guide restructuring | Opus (plan) → Sonnet (execute) | Needs architecture thinking first |
+| Research synthesis | Opus (plan) → Sonnet (write) | Complex analysis, then clear writing |
+| Multi-file consistency checks | Opus (plan) → Sonnet (fix) | Dependency analysis, then edits |
+
+**Cost optimization**: OpusPlan pays Opus only for planning (typically 10-20% of tokens), Sonnet handles 80-90% of execution work.
+
 ## Landing Site Synchronization
 
 **Important**: Ce guide a un site landing associé qui doit être mis à jour après certains changements.
