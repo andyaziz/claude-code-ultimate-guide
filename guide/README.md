@@ -17,7 +17,7 @@ Core documentation for mastering Claude Code.
 | [methodologies.md](./methodologies.md) | 15 development methodologies reference (TDD, SDD, BDD, etc.) | 20 min |
 | [security-hardening.md](./security-hardening.md) | Security threats, MCP vetting, injection defense | 25 min |
 | [ai-ecosystem.md](./ai-ecosystem.md) | Complementary AI tools (Perplexity, Gemini, Kimi, NotebookLM) | 25 min |
-| [cowork.md](./cowork.md) | Claude Cowork: Summary (see [cowork/](../cowork/) for full docs) | 5 min |
+| [cowork.md](./cowork.md) | Claude Cowork: Summary (see [dedicated repo](https://github.com/FlorianBruniaux/claude-cowork-guide) for full docs) | 5 min |
 | [workflows/](./workflows/) | Practical workflow guides for Claude Code | 30 min |
 
 ### Cowork Documentation
@@ -26,12 +26,12 @@ For knowledge workers using Claude Cowork (agentic desktop):
 
 | Resource | Description |
 |----------|-------------|
-| **[Cowork Hub](../cowork/README.md)** | Complete Cowork documentation |
-| [Getting Started](../cowork/guide/01-getting-started.md) | Setup and first workflow |
-| [Capabilities](../cowork/guide/02-capabilities.md) | What Cowork can/cannot do |
-| [Security Guide](../cowork/guide/03-security.md) | Safe usage practices |
-| [Prompt Library](../cowork/prompts/) | 50+ ready-to-use prompts |
-| [Cheatsheet](../cowork/reference/cheatsheet.md) | 1-page quick reference |
+| **[Cowork Hub](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/README.md)** | Complete Cowork documentation |
+| [Getting Started](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/01-getting-started.md) | Setup and first workflow |
+| [Capabilities](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/02-capabilities.md) | What Cowork can/cannot do |
+| [Security Guide](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/03-security.md) | Safe usage practices |
+| [Prompt Library](https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts) | 50+ ready-to-use prompts |
+| [Cheatsheet](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/cheatsheet.md) | 1-page quick reference |
 
 ### Workflows
 

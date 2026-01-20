@@ -119,20 +119,20 @@ deep_dive:
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
   voice_refine_skill: "examples/skills/voice-refine/SKILL.md"
-  # Cowork documentation (v1.0 - complete)
-  cowork_reference: "machine-readable/cowork-reference.yaml"  # Dedicated YAML index
-  cowork_hub: "cowork/README.md"
-  cowork_summary: "guide/cowork.md"
-  cowork_overview: "cowork/guide/00-overview.md"
-  cowork_getting_started: "cowork/guide/01-getting-started.md"
-  cowork_capabilities: "cowork/guide/02-capabilities.md"
-  cowork_security: "cowork/guide/03-security.md"
-  cowork_troubleshooting: "cowork/guide/04-troubleshooting.md"
-  cowork_cheatsheet: "cowork/reference/cheatsheet.md"
-  cowork_comparison: "cowork/reference/comparison.md"
-  cowork_faq: "cowork/reference/faq.md"
-  cowork_prompts: "cowork/prompts/README.md"
-  cowork_workflows: "cowork/workflows/README.md"
+  # Cowork documentation (v1.0 - migrated to dedicated repo)
+  cowork_reference: "machine-readable/cowork-reference.yaml"  # Dedicated YAML index (kept local)
+  cowork_hub: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/README.md"
+  cowork_summary: "guide/cowork.md"  # Summary remains in this repo
+  cowork_overview: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/00-overview.md"
+  cowork_getting_started: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/01-getting-started.md"
+  cowork_capabilities: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/02-capabilities.md"
+  cowork_security: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/03-security.md"
+  cowork_troubleshooting: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/04-troubleshooting.md"
+  cowork_cheatsheet: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/cheatsheet.md"
+  cowork_comparison: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/comparison.md"
+  cowork_faq: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/faq.md"
+  cowork_prompts: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts"
+  cowork_workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
   cowork_section: "guide/ai-ecosystem.md:760"
   cowork_ultimate_guide: 10725
 
@@ -399,17 +399,18 @@ ecosystem:
     description: "Claude Code for non-developers (desktop app)"
     status: "Research preview - Max/macOS only (Jan 2026)"
     blog: "https://claude.com/blog/cowork-research-preview"
-    guide_summary: "guide/cowork.md"
-    guide_full: "cowork/README.md"
-    getting_started: "cowork/guide/01-getting-started.md"
-    capabilities: "cowork/guide/02-capabilities.md"
-    security: "cowork/guide/03-security.md"
-    troubleshooting: "cowork/guide/04-troubleshooting.md"
-    cheatsheet: "cowork/reference/cheatsheet.md"
-    comparison: "cowork/reference/comparison.md"
-    faq: "cowork/reference/faq.md"
-    prompts: "cowork/prompts/"
-    workflows: "cowork/workflows/"
+    github: "https://github.com/FlorianBruniaux/claude-cowork-guide"
+    guide_summary: "guide/cowork.md"  # Summary in this repo
+    guide_full: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/README.md"
+    getting_started: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/01-getting-started.md"
+    capabilities: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/02-capabilities.md"
+    security: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/03-security.md"
+    troubleshooting: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/04-troubleshooting.md"
+    cheatsheet: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/cheatsheet.md"
+    comparison: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/comparison.md"
+    faq: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/faq.md"
+    prompts: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts"
+    workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
 
 # ════════════════════════════════════════════════════════════════
 # ONBOARDING MATRIX - Maps user profile → content sections

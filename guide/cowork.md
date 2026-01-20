@@ -1,6 +1,8 @@
 # Claude Cowork: Agentic Desktop for Knowledge Work
 
-> **Note**: This page is a summary. For comprehensive documentation, see the **[Complete Cowork Documentation](../cowork/README.md)**.
+> **📦 Complete documentation migrated to dedicated repository**
+> This file is a summary. For full documentation, see:
+> **https://github.com/FlorianBruniaux/claude-cowork-guide**
 
 ---
 
@@ -29,7 +31,7 @@
 | **File access** | Full | Folder sandbox | Upload only |
 | **Maturity** | Production | Research preview | Production |
 
-→ [Full Comparison](../cowork/reference/comparison.md)
+→ [Full Comparison](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/comparison.md)
 
 ---
 
@@ -40,7 +42,7 @@
 - **Report Synthesis** — Multiple docs → unified report
 - **Meeting Prep** — Research → briefing documents
 
-→ [Detailed Workflows](../cowork/workflows/)
+→ [Detailed Workflows](https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows)
 
 ---
 
@@ -53,7 +55,7 @@ No official security documentation exists yet. Essential practices:
 3. **No credentials** — Keep sensitive data out of workspace
 4. **Backup first** — Before destructive operations
 
-→ [Complete Security Guide](../cowork/guide/03-security.md)
+→ [Complete Security Guide](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/03-security.md)
 
 ---
 
@@ -61,12 +63,12 @@ No official security documentation exists yet. Essential practices:
 
 | Resource | Description |
 |----------|-------------|
-| **[Complete Documentation](../cowork/README.md)** | Full Cowork guide hub |
-| **[Getting Started](../cowork/guide/01-getting-started.md)** | Setup and first workflow |
-| **[Capabilities](../cowork/guide/02-capabilities.md)** | What Cowork can/cannot do |
-| **[Prompt Library](../cowork/prompts/)** | 50+ ready-to-use prompts |
-| **[Cheatsheet](../cowork/reference/cheatsheet.md)** | 1-page quick reference |
-| **[FAQ](../cowork/reference/faq.md)** | Common questions |
+| **[Complete Documentation](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/README.md)** | Full Cowork guide hub |
+| **[Getting Started](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/01-getting-started.md)** | Setup and first workflow |
+| **[Capabilities](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/guide/02-capabilities.md)** | What Cowork can/cannot do |
+| **[Prompt Library](https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts)** | 50+ ready-to-use prompts |
+| **[Cheatsheet](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/cheatsheet.md)** | 1-page quick reference |
+| **[FAQ](https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/faq.md)** | Common questions |
 
 ---
 

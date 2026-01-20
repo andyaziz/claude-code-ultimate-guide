@@ -303,7 +303,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Local Copy**: Documentation also available in `./cowork/` directory of this repository.
+**Archive**: Historical versions available in git history (pre-v3.9.8)
 
 </details>
 
