@@ -31,6 +31,12 @@ availability:
 
 # Documentation structure
 structure:
+  root:
+    - README.md
+    - VERSION
+    - CHANGELOG.md
+    - CONTRIBUTING.md
+    - MANIFEST.yaml
   guide:
     - 00-overview.md
     - 01-getting-started.md
@@ -55,13 +61,29 @@ structure:
     - glossary.md
   examples:
     - CLAUDE.md
+  tools:
+    - cowork-onboarding.md
+  scripts:
+    - check-version-sync.sh
+    - sync-version.sh
+    - update-stats.sh
+  github:
+    - ISSUE_TEMPLATE/bug_report.md
+    - ISSUE_TEMPLATE/feature_request.md
+    - ISSUE_TEMPLATE/workflow_contribution.md
+    - ISSUE_TEMPLATE/config.yml
+    - PULL_REQUEST_TEMPLATE.md
+    - README.md
 
 # Content metadata
 metadata:
   language: en
-  last_updated: 2026-01-19
+  last_updated: 2026-01-20
   maintainer: claude-code-ultimate-guide contributors
-  license: MIT
+  license: CC-BY-SA-4.0
+  total_files: 34
+  total_prompts: 67
+  total_workflows: 5
 
 # Future standalone repo configuration
 standalone_config:

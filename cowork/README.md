@@ -2,9 +2,18 @@
 
 > **Complete guide for Claude's agentic desktop feature for knowledge workers**
 
-[![Status: Research Preview](https://img.shields.io/badge/Status-Research%20Preview-yellow)](https://claude.ai/cowork)
-[![Platform: macOS](https://img.shields.io/badge/Platform-macOS-blue)]()
-[![Subscription: Pro & Max](https://img.shields.io/badge/Subscription-Pro%20%26%20Max-purple)]()
+<p align="center">
+  <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
+  <a href="./prompts/"><img src="https://img.shields.io/badge/Prompts-60+-green?style=for-the-badge" alt="Prompts"/></a>
+  <a href="./workflows/"><img src="https://img.shields.io/badge/Workflows-5-blue?style=for-the-badge" alt="Workflows"/></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Research%20Preview-yellow" alt="Status"/>
+  <img src="https://img.shields.io/badge/Platform-macOS-blue" alt="Platform"/>
+  <img src="https://img.shields.io/badge/Subscription-Pro%20%26%20Max-purple" alt="Subscription"/>
+  <img src="https://img.shields.io/badge/Version-1.0.0-orange" alt="Version"/>
+</p>
 
 ---
 
@@ -30,9 +39,9 @@ Think of it as **Claude Code for everyone**: same agentic capabilities, but thro
 
 ---
 
-## Quick Start
+## ⚡ Quick Start
 
-### 1. Access Requirements
+### Prerequisites
 
 | Requirement | Details |
 |-------------|---------|
@@ -40,28 +49,82 @@ Think of it as **Claude Code for everyone**: same agentic capabilities, but thro
 | **Platform** | macOS only (Windows planned, no ETA) |
 | **App** | Claude Desktop (latest version) |
 
-### 2. Enable Cowork
+### Enable Cowork
 
 1. Open **Claude Desktop** app
 2. Go to **Settings** → **Features**
 3. Enable **Cowork** toggle
 4. Grant folder access when prompted
 
-### 3. Your First Task
+### Your First Task
+
+```bash
+# Create workspace
+mkdir -p ~/Cowork-Workspace/{input,output}
+
+# Add sample files to organize
+# Then in Claude Desktop:
+"Organize the files in ~/Cowork-Workspace/input/ by type"
+```
+
+<details>
+<summary><strong>Interactive Onboarding</strong> (personalized learning)</summary>
+
+**Run this in Claude Desktop** for a guided tour adapted to your use case:
 
 ```
-Create a folder: ~/Cowork-Workspace/
-Add some files to organize
-Prompt: "Organize the files in ~/Cowork-Workspace/ by type"
+Follow the Cowork onboarding instructions from:
+https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/cowork/tools/cowork-onboarding.md
 ```
+
+Cowork will analyze your needs and create a personalized learning path.
+
+</details>
 
 → [Complete Getting Started Guide](guide/01-getting-started.md)
 
 ---
 
-## Documentation Map
+## 🎯 Learning Paths
 
-### Core Guides
+<details>
+<summary><strong>Knowledge Worker</strong> — Foundation path (5 steps)</summary>
+
+1. [Overview](guide/00-overview.md) — What is Cowork, architecture
+2. [Getting Started](guide/01-getting-started.md) — First workflow, CTOC framework
+3. [File Organization Workflow](workflows/file-organization.md) — Practical example
+4. [Prompts Library](prompts/file-ops.md) — 15+ ready-to-use prompts
+5. [Cheatsheet](reference/cheatsheet.md) — Print this
+
+</details>
+
+<details>
+<summary><strong>Product Manager / Executive</strong> — Overview path (4 steps)</summary>
+
+1. [What's Inside](#-whats-inside) — Scope & capabilities
+2. [Golden Rules](#-golden-rules) — Key principles
+3. [Security](guide/03-security.md) — Safe usage practices
+4. [Comparison](reference/comparison.md) — Cowork vs Copilot/Gemini/ChatGPT
+
+</details>
+
+<details>
+<summary><strong>Power User</strong> — Comprehensive path (6 steps)</summary>
+
+1. [Complete Capabilities](guide/02-capabilities.md) — Detailed feature matrix
+2. [All Workflows](workflows/) — 5 step-by-step guides
+3. [Troubleshooting](guide/04-troubleshooting.md) — Error resolution
+4. [FAQ](reference/faq.md) — 20+ questions
+5. [Advanced Prompts](prompts/research.md) — Web research & synthesis
+6. [Team Handoff](workflows/team-handoff.md) — Dev ↔ Non-dev patterns
+
+</details>
+
+---
+
+## 📚 What's Inside
+
+### Core Guides (6 files)
 
 | Guide | Description | Reading Time |
 |-------|-------------|--------------|
@@ -71,7 +134,7 @@ Prompt: "Organize the files in ~/Cowork-Workspace/ by type"
 | [Security](guide/03-security.md) | Best practices, risk mitigation, safe usage | 12 min |
 | [Troubleshooting](guide/04-troubleshooting.md) | Common issues, decision tree, recovery | 8 min |
 
-### Workflows
+### Workflows (5 guides)
 
 | Workflow | Use Case | Complexity |
 |----------|----------|------------|
@@ -81,29 +144,54 @@ Prompt: "Organize the files in ~/Cowork-Workspace/ by type"
 | [Meeting Prep](workflows/meeting-prep.md) | Research → briefing document | Intermediate |
 | [Team Handoff](workflows/team-handoff.md) | Dev ↔ Non-dev patterns | Advanced |
 
-### Ready-to-Use Prompts
+<details>
+<summary><strong>Ready-to-Use Prompts</strong> (60+ prompts)</summary>
 
 | Collection | Count | Description |
 |------------|-------|-------------|
-| [File Operations](prompts/file-ops.md) | 15+ | Organization, renaming, cleanup |
-| [Document Creation](prompts/document-creation.md) | 15+ | Reports, summaries, presentations |
-| [Data Extraction](prompts/data-extraction.md) | 15+ | Images → data, PDF parsing |
-| [Research](prompts/research.md) | 10+ | Web research, synthesis |
+| [File Operations](prompts/file-ops.md) | 20 | Organization, renaming, cleanup, deduplication |
+| [Document Creation](prompts/document-creation.md) | 15 | Reports, summaries, presentations, Excel |
+| [Data Extraction](prompts/data-extraction.md) | 15 | Images → data, PDF parsing, OCR |
+| [Research](prompts/research.md) | 17 | Web research, synthesis, competitive analysis |
 
-### Reference
+**Total**: 67 copy-paste prompts
+
+</details>
+
+<details>
+<summary><strong>Reference Materials</strong></summary>
 
 | Resource | Description |
 |----------|-------------|
 | [Cheatsheet](reference/cheatsheet.md) | 1-page printable quick reference |
-| [Comparison](reference/comparison.md) | Code vs Cowork vs Projects decision matrix |
+| [Comparison](reference/comparison.md) | Cowork vs Copilot/Gemini/ChatGPT/Apple Intelligence |
 | [FAQ](reference/faq.md) | 20+ frequently asked questions |
 | [Glossary](reference/glossary.md) | Cowork-specific terminology |
 
-### Templates
+</details>
+
+<details>
+<summary><strong>Templates</strong></summary>
 
 | Template | Use Case |
 |----------|----------|
 | [CLAUDE.md for Cowork](examples/CLAUDE.md) | Project context file template |
+
+</details>
+
+---
+
+## 🔑 Golden Rules
+
+1. **Always review the plan** before approval — Cowork proposes, you decide
+2. **Dedicated workspace only** — Never grant access to Documents/Desktop/system folders
+3. **No credentials in workspace** — Keep secrets out of Cowork-accessible folders
+4. **Verify file sources** — Prompt injection risk in untrusted files (PDFs, docs)
+5. **Budget error correction time** — OCR accuracy ~97% fields, ~63% line items
+6. **Disconnect VPN** — #1 issue: VPN breaks VM networking
+7. **Backup before destructive ops** — No undo for file deletions
+
+> See [Security Guide](guide/03-security.md) for detailed practices.
 
 ---
 
@@ -116,45 +204,96 @@ Prompt: "Organize the files in ~/Cowork-Workspace/ by type"
 | **Execute code** | Yes | No |
 | **File access** | Full filesystem | Sandboxed folder |
 | **Outputs** | Any file type | Office docs, Excel, PDF |
+| **Browser automation** | Yes (Chrome) | Yes (Chrome) |
 | **Maturity** | Production-ready | Research preview |
 
 → [Full Comparison](reference/comparison.md)
 
 ---
 
-## Safety First
+## 🌍 About
 
-Cowork has no official security documentation yet. Follow these practices:
+<details>
+<summary><strong>Origins & Philosophy</strong></summary>
 
-1. **Dedicated workspace** — Never grant access to Documents or Desktop
-2. **Review plans** — Check each step before execution
-3. **No sensitive data** — Keep credentials out of workspace
-4. **Backup first** — Before destructive operations
+This Cowork documentation is part of the [Claude Code Ultimate Guide](../README.md), created after several months of AI-assisted development practice.
 
-→ [Complete Security Guide](guide/03-security.md)
+**Philosophy**: Practical over theoretical. Real use cases over feature lists. Understanding **why** before **how**.
 
----
+**Created with Claude Code**. Community-validated through testing and feedback.
 
-## Current Limitations (January 2026)
+**Related**: [Claude Code Ultimate Guide](../README.md) — For developers
 
+</details>
+
+<details>
+<summary><strong>Privacy & Data</strong></summary>
+
+Cowork sends your prompts, file contents, and results to Anthropic servers.
+
+- **Default**: 5 years retention (training enabled)
+- **Opt-out**: 30 days retention
+- **Enterprise**: 0 retention
+
+**Action**: [Disable training](https://claude.ai/settings/data-privacy-controls) | [Data Privacy Guide](../guide/data-privacy.md)
+
+</details>
+
+<details>
+<summary><strong>Current Limitations</strong> (January 2026)</summary>
+
+**Platform & Access**:
 - macOS only (Windows planned, Linux not announced)
 - Pro ($20/mo) or Max ($100-200/mo) subscription required
-- Usage limits: resets every 5 hours, heavy tasks consume quota fast
-- No cloud storage connectors confirmed
 - Research preview = expect bugs
+
+**Technical Constraints**:
+- VPN incompatible (VM routing conflict)
+- Usage limits: resets every 5 hours
+- Pro tier: ~1-1.5h intensive use before quota exhaustion
+- Context limit: ~165K effective (not 200K)
+- No cloud storage connectors confirmed
 - No official security documentation
 
-> ⚠️ **Usage Warning**: File organization and document processing tasks consume tokens rapidly. Pro tier may exhaust quota in 1-1.5 hours of intensive use. Max tier recommended for heavy workflows.
+→ [Complete Limitations](guide/02-capabilities.md#what-cowork-cannot-do)
+
+</details>
+
+<details>
+<summary><strong>Roadmap & Future Repository</strong></summary>
+
+**Current Status**: Cowork documentation lives in the [Claude Code Ultimate Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide) repository.
+
+**Future Plan**: Migrate to dedicated `claude-cowork-guide` repository when:
+- Feature reaches stable release (exit research preview)
+- Documentation exceeds 50+ files
+- Community requests standalone resource
+
+**Why separate?**: Different audiences (knowledge workers vs developers), independent versioning, focused contribution guidelines.
+
+**Timeline**: TBD, depends on Cowork maturity and community feedback.
+
+</details>
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-Found an issue or have a workflow to share?
+Found an error? Have a workflow to share?
 
-1. Open an issue in the main [claude-code-ultimate-guide](https://github.com/your-repo) repo
-2. Tag with `[cowork]` prefix
-3. Include platform, subscription tier, and reproduction steps
+**For now**: Open an issue in the main [claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/issues) repo with `[cowork]` prefix.
+
+**Include**: Platform, subscription tier, reproduction steps.
+
+**Future**: Dedicated repo with Cowork-specific contribution guidelines.
+
+---
+
+## 📄 License & Support
+
+Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Free to share and adapt with attribution.
+
+**Stay Updated**: [Watch releases](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/releases) | [Discussions](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/discussions) | [Connect on LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
 
 ---
 
@@ -163,32 +302,32 @@ Found an issue or have a workflow to share?
 ```
 cowork/
 ├── README.md                    ← You are here
-├── guide/
+├── guide/                       # Core documentation (6 files)
 │   ├── 00-overview.md
 │   ├── 01-getting-started.md
 │   ├── 02-capabilities.md
 │   ├── 03-security.md
 │   └── 04-troubleshooting.md
-├── workflows/
+├── workflows/                   # Step-by-step guides (5 files)
 │   ├── file-organization.md
 │   ├── expense-tracking.md
 │   ├── report-synthesis.md
 │   ├── meeting-prep.md
 │   └── team-handoff.md
-├── prompts/
+├── prompts/                     # 60+ ready-to-use prompts (4 files)
 │   ├── file-ops.md
 │   ├── document-creation.md
 │   ├── data-extraction.md
 │   └── research.md
-├── reference/
+├── reference/                   # Quick references (4 files)
 │   ├── cheatsheet.md
 │   ├── comparison.md
 │   ├── faq.md
 │   └── glossary.md
-└── examples/
+└── examples/                    # Templates (1 file)
     └── CLAUDE.md
 ```
 
 ---
 
-*Part of [Claude Code Ultimate Guide](../README.md) | [Main Guide](../guide/ultimate-guide.md)*
+*Version 1.0.0 | January 2026 | Part of [Claude Code Ultimate Guide](../README.md) | Crafted with Claude*
