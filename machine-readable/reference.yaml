@@ -394,6 +394,12 @@ ecosystem:
     claude_code_everything:
       url: "github.com/wesammustafa/Claude-Code-Everything"
       focus: "Visual walkthrough - Screenshots, BMAD method"
+    coding_agents_matrix:
+      url: "coding-agents-matrix.dev"
+      focus: "Technical comparison - 23 agents, 11 criteria"
+      updated: "2026-01-19"
+      agents: 23
+      criteria: ["MCP", "Skills", "Commands", "Subagents", "Plan Mode"]
   install_templates: "scripts/install-templates.sh"
   cowork:
     description: "Claude Code for non-developers (desktop app)"

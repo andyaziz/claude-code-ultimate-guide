@@ -506,6 +506,8 @@ See `/voice-refine` skill template in `examples/skills/`.
 
 ## 6. IDE-Based Tools (Cursor, Windsurf, Cline)
 
+> **Technical Comparison**: For an objective comparison of Claude Code vs 22+ alternatives across 11 criteria (MCP support, Skills, Commands, Subagents, Plan Mode), see the [AI Coding Agents Matrix](https://coding-agents-matrix.dev/) (updated Jan 2026).
+
 ### When IDE Tools Complement Claude Code
 
 | Scenario | Use IDE Tool | Use Claude Code |
