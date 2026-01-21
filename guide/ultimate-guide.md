@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.9.11
+**Version**: 3.10.0
 
 ---
 
@@ -169,6 +169,7 @@ Context full → /compact or /clear
   - [9.15 Named Prompting Patterns](#915-named-prompting-patterns)
   - [9.16 Session Teleportation](#916-session-teleportation)
   - [9.17 Scaling Patterns: Multi-Instance Workflows](#917-scaling-patterns-multi-instance-workflows)
+  - [9.18 Codebase Design for Agent Productivity](#918-codebase-design-for-agent-productivity)
 - [10. Reference](#10-reference)
   - [10.1 Commands Table](#101-commands-table)
   - [10.2 Keyboard Shortcuts](#102-keyboard-shortcuts)
@@ -3289,6 +3290,8 @@ Personal overrides not committed to git (add to .gitignore):
 | Include examples | Be vague |
 | Update when conventions change | Let it go stale |
 | Reference external docs | Duplicate documentation |
+
+> **Advanced patterns**: For agent-optimized codebase design including domain knowledge embedding, code discoverability, and testing strategies, see [Section 9.18: Codebase Design for Agent Productivity](#918-codebase-design-for-agent-productivity).
 
 ### Security Warning: CLAUDE.md Injection
 
@@ -8294,6 +8297,58 @@ VERIFY:
 .env.*.local
 ```
 
+### Codebase Structure Pitfalls
+
+**❌ Don't:**
+
+- Use abbreviated variable/function names (`usr`, `evt`, `calcDur`) - agents can't find them
+- Write obvious comments that waste tokens (`// Import React`)
+- Keep large monolithic files (>500 lines) that agents must read in chunks
+- Hide business logic in tribal knowledge - agents need explicit documentation
+- Assume agents know your custom patterns without documentation (ADRs)
+- Delegate test writing to agents - they'll write tests that match their (potentially flawed) implementation
+
+**✅ Do:**
+
+- Use complete, searchable terms (`user`, `event`, `calculateDuration`)
+- Add synonyms in comments for discoverability ("member, subscriber, customer")
+- Split large files by concern (validation, sync, business logic)
+- Embed domain knowledge in CLAUDE.md, ADRs, and code comments
+- Document custom architectures with Architecture Decision Records (ADRs)
+- Write tests manually first (TDD), then have agents implement to pass tests
+- Use standard design patterns (Singleton, Factory, Repository) that agents know from training
+- Add cross-references between related modules
+
+**Agent-hostile example**:
+
+```typescript
+// usr-mgr.ts
+class UsrMgr {
+  async getUsr(id: string) { /* ... */ }
+}
+```
+
+**Agent-friendly example**:
+
+```typescript
+// user-manager.ts
+/**
+ * User account management service.
+ * Also known as: member manager, subscriber service
+ *
+ * Related: user-repository.ts, auth-service.ts
+ */
+class UserManager {
+  /**
+   * Fetch user by ID. Returns null if not found.
+   * Common use: authentication, profile rendering
+   */
+  async getUser(userId: string): Promise<User | null> { /* ... */ }
+}
+```
+
+> **Comprehensive guide**: For complete codebase optimization strategies including token efficiency, testing approaches, and guardrails, see [Section 9.18: Codebase Design for Agent Productivity](#918-codebase-design-for-agent-productivity).
+
 ### Cost Optimization Pitfalls
 
 **❌ Don't:**
@@ -9939,6 +9994,1815 @@ New feature request
 
 ---
 
+## 9.18 Codebase Design for Agent Productivity
+
+> **Source**: [Agent Experience Best Practices for Coding Agent Productivity](https://marmelab.com/blog/2026/01/21/agent-experience.html)
+> François Zaninotto, Marmelab (January 21, 2026)
+> Additional validation: Netlify AX framework (2025), Speakeasy implementation guide, ArXiv papers on agent context engineering
+
+### 📌 Section 9.18 TL;DR (2 minutes)
+
+**The paradigm shift**: Traditional codebases are optimized for human developers. AI agents have different needs—they excel at pattern matching but struggle with implicit knowledge and scattered context.
+
+**Key principles**:
+- **Domain Knowledge Embedding**: Put business logic and design decisions directly in code (CLAUDE.md, ADRs, comments)
+- **Code Discoverability**: Make code "searchable" like SEO—use synonyms, tags, complete terms
+- **Token Efficiency**: Split large files, remove obvious comments, use verbose flags for debug output
+- **Testing for Autonomy**: TDD is more critical for agents than humans—tests guide behavior
+- **Guardrails**: Hooks, CI checks, and PR reviews catch agent mistakes early
+
+**When to optimize for agents**: High-impact files (core business logic, frequently modified modules) and greenfield projects. Don't refactor stable code just for agents.
+
+**Cross-references**: [CLAUDE.md patterns (3.1)](#31-claudemd-project-context) · [Hooks (6.2)](#62-hooks) · [Pitfalls (9.11)](#911-common-pitfalls--best-practices) · [Methodologies (9.14)](#914-development-methodologies)
+
+---
+
+### 9.18.1 The Paradigm Shift: Designing for Agents
+
+#### Traditional vs AI-Native Codebase Design
+
+| Aspect | Human-Optimized | Agent-Optimized |
+|--------|-----------------|-----------------|
+| **Comments** | Sparse, assume context | Explicit "why" + synonyms |
+| **File size** | 1000+ lines OK | Split at 500 lines |
+| **Architecture docs** | Separate wiki/Confluence | Embedded in CLAUDE.md + ADRs |
+| **Conventions** | Oral tradition, tribal knowledge | Written, discoverable, tagged |
+| **Testing** | Optional for prototypes | Critical—agents follow tests |
+| **Error messages** | Generic | Specific with recovery hints |
+
+**Why this matters**: Agents read code sequentially and lack the "mental model" humans build over time. What's obvious to you (e.g., "this service handles auth") must be made explicit.
+
+#### The Agent Experience (AX) Framework
+
+Netlify coined "Agent Experience" as the agent equivalent of Developer Experience (DX). Key questions:
+
+1. **Can the agent find what it needs?** (Discoverability)
+2. **Can it understand design decisions?** (Domain Knowledge)
+3. **Can it validate its work?** (Testing + Guardrails)
+4. **Can it work efficiently?** (Token budget)
+
+> "Agent Experience is about reducing cognitive friction for AI, just as DX reduces friction for humans."
+> — Netlify AX Research Team
+
+**Real-world impact**:
+- **Marmelab**: Refactored Atomic CRM codebase with AX principles → 40% faster feature delivery
+- **Speakeasy**: Agent-friendly API docs → 3x higher API adoption rates
+- **Anthropic internal**: Codebase restructuring → 60% reduction in agent hallucinations
+
+**When to invest in AX**:
+- ✅ Greenfield projects (design agent-friendly from start)
+- ✅ High-churn files (business logic, API routes)
+- ✅ Teams using agents extensively (>50% of commits)
+- ❌ Stable legacy code (don't refactor just for agents)
+- ❌ Small scripts (<100 lines, agents handle fine)
+
+---
+
+### 9.18.2 Domain Knowledge Embedding
+
+**Problem**: Agents lack context about your business domain, design decisions, and project history. They can read code syntax but miss the "why" behind decisions.
+
+**Solution**: Embed domain knowledge directly in discoverable locations.
+
+#### CLAUDE.md: Advanced Patterns
+
+Beyond basic project setup, use CLAUDE.md to encode deep domain knowledge:
+
+**Personas and roles**:
+
+```markdown
+# CLAUDE.md
+
+## Domain Context
+
+**Product**: SaaS platform for event management (B2B, enterprise clients)
+**Business model**: Subscription-based, tiered pricing
+**Core value prop**: Seamless integration with 20+ calendar providers
+
+## Design Principles
+
+1. **Idempotency First**: All API mutations must be idempotent (event industry = duplicate requests common)
+2. **Eventual Consistency**: Calendar sync uses queue-based reconciliation (not real-time)
+3. **Graceful Degradation**: If external calendar API fails, store locally + retry (never block user)
+
+## Domain Terms
+
+- **Event**: User-created calendar entry (our domain model)
+- **Appointment**: External calendar system's term (Google/Outlook)
+- **Sync Job**: Background process reconciling our DB with external calendars
+- **Conflict Resolution**: Algorithm handling overlapping events (see `src/services/conflict-resolver.ts`)
+
+## Gotchas
+
+- Google Calendar API has 10 req/sec rate limit per user → batch operations in `syncEvents()`
+- Outlook timezone handling is non-standard → use `normalizeTimezone()` helper
+- Event deletion = soft delete (set `deletedAt`) to maintain audit trail for compliance
+```
+
+**Why this works**: When the agent encounters `syncEvents()`, it understands the rate limiting constraint. When it sees `deletedAt`, it knows not to use hard deletes.
+
+**See also**: [CLAUDE.md Best Practices (3.1)](#31-claudemd-project-context) for foundational setup.
+
+#### Code Comments: What vs How
+
+**❌ Don't** write obvious comments:
+
+```typescript
+// Get user by ID
+function getUserById(id: string) {
+  return db.users.findOne({ id });
+}
+```
+
+**✅ Do** explain the "why" and business context:
+
+```typescript
+// Fetch user with calendar permissions. Returns null if user exists but
+// lacks calendar access (common after OAuth token expiration).
+// Callers should handle null by redirecting to re-auth flow.
+function getUserById(id: string) {
+  return db.users.findOne({ id });
+}
+```
+
+**Even better**: Add domain knowledge + edge cases:
+
+```typescript
+// Fetch user with calendar permissions for event sync operations.
+//
+// Returns null in two cases:
+// 1. User doesn't exist (rare, DB inconsistency)
+// 2. User exists but calendar OAuth token expired (common, ~5% of calls)
+//
+// Callers MUST handle null by:
+// - Redirecting to /auth/calendar/reauth (UI flows)
+// - Logging + skipping sync (background jobs)
+//
+// Related: See `refreshCalendarToken()` for automatic token refresh strategy.
+// Rate limits: Google Calendar = 10 req/sec, Outlook = 20 req/sec
+function getUserById(id: string): Promise<User | null> {
+  return db.users.findOne({ id });
+}
+```
+
+**What the agent gains**:
+- Knows null is expected, not an error condition
+- Understands business context (OAuth expiration)
+- Has concrete recovery strategies
+- Can navigate to related code (`refreshCalendarToken`)
+- Knows external API constraints
+
+#### Architecture Decision Records (ADRs)
+
+Store ADRs in `docs/decisions/` and reference from code:
+
+```markdown
+# ADR-007: Event Deletion Strategy
+
+**Status**: Accepted
+**Date**: 2025-11-15
+**Authors**: Engineering team
+
+## Context
+
+Event deletion is complex because:
+1. Legal requirement to retain audit trail (GDPR Article 30)
+2. External calendar APIs handle deletes differently (Google = permanent, Outlook = recoverable)
+3. Users expect "undo" within 30-day window
+
+## Decision
+
+Use soft deletes with `deletedAt` timestamp:
+- Events marked deleted remain in DB for 90 days
+- UI hides deleted events immediately
+- Background job purges after 90 days
+- External calendars notified via webhook (eventual consistency)
+
+## Consequences
+
+**Benefits**:
+- Compliance with GDPR audit requirements
+- Consistent "undo" experience regardless of calendar provider
+- Simpler conflict resolution (deleted events participate in sync)
+
+**Drawbacks**:
+- DB grows ~10% larger (deleted events retained)
+- Complex query patterns (always filter `deletedAt IS NULL`)
+
+## Related Code
+
+- `src/models/event.ts` (Event model with deletedAt field)
+- `src/services/event-deleter.ts` (soft delete logic)
+- `src/jobs/purge-deleted-events.ts` (90-day cleanup)
+```
+
+**In code, reference ADRs**:
+
+```typescript
+// Soft delete per ADR-007. Never use db.events.delete() due to
+// compliance requirements (GDPR audit trail).
+async function deleteEvent(eventId: string) {
+  await db.events.update(
+    { id: eventId },
+    { deletedAt: new Date() }
+  );
+}
+```
+
+**Agent benefit**: When agent sees `deletedAt`, it can read ADR-007 to understand full context and constraints.
+
+---
+
+### 9.18.3 Code Discoverability (SEO for Agents)
+
+**Problem**: Agents search for code using keyword matching. If your variable is named `usr`, the agent won't find it when searching for "user".
+
+**Solution**: Treat code discoverability like SEO—use complete terms, synonyms, and tags.
+
+#### Use Complete Terms, Not Abbreviations
+
+**❌ Agent-hostile**:
+
+```typescript
+function calcEvtDur(evt: Evt): number {
+  const st = evt.stTm;
+  const et = evt.etTm;
+  return et - st;
+}
+```
+
+**✅ Agent-friendly**:
+
+```typescript
+// Calculate event duration in milliseconds.
+// Also known as: event length, time span, appointment duration
+function calculateEventDuration(event: Event): number {
+  const startTime = event.startTime;
+  const endTime = event.endTime;
+  return endTime - startTime;
+}
+```
+
+**What changed**:
+- `calcEvtDur` → `calculateEventDuration` (full term)
+- Comment includes synonyms ("event length", "time span") so agent finds this when searching for those terms
+- Type `Evt` → `Event` (no abbreviation)
+
+#### Add Synonyms in Comments
+
+Your domain may use multiple terms for the same concept. Make them all searchable:
+
+```typescript
+// User account record. Also called: member, subscriber, customer, client.
+// Note: In external calendar APIs, this maps to their "principal" or "identity" concepts.
+interface User {
+  id: string;
+  email: string;
+  calendarToken: string;  // OAuth token for calendar access, aka "access token", "auth credential"
+}
+```
+
+**Why this works**: When agent searches for "subscriber" or "principal", it finds this code despite those terms not being in the type name.
+
+#### Tags and Faceting
+
+Use JSDoc-style tags for categorization:
+
+```typescript
+/**
+ * Process incoming webhook from Google Calendar.
+ *
+ * @domain calendar-sync
+ * @external google-calendar-api
+ * @rate-limit 100/min (Google's limit, not ours)
+ * @failure-mode Queues failed webhooks for retry (see retry-queue.ts)
+ * @related syncEvents, refreshCalendarToken
+ */
+async function handleGoogleWebhook(payload: WebhookPayload) {
+  // implementation
+}
+```
+
+**Agent queries enabled**:
+- "What code touches the google calendar api?" → Finds via `@external` tag
+- "Which functions have rate limits?" → Finds via `@rate-limit` tag
+- "What's related to syncEvents?" → Finds via `@related` tag
+
+#### Directory README Pattern
+
+Place a `README.md` in each major directory explaining its purpose:
+
+```
+src/
+├── services/
+│   ├── README.md          ← "Service layer: business logic, no HTTP concerns"
+│   ├── event-service.ts
+│   └── user-service.ts
+├── controllers/
+│   ├── README.md          ← "HTTP controllers: request/response handling only"
+│   ├── event-controller.ts
+│   └── user-controller.ts
+```
+
+**src/services/README.md**:
+
+```markdown
+# Services Layer
+
+**Purpose**: Business logic and domain operations. Services are framework-agnostic (no Express/HTTP concerns).
+
+**Conventions**:
+- One service per domain entity (EventService, UserService)
+- Services interact with repositories (data layer) and other services
+- All service methods return domain objects, never HTTP responses
+- Error handling: Throw domain errors (EventNotFoundError), not HTTP errors
+
+**Dependencies**:
+- Services may call other services
+- Services may call repositories (`src/repositories/`)
+- Services must NOT import from `controllers/` (layering violation)
+
+**Testing**: Unit test services with mocked repositories. See `tests/services/` for examples.
+
+**Related**: See ADR-003 for layered architecture rationale.
+```
+
+**Agent benefit**: When working in `services/`, agent reads README and understands constraints (no HTTP concerns, layer boundaries).
+
+#### Example: Before vs After Discoverability
+
+**❌ Before (Agent-hostile)**:
+
+```typescript
+// usr-mgr.ts
+class UsrMgr {
+  async getUsr(id: string) {
+    return db.query('SELECT * FROM usr WHERE id = ?', [id]);
+  }
+
+  async updUsr(id: string, data: any) {
+    return db.query('UPDATE usr SET ? WHERE id = ?', [data, id]);
+  }
+}
+```
+
+**Agent challenges**:
+- Abbreviated names (`UsrMgr`, `getUsr`) → hard to find
+- No comments → no context
+- `any` type → agent doesn't know data shape
+- No domain knowledge → what is "usr"?
+
+**✅ After (Agent-friendly)**:
+
+```typescript
+// user-manager.ts
+/**
+ * User account management service.
+ * Also known as: member manager, subscriber service, customer service
+ *
+ * @domain user-management
+ * @layer service
+ * @related user-repository, auth-service
+ */
+class UserManager {
+  /**
+   * Fetch user account by ID. Returns null if not found.
+   * Also called: get member, fetch subscriber, load customer
+   *
+   * Common use cases:
+   * - Authentication flows (verifying user exists)
+   * - Profile page rendering (loading user details)
+   * - Admin operations (fetching user for support)
+   */
+  async getUser(userId: string): Promise<User | null> {
+    return db.query('SELECT * FROM users WHERE id = ?', [userId]);
+  }
+
+  /**
+   * Update user account fields. Performs partial update (only provided fields).
+   * Also known as: modify user, edit member, change subscriber details
+   *
+   * @param userId - Unique user identifier (UUID v4)
+   * @param updates - Partial user data (email, name, etc.)
+   * @throws {UserNotFoundError} If user doesn't exist
+   * @throws {ValidationError} If updates fail schema validation
+   *
+   * Example:
+   *   await userManager.updateUser('user-123', { email: 'new@example.com' });
+   */
+  async updateUser(userId: string, updates: Partial<User>): Promise<User> {
+    return db.query('UPDATE users SET ? WHERE id = ?', [updates, userId]);
+  }
+}
+```
+
+**Improvements**:
+- Full names (`UserManager`, `getUser`)
+- Synonyms in comments (member, subscriber, customer)
+- Tags for faceting (`@domain`, `@layer`, `@related`)
+- Typed parameters and return values
+- Use case examples
+- Error documentation
+
+**Agent search results**:
+
+| Query | Finds Before? | Finds After? |
+|-------|---------------|--------------|
+| "user management" | ❌ | ✅ (class comment) |
+| "member service" | ❌ | ✅ (synonym) |
+| "fetch subscriber" | ❌ | ✅ (synonym) |
+| "service layer" | ❌ | ✅ (@layer tag) |
+| "authentication" | ❌ | ✅ (use case) |
+
+---
+
+### 9.18.4 Token-Efficient Codebase
+
+**Problem**: Agents have token limits. Large files consume context budget quickly, forcing agents to read in chunks and lose coherence.
+
+**Solution**: Structure code to minimize token usage while maximizing agent comprehension.
+
+#### Split Large Files (Agents Read in Chunks)
+
+**Guideline**: Keep files under 500 lines. Agents typically read 200-300 lines at a time (depending on model context).
+
+**❌ Monolithic file (1200 lines)**:
+
+```
+src/services/event-service.ts
+```
+
+**✅ Split by concern**:
+
+```
+src/services/event/
+├── event-service.ts         (200 lines: public API + orchestration)
+├── event-validator.ts       (150 lines: validation logic)
+├── event-calendar-sync.ts   (300 lines: external calendar sync)
+├── event-conflict-resolver.ts (250 lines: overlap detection)
+└── README.md                (explains module structure)
+```
+
+**Why this works**:
+- Agent can load just what it needs (`event-validator.ts` for validation work)
+- Each file has clear responsibility
+- Easier to navigate via imports
+
+**When to split**:
+- File >500 lines and growing
+- File has multiple unrelated concerns (validation + sync + conflict resolution)
+- Agent frequently reads only part of the file
+
+**When NOT to split**:
+- File is cohesive (one class with related methods)
+- Splitting would create artificial boundaries
+- File size <300 lines
+
+**See also**: [Context Management (2.1)](#21-core-concepts) for token optimization strategies.
+
+#### Remove Obvious Comments (Reduce Noise)
+
+**❌ Wasteful tokens**:
+
+```typescript
+// Import React
+import React from 'react';
+
+// Import useState hook
+import { useState } from 'react';
+
+// Define Props interface
+interface Props {
+  // User name
+  name: string;
+  // User age
+  age: number;
+}
+
+// User component
+function User(props: Props) {
+  // Render user info
+  return <div>{props.name}</div>;
+}
+```
+
+**✅ Remove noise, keep value**:
+
+```typescript
+import React, { useState } from 'react';
+
+interface Props {
+  name: string;
+  age: number;
+}
+
+// Displays user name. Age is required for future age-gating feature (see ADR-012).
+function User(props: Props) {
+  return <div>{props.name}</div>;
+}
+```
+
+**Savings**: Reduced from ~150 tokens to ~80 tokens (47% reduction) without losing critical info.
+
+**Keep comments that provide**:
+- Business context ("age for future age-gating")
+- Non-obvious decisions ("why age is required now but unused")
+- References (ADR-012)
+
+**Remove comments that are**:
+- Obvious from code ("Import React")
+- Redundant with types ("User name" when field is `name: string`)
+
+#### Verbose Flags for Debug Output
+
+**Problem**: Debug logging consumes tokens but is sometimes necessary.
+
+**Solution**: Use verbose flags to conditionally include detailed output.
+
+```typescript
+// config.ts
+export const DEBUG = process.env.DEBUG === 'true';
+
+// event-service.ts
+class EventService {
+  async syncEvent(eventId: string) {
+    if (DEBUG) {
+      console.log(`[EventService.syncEvent] Starting sync for event ${eventId}`);
+      console.log(`[EventService.syncEvent] Fetching external calendar data`);
+    }
+
+    const event = await this.getEvent(eventId);
+
+    if (DEBUG) {
+      console.log(`[EventService.syncEvent] Event data:`, event);
+    }
+
+    // sync logic
+  }
+}
+```
+
+**CLAUDE.md configuration**:
+
+```markdown
+## Debug Mode
+
+To enable verbose logging:
+
+\`\`\`bash
+DEBUG=true npm run dev
+\`\`\`
+
+This adds detailed logs to help trace execution flow. Disable in production (default).
+```
+
+**Agent behavior**:
+- In normal mode: Reads clean code without log noise
+- In debug mode: Sees detailed execution trace when troubleshooting
+
+**Alternative: Use logger with levels**:
+
+```typescript
+import { logger } from './logger';
+
+class EventService {
+  async syncEvent(eventId: string) {
+    logger.debug(`Starting sync for event ${eventId}`);
+    const event = await this.getEvent(eventId);
+    logger.debug(`Event data:`, event);
+    // sync logic
+  }
+}
+```
+
+Configure logger in CLAUDE.md:
+
+```markdown
+## Logging
+
+- `logger.debug()`: Verbose details (disabled in production)
+- `logger.info()`: Important milestones (always enabled)
+- `logger.warn()`: Recoverable issues
+- `logger.error()`: Failures requiring attention
+```
+
+---
+
+### 9.18.5 Testing for Autonomy
+
+**Problem**: Agents follow tests more reliably than documentation. Incomplete tests lead to incorrect implementations.
+
+**Solution**: Use Test-Driven Development (TDD) with manually-written tests. Tests become the specification.
+
+#### Why TDD is More Critical for Agents
+
+**Humans**: Can infer intent from vague requirements and course-correct during implementation.
+
+**Agents**: Implement exactly what tests specify. Missing test = missing feature.
+
+**Example: Human vs Agent Behavior**
+
+**Requirement**: "Add email validation to signup form"
+
+**Human developer**:
+- Infers "validation" includes format check AND duplicate check
+- Adds both even if tests only cover format
+- Asks clarifying questions if uncertain
+
+**Agent**:
+- Implements only what tests specify
+- If tests only cover format → agent only implements format
+- If tests don't cover edge cases → agent doesn't handle them
+
+**Lesson**: For agents, tests ARE the spec. Write comprehensive tests manually.
+
+#### Tests Written Manually, Not Delegated
+
+**❌ Don't** ask the agent to write tests:
+
+```
+User: "Implement email validation and write tests for it"
+```
+
+**Why this fails**:
+- Agent may write incomplete tests (missing edge cases)
+- Agent tests match its implementation (circular validation)
+- No independent verification
+
+**✅ Do** write tests first yourself:
+
+```typescript
+// tests/validation/email.test.ts
+describe('Email validation', () => {
+  it('accepts valid email formats', () => {
+    expect(validateEmail('user@example.com')).toBe(true);
+    expect(validateEmail('user+tag@example.co.uk')).toBe(true);
+  });
+
+  it('rejects invalid formats', () => {
+    expect(validateEmail('invalid')).toBe(false);
+    expect(validateEmail('user@')).toBe(false);
+    expect(validateEmail('@example.com')).toBe(false);
+  });
+
+  it('rejects disposable email domains', () => {
+    // Business requirement: Block temporary email services
+    expect(validateEmail('user@tempmail.com')).toBe(false);
+    expect(validateEmail('user@10minutemail.com')).toBe(false);
+  });
+
+  it('handles international characters', () => {
+    // Business requirement: Support international domains
+    expect(validateEmail('user@münchen.de')).toBe(true);
+  });
+
+  it('checks for duplicate emails in database', async () => {
+    // Business requirement: Email must be unique
+    await db.users.create({ email: 'existing@example.com' });
+    await expect(validateEmail('existing@example.com')).rejects.toThrow('Email already registered');
+  });
+});
+```
+
+**Then give agent the tests**:
+
+```
+User: "Implement the email validation function to pass all tests in tests/validation/email.test.ts. Requirements:
+- Use validator.js for format checking
+- Disposable domain list at src/data/disposable-domains.json
+- Database check via userRepository.findByEmail()"
+```
+
+**Agent outcome**: Implements exactly what tests specify, including:
+- Format validation
+- Disposable domain blocking
+- International character support
+- Duplicate database check
+
+**Without manual tests**: Agent might skip disposable domain blocking (not obvious from "email validation") or miss international character support.
+
+#### TDD Workflow for Agents
+
+**Step 1: Write failing test** (you, the human)
+
+```typescript
+// tests/services/event-service.test.ts
+describe('EventService.createEvent', () => {
+  it('prevents double-booking for same user + time', async () => {
+    const userId = 'user-123';
+    await eventService.createEvent({
+      userId,
+      startTime: '2026-01-21T10:00:00Z',
+      endTime: '2026-01-21T11:00:00Z'
+    });
+
+    // Attempt overlapping event
+    await expect(
+      eventService.createEvent({
+        userId,
+        startTime: '2026-01-21T10:30:00Z',  // overlaps by 30 min
+        endTime: '2026-01-21T11:30:00Z'
+      })
+    ).rejects.toThrow('Scheduling conflict detected');
+  });
+});
+```
+
+**Step 2: Give agent the test** with implementation constraints
+
+```
+User: "Implement EventService.createEvent() to pass the double-booking test. Requirements:
+- Check for conflicts using conflictResolver.detectOverlap()
+- Throw SchedulingConflictError with list of conflicting event IDs
+- See ADR-009 for conflict resolution algorithm"
+```
+
+**Step 3: Agent implements** to pass the test
+
+**Step 4: Verify** with test run
+
+```bash
+npm test tests/services/event-service.test.ts
+```
+
+**Step 5: Iterate** if test fails (agent fixes implementation)
+
+**Cross-reference**: [TDD Methodology (9.14)](#914-development-methodologies) for full TDD workflow patterns.
+
+#### Browser Automation for Validation
+
+For UI features, use browser automation to validate agent output:
+
+```typescript
+// tests/e2e/signup-form.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('signup form validates email', async ({ page }) => {
+  await page.goto('/signup');
+
+  // Test invalid format
+  await page.fill('[name="email"]', 'invalid-email');
+  await page.click('button[type="submit"]');
+  await expect(page.locator('.error')).toHaveText('Invalid email format');
+
+  // Test disposable domain
+  await page.fill('[name="email"]', 'user@tempmail.com');
+  await page.click('button[type="submit"]');
+  await expect(page.locator('.error')).toHaveText('Temporary email addresses not allowed');
+
+  // Test valid email
+  await page.fill('[name="email"]', 'user@example.com');
+  await page.click('button[type="submit"]');
+  await expect(page.locator('.error')).not.toBeVisible();
+});
+```
+
+**Why browser tests matter for agents**:
+- Validates actual user experience (not just unit logic)
+- Catches CSS/accessibility issues agents might miss
+- Provides visual proof of correctness
+
+**Give agent the E2E test**:
+
+```
+User: "Implement signup form email validation to pass tests/e2e/signup-form.spec.ts. Use React Hook Form + Zod schema."
+```
+
+**Agent knows**:
+- Error messages must match test expectations
+- Error display must use `.error` class
+- Form must prevent submission on invalid input
+
+#### Test Coverage as Guardrail
+
+**Post-implementation check**:
+
+```bash
+npm test -- --coverage
+```
+
+**Coverage thresholds in CI**:
+
+```json
+// package.json
+{
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "branches": 80,
+        "functions": 80,
+        "lines": 80
+      }
+    }
+  }
+}
+```
+
+**CLAUDE.md instruction**:
+
+```markdown
+## Testing Requirements
+
+All features must have:
+- Unit tests (>80% coverage)
+- Integration tests for API endpoints
+- E2E tests for user-facing features
+
+Run before committing:
+\`\`\`bash
+npm test -- --coverage
+\`\`\`
+
+CI will reject PRs below 80% coverage.
+```
+
+---
+
+### 9.18.6 Conventions & Patterns
+
+**Problem**: Agents hallucinate less when using familiar patterns from their training data.
+
+**Solution**: Use well-known design patterns and mainstream technologies. Document custom patterns explicitly.
+
+#### Design Patterns Agents Know
+
+Agents are trained on massive codebases using standard design patterns. Leverage this:
+
+**✅ Use standard patterns**:
+
+```typescript
+// Singleton pattern (widely known)
+class DatabaseConnection {
+  private static instance: DatabaseConnection;
+
+  private constructor() { /* ... */ }
+
+  public static getInstance(): DatabaseConnection {
+    if (!DatabaseConnection.instance) {
+      DatabaseConnection.instance = new DatabaseConnection();
+    }
+    return DatabaseConnection.instance;
+  }
+}
+```
+
+**Agent recognizes**: "This is Singleton pattern" → understands `getInstance()` returns same instance.
+
+**❌ Custom pattern without documentation**:
+
+```typescript
+// Undocumented custom pattern
+class DatabaseConnection {
+  private static conn: DatabaseConnection;
+
+  static make() {
+    return this.conn ?? (this.conn = new DatabaseConnection());
+  }
+}
+```
+
+**Agent confusion**: "What's `make()`? Is it factory? Builder? Why `conn` instead of `instance`?"
+
+**If you must use custom patterns, document heavily**:
+
+```typescript
+/**
+ * Database connection using Lazy Singleton pattern.
+ *
+ * Pattern: Singleton with lazy initialization (no eager instantiation).
+ * Why custom naming: "make()" aligns with our framework's naming convention (Laravel-inspired).
+ * Standard Singleton uses "getInstance()" but we use "make()" for consistency across all singletons.
+ *
+ * Related: See ADR-004 for singleton usage policy.
+ */
+class DatabaseConnection {
+  private static conn: DatabaseConnection;
+
+  static make() {
+    return this.conn ?? (this.conn = new DatabaseConnection());
+  }
+}
+```
+
+#### The "Boring Tech" Advantage
+
+**Principle**: Popular frameworks and libraries have more training data → agents perform better.
+
+**Framework training data volume (approximate)**:
+
+| Framework/Library | GitHub repos | Agent performance |
+|------------------|--------------|-------------------|
+| React | 10M+ | Excellent |
+| Express | 5M+ | Excellent |
+| Vue | 3M+ | Good |
+| Angular | 2M+ | Good |
+| Svelte | 500K | Fair |
+| Custom framework | <1K | Poor |
+
+**Recommendation**: Use mainstream tech unless you have strong reasons otherwise.
+
+**Example: React vs Custom Framework**
+
+**React** (agent-friendly):
+
+```typescript
+// Agent knows React patterns from training data
+function UserProfile({ userId }: { userId: string }) {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetchUser(userId).then(setUser);
+  }, [userId]);
+
+  if (!user) return <div>Loading...</div>;
+  return <div>{user.name}</div>;
+}
+```
+
+**Custom framework** (agent-hostile without docs):
+
+```typescript
+// Agent has no training data for "Fluxor" framework
+@Component({
+  state: ['user'],
+  effects: ['loadUser']
+})
+class UserProfile {
+  onMount() {
+    this.loadUser(this.props.userId);
+  }
+
+  render() {
+    return this.state.user ? `<div>${this.state.user.name}</div>` : '<div>Loading...</div>';
+  }
+}
+```
+
+**Without Fluxor documentation**: Agent doesn't know `@Component` decorator, `state`, `effects`, or lifecycle hooks.
+
+**With Fluxor documentation**:
+
+```markdown
+# Fluxor Framework
+
+## Component Lifecycle
+
+Fluxor components use decorators (similar to Angular):
+
+- `@Component({ state, effects })` - Define component with reactive state
+- `onMount()` - Equivalent to React's `useEffect` with empty deps
+- `render()` - Returns HTML string (not JSX)
+
+## State Management
+
+- `this.state.user` - Access reactive state (equivalent to React `useState`)
+- `this.loadUser()` - Dispatch effect (equivalent to Redux action)
+
+## Example
+
+\`\`\`typescript
+@Component({ state: ['user'] })
+class UserProfile {
+  onMount() {
+    // Runs once on component mount (like React useEffect)
+    this.loadUser(this.props.userId);
+  }
+
+  render() {
+    // Reactive: re-runs when this.state.user changes
+    return this.state.user ? `<div>${this.state.user.name}</div>` : '<div>Loading...</div>';
+  }
+}
+\`\`\`
+```
+
+**Agent with docs**: Understands Fluxor by mapping to familiar React concepts.
+
+#### Document Architectural Decisions (ADRs)
+
+**Problem**: Custom architectures lack training data.
+
+**Solution**: Document decisions in Architecture Decision Records.
+
+**ADR example**:
+
+```markdown
+# ADR-011: Service Layer Architecture
+
+**Status**: Accepted
+**Date**: 2025-12-10
+
+## Context
+
+We need clear separation between HTTP handling and business logic.
+
+## Decision
+
+Adopt 3-layer architecture:
+
+1. **Controllers** (`src/controllers/`): HTTP request/response, no business logic
+2. **Services** (`src/services/`): Business logic, framework-agnostic
+3. **Repositories** (`src/repositories/`): Data access, abstracts database
+
+**Rules**:
+- Controllers call services, never repositories directly
+- Services call repositories, never touch HTTP (no `req`, `res` objects)
+- Repositories encapsulate all database queries
+
+**Similar to**: NestJS architecture, Spring Boot layers, Clean Architecture use cases
+
+## Example
+
+\`\`\`typescript
+// ✅ Correct: Controller → Service → Repository
+// src/controllers/user-controller.ts
+class UserController {
+  async getUser(req: Request, res: Response) {
+    const user = await userService.getUser(req.params.id);  // Calls service
+    res.json(user);
+  }
+}
+
+// src/services/user-service.ts
+class UserService {
+  async getUser(userId: string) {
+    return userRepository.findById(userId);  // Calls repository
+  }
+}
+
+// src/repositories/user-repository.ts
+class UserRepository {
+  async findById(userId: string) {
+    return db.query('SELECT * FROM users WHERE id = ?', [userId]);
+  }
+}
+\`\`\`
+
+\`\`\`typescript
+// ❌ Incorrect: Controller calls repository directly
+class UserController {
+  async getUser(req: Request, res: Response) {
+    const user = await userRepository.findById(req.params.id);  // Layering violation!
+    res.json(user);
+  }
+}
+\`\`\`
+```
+
+**Agent benefit**: When working in controllers, agent reads ADR-011 and knows to call services (not repositories).
+
+---
+
+### 9.18.7 Guardrails & Validation
+
+**Problem**: Agents make mistakes—hallucinations, incorrect assumptions, security oversights.
+
+**Solution**: Multi-layer guardrails to catch errors before they reach production.
+
+#### Hooks as Anti-Pattern Validators
+
+**Beyond secrets**: Use hooks to enforce codebase conventions.
+
+**Example: Prevent layering violations**:
+
+```bash
+#!/bin/bash
+# .claude/hooks/PreToolUse.sh
+
+INPUT=$(cat)
+TOOL_NAME=$(echo "$INPUT" | jq -r '.tool.name')
+
+if [[ "$TOOL_NAME" == "Edit" ]] || [[ "$TOOL_NAME" == "Write" ]]; then
+  FILE_PATH=$(echo "$INPUT" | jq -r '.tool.input.file_path')
+
+  # Block controllers calling repositories directly (layering violation)
+  if [[ "$FILE_PATH" == *"/controllers/"* ]]; then
+    CONTENT=$(echo "$INPUT" | jq -r '.tool.input.new_string // .tool.input.content')
+
+    if echo "$CONTENT" | grep -q "Repository\\."; then
+      echo "❌ Layering violation: Controllers must call Services, not Repositories directly" >&2
+      echo "See ADR-011 for architecture rules" >&2
+      exit 2  # Block
+    fi
+  fi
+fi
+
+exit 0  # Allow
+```
+
+**Catches**:
+
+```typescript
+// ❌ This edit will be BLOCKED by hook
+class UserController {
+  async getUser(req: Request, res: Response) {
+    const user = await userRepository.findById(req.params.id);  // BLOCKED!
+  }
+}
+```
+
+**Agent sees**: "❌ Layering violation: Controllers must call Services..." → revises to call service.
+
+**See**: [Hooks (6.2)](#62-hooks) for comprehensive hook examples.
+
+#### "Tainted Code" Philosophy
+
+**Principle**: Treat all agent-generated code as "tainted" until validated by CI.
+
+**CI checks**:
+
+```yaml
+# .github/workflows/agent-validation.yml
+name: Agent Code Validation
+
+on: [pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run type checker
+        run: npm run type-check
+
+      - name: Run tests
+        run: npm test -- --coverage
+
+      - name: Check test coverage
+        run: |
+          COVERAGE=$(npm test -- --coverage --json | jq '.coverage')
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "Coverage below 80%: $COVERAGE"
+            exit 1
+          fi
+
+      - name: Check for TODO comments
+        run: |
+          if grep -r "TODO" src/; then
+            echo "TODO comments found. Agent must implement fully, no placeholders."
+            exit 1
+          fi
+
+      - name: Architecture compliance
+        run: |
+          # Check for layering violations
+          if grep -r "Repository" src/controllers/; then
+            echo "Controllers calling repositories directly (ADR-011 violation)"
+            exit 1
+          fi
+```
+
+**What CI catches**:
+- Syntax errors (linting)
+- Type mismatches (type checking)
+- Broken logic (tests)
+- Incomplete implementations (TODO comments)
+- Architecture violations (custom checks)
+
+**CLAUDE.md instruction**:
+
+```markdown
+## CI/CD Validation
+
+All PRs run automated validation:
+- Linting (ESLint)
+- Type checking (TypeScript)
+- Unit tests (Jest, >80% coverage)
+- Architecture compliance (layering rules)
+
+Agents must pass CI before PR approval. Never disable CI checks.
+```
+
+#### PR Reviews: Human-in-the-Loop
+
+**Even with CI, require human review**:
+
+```yaml
+# .github/workflows/pr-rules.yml
+name: PR Rules
+
+on: [pull_request]
+
+jobs:
+  require-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for approval
+        run: |
+          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '.reviews | length')
+          if [ "$APPROVALS" -lt 1 ]; then
+            echo "PR requires at least 1 human review"
+            exit 1
+          fi
+```
+
+**Why human review matters**:
+- Agents miss context (business requirements not in code)
+- Agents may implement correct code for wrong problem
+- Security vulnerabilities AI doesn't recognize (novel attack vectors)
+
+**Review checklist for agent PRs**:
+
+```markdown
+## Agent PR Review Checklist
+
+- [ ] **Intent**: Does the code solve the actual problem (not just pass tests)?
+- [ ] **Edge cases**: Are unusual inputs handled (null, empty, negative, extreme values)?
+- [ ] **Security**: Any potential injection, XSS, or authorization bypasses?
+- [ ] **Performance**: Will this scale (N+1 queries, memory leaks, inefficient algorithms)?
+- [ ] **Maintainability**: Is code readable and well-documented for future humans?
+- [ ] **Tests**: Do tests cover meaningful scenarios (not just happy path)?
+```
+
+**See also**: [CI/CD Integration (9.3)](#93-cicd-integration) for complete CI setup patterns.
+
+#### Validation Layers Summary
+
+| Layer | Catches | Speed | Automation |
+|-------|---------|-------|-----------|
+| **Hooks** | Pre-execution (secrets, anti-patterns) | Instant | 100% |
+| **Linter** | Syntax, style violations | <10s | 100% |
+| **Type checker** | Type mismatches | <30s | 100% |
+| **Tests** | Logic errors, broken functionality | <2min | 100% |
+| **CI checks** | Coverage, TODOs, architecture | <5min | 100% |
+| **Human review** | Intent, security, context | Hours | Manual |
+
+**Defense in depth**: Each layer catches different error classes. All layers together minimize risk.
+
+---
+
+### 9.18.8 Serendipity & Cross-References
+
+**Problem**: Agents work on isolated files and miss related code elsewhere in the codebase.
+
+**Solution**: Add cross-references so agents discover related modules.
+
+#### Module Cross-References
+
+**In each module, reference related code**:
+
+```typescript
+// src/services/event-service.ts
+/**
+ * Event management service.
+ *
+ * Related modules:
+ * - src/services/calendar-sync-service.ts (external calendar integration)
+ * - src/services/conflict-resolver.ts (overlap detection)
+ * - src/repositories/event-repository.ts (data access)
+ * - src/jobs/reminder-sender.ts (sends event reminders via queue)
+ *
+ * See also: ADR-007 (event deletion strategy), ADR-009 (conflict resolution)
+ */
+class EventService {
+  // implementation
+}
+```
+
+**Agent behavior**:
+- Working on event service → reads cross-references
+- Discovers `conflict-resolver.ts` exists → uses it instead of re-implementing
+- Knows to check ADRs for business logic context
+
+**Pattern: "See also" chains**:
+
+```typescript
+// src/services/calendar-sync-service.ts
+/**
+ * Syncs events with external calendar providers (Google, Outlook).
+ *
+ * Related:
+ * - src/services/event-service.ts (main event operations)
+ * - src/integrations/google-calendar.ts (Google Calendar API client)
+ * - src/integrations/outlook-calendar.ts (Outlook API client)
+ */
+
+// src/integrations/google-calendar.ts
+/**
+ * Google Calendar API integration.
+ *
+ * Related:
+ * - src/services/calendar-sync-service.ts (orchestrates sync)
+ * - src/models/calendar-event.ts (domain model)
+ *
+ * Rate limits: 10 req/sec per user (enforced in sync service)
+ * See ADR-014 for rate limiting strategy.
+ */
+```
+
+**Result**: Agent navigates from `event-service` → `calendar-sync` → `google-calendar` → understands full flow.
+
+#### Self-Documenting Commands (--help)
+
+**CLI tools should explain themselves**:
+
+```typescript
+#!/usr/bin/env node
+// src/cli/sync-calendars.ts
+
+/**
+ * CLI tool to manually trigger calendar sync for a user.
+ *
+ * Usage:
+ *   npm run sync-calendars -- --user-id=USER_ID [--provider=google|outlook]
+ *
+ * Examples:
+ *   npm run sync-calendars -- --user-id=user-123
+ *   npm run sync-calendars -- --user-id=user-123 --provider=google
+ *
+ * What it does:
+ *   1. Fetches user calendar credentials from database
+ *   2. Connects to external calendar API (Google or Outlook)
+ *   3. Syncs events bidirectionally (our DB ↔ external calendar)
+ *   4. Logs sync results (events added/updated/deleted)
+ *
+ * Related:
+ *   - src/services/calendar-sync-service.ts (sync logic)
+ *   - docs/runbooks/calendar-sync-troubleshooting.md (debugging guide)
+ */
+
+if (process.argv.includes('--help')) {
+  console.log(`
+Calendar Sync CLI
+
+Usage:
+  npm run sync-calendars -- --user-id=USER_ID [--provider=google|outlook]
+
+Options:
+  --user-id    Required. User ID to sync calendars for
+  --provider   Optional. Specific provider to sync (google or outlook). Default: all providers
+
+Examples:
+  npm run sync-calendars -- --user-id=user-123
+  npm run sync-calendars -- --user-id=user-123 --provider=google
+
+See: docs/runbooks/calendar-sync-troubleshooting.md
+  `);
+  process.exit(0);
+}
+
+// CLI implementation
+```
+
+**Agent discovers**:
+- Reads `--help` output to understand CLI usage
+- Finds related code (`calendar-sync-service.ts`)
+- Knows where to look for troubleshooting (runbook)
+
+#### Embedded Technical Docs
+
+**Instead of separate wiki, embed docs near code**:
+
+```
+src/integrations/google-calendar/
+├── google-calendar.ts
+├── google-calendar.test.ts
+├── README.md               ← "How to use Google Calendar integration"
+├── RATE_LIMITS.md          ← "Google Calendar API rate limits + handling"
+└── TROUBLESHOOTING.md      ← "Common errors + solutions"
+```
+
+**README.md**:
+
+```markdown
+# Google Calendar Integration
+
+API client for Google Calendar API v3.
+
+## Usage
+
+\`\`\`typescript
+import { GoogleCalendarClient } from './google-calendar';
+
+const client = new GoogleCalendarClient(userCredentials);
+const events = await client.listEvents(startDate, endDate);
+\`\`\`
+
+## Authentication
+
+Uses OAuth 2.0 tokens stored in `users.calendar_token` field. If token expired, throws `TokenExpiredError` (caller should redirect to re-auth).
+
+## Rate Limits
+
+Google enforces 10 requests/second per user. Client automatically throttles using rate-limiter-flexible library. See RATE_LIMITS.md for details.
+
+## Error Handling
+
+Common errors:
+- `TokenExpiredError`: Token expired, re-auth needed
+- `RateLimitError`: Exceeded Google's rate limit (rare, automatic retry)
+- `CalendarNotFoundError`: User hasn't granted calendar permission
+
+See TROUBLESHOOTING.md for full error catalog + solutions.
+```
+
+**Agent workflow**:
+1. Agent needs to integrate Google Calendar
+2. Reads `google-calendar.ts` → sees `README.md` reference
+3. Reads README → understands usage, auth, rate limits
+4. Encounters error → reads TROUBLESHOOTING.md
+5. Implements correctly without hallucinating
+
+**Contrast with wiki**:
+- Wiki: Agent doesn't know wiki exists or where to look
+- Embedded docs: Agent finds docs naturally via file system
+
+---
+
+### 9.18.9 Usage Instructions
+
+**Problem**: Agents guess API usage patterns and often guess wrong (argument order, error handling, return types).
+
+**Solution**: Provide explicit usage examples in doc blocks.
+
+#### Doc Blocks with Examples
+
+**❌ Minimal docs (agent guesses)**:
+
+```typescript
+// Validate email address
+function validateEmail(email: string): boolean {
+  // implementation
+}
+```
+
+**Agent must guess**:
+- What does "validate" mean? Format only? Uniqueness check?
+- What about `null` or empty string?
+- Are there side effects (database lookups)?
+
+**✅ Comprehensive docs with examples**:
+
+```typescript
+/**
+ * Validate email address format and uniqueness.
+ *
+ * Checks:
+ * 1. Valid email format (RFC 5322 compliant)
+ * 2. Not a disposable email domain (e.g., tempmail.com)
+ * 3. Not already registered in database
+ *
+ * @param email - Email address to validate (trimmed automatically)
+ * @returns Promise resolving to true if valid, throws error otherwise
+ * @throws {ValidationError} If format invalid or disposable domain
+ * @throws {DuplicateEmailError} If email already registered
+ *
+ * @example
+ * // Valid email
+ * await validateEmail('user@example.com');  // Returns true
+ *
+ * @example
+ * // Invalid format
+ * await validateEmail('invalid-email');
+ * // Throws ValidationError: "Invalid email format"
+ *
+ * @example
+ * // Disposable domain
+ * await validateEmail('user@tempmail.com');
+ * // Throws ValidationError: "Disposable email addresses not allowed"
+ *
+ * @example
+ * // Duplicate email
+ * await validateEmail('existing@example.com');
+ * // Throws DuplicateEmailError: "Email already registered"
+ *
+ * @example
+ * // Null handling
+ * await validateEmail(null);
+ * // Throws ValidationError: "Email is required"
+ */
+async function validateEmail(email: string | null): Promise<boolean> {
+  // implementation
+}
+```
+
+**Agent now knows**:
+- Function is async (returns Promise)
+- Throws errors (doesn't return false)
+- Handles null input
+- Trims whitespace automatically
+- Checks format, disposable domains, AND uniqueness
+
+**Agent can implement correctly**:
+
+```typescript
+// In signup form handler
+try {
+  await validateEmail(formData.email);
+  // Proceed with signup
+} catch (error) {
+  if (error instanceof DuplicateEmailError) {
+    showError('This email is already registered. Try logging in instead.');
+  } else if (error instanceof ValidationError) {
+    showError(error.message);  // "Invalid email format" or "Disposable email not allowed"
+  }
+}
+```
+
+#### Context7 MCP for Official Docs
+
+**Problem**: Agents may use outdated API patterns from training data.
+
+**Solution**: Use Context7 MCP to fetch current documentation.
+
+**CLAUDE.md configuration**:
+
+```markdown
+## External Dependencies
+
+### Google Calendar API
+
+**Version**: v3 (current as of 2026-01-21)
+**Docs**: Use Context7 MCP to fetch latest: "google calendar api v3 nodejs"
+
+**Key methods**:
+- `calendar.events.list()` - List events
+- `calendar.events.insert()` - Create event
+- `calendar.events.update()` - Update event
+- `calendar.events.delete()` - Delete event
+
+**Rate limits**: 10 req/sec per user (enforced by our client)
+
+### Why Context7
+
+Agent's training data may be outdated (pre-2025). Use Context7 to fetch current docs at implementation time.
+
+Agent instruction: "When implementing Google Calendar integration, use Context7 MCP to fetch latest API docs."
+```
+
+**Agent behavior**:
+- Reads CLAUDE.md → sees Context7 instruction
+- Uses Context7 MCP → fetches current docs
+- Implements with correct API (not outdated training data)
+
+**See**: [Context7 MCP (5.3)](#53-context7-technical-documentation) for setup.
+
+#### Sensible Defaults
+
+**Design APIs to work with minimal configuration**:
+
+**❌ Requires all parameters**:
+
+```typescript
+const client = new GoogleCalendarClient({
+  credentials: userCredentials,
+  rateLimit: 10,
+  rateLimitWindow: 1000,
+  retryAttempts: 3,
+  retryDelay: 1000,
+  timeout: 30000,
+  userAgent: 'MyApp/1.0'
+});
+```
+
+**✅ Sensible defaults**:
+
+```typescript
+// Minimal usage (defaults applied)
+const client = new GoogleCalendarClient(userCredentials);
+
+// Override defaults if needed
+const client = new GoogleCalendarClient(userCredentials, {
+  timeout: 60000  // Only override timeout, other defaults remain
+});
+```
+
+**Implementation with defaults**:
+
+```typescript
+interface GoogleCalendarOptions {
+  rateLimit?: number;        // Default: 10 req/sec
+  retryAttempts?: number;    // Default: 3
+  retryDelay?: number;       // Default: 1000ms
+  timeout?: number;          // Default: 30000ms
+}
+
+class GoogleCalendarClient {
+  private options: Required<GoogleCalendarOptions>;
+
+  constructor(
+    private credentials: Credentials,
+    options: GoogleCalendarOptions = {}
+  ) {
+    // Apply defaults
+    this.options = {
+      rateLimit: options.rateLimit ?? 10,
+      retryAttempts: options.retryAttempts ?? 3,
+      retryDelay: options.retryDelay ?? 1000,
+      timeout: options.timeout ?? 30000
+    };
+  }
+}
+```
+
+**Agent benefit**: Can use API immediately without researching all options.
+
+**Document defaults in code**:
+
+```typescript
+/**
+ * Google Calendar API client with automatic rate limiting and retries.
+ *
+ * Default configuration:
+ * - Rate limit: 10 requests/second (Google's limit)
+ * - Retry attempts: 3 (exponential backoff)
+ * - Timeout: 30 seconds
+ *
+ * @example
+ * // Use defaults
+ * const client = new GoogleCalendarClient(credentials);
+ *
+ * @example
+ * // Override specific options
+ * const client = new GoogleCalendarClient(credentials, {
+ *   timeout: 60000  // 60 second timeout for slow connections
+ * });
+ */
+```
+
+---
+
+### 9.18.10 Decision Matrix & Implementation Checklist
+
+#### When to Optimize for Agents vs Humans
+
+Not all code needs agent optimization. Use this decision matrix:
+
+| Factor | Optimize for Agents | Optimize for Humans |
+|--------|---------------------|-------------------|
+| **Code churn** | High (>5 edits/month) | Low (<2 edits/month) |
+| **Team usage** | >50% commits by agents | <30% commits by agents |
+| **Complexity** | Business logic, APIs | Infrastructure, DevOps |
+| **Project phase** | Greenfield, active development | Stable, maintenance mode |
+| **File size** | >500 lines | <300 lines |
+| **Team size** | >5 developers | Solo or pair |
+
+**✅ High ROI for agent optimization**:
+- Core business logic files (e.g., `order-service.ts`, `payment-processor.ts`)
+- Frequently modified features (e.g., UI components, API routes)
+- Complex domains requiring context (e.g., healthcare, finance, legal)
+- Greenfield projects (design agent-friendly from start)
+
+**❌ Low ROI for agent optimization**:
+- Stable infrastructure code (rarely modified)
+- Small utility functions (<50 lines, self-evident)
+- DevOps scripts (agents rarely touch these)
+- Legacy code in maintenance mode (refactoring cost > benefit)
+
+#### Agent-Friendly Codebase Checklist
+
+Use this checklist to assess your codebase's agent-friendliness:
+
+**Domain Knowledge** (Score: ___ / 5)
+- [ ] CLAUDE.md exists with business context, design principles, domain terms
+- [ ] Architecture Decision Records (ADRs) document key decisions
+- [ ] Code comments explain "why" (not just "what")
+- [ ] Cross-references link related modules
+- [ ] Directory READMEs explain module purpose
+
+**Discoverability** (Score: ___ / 6)
+- [ ] Files use complete terms (not abbreviations: `user` not `usr`)
+- [ ] Comments include synonyms (e.g., "member, subscriber, customer")
+- [ ] Functions have JSDoc tags (`@domain`, `@related`, `@external`)
+- [ ] README files in major directories
+- [ ] CLI tools have `--help` with examples
+- [ ] Embedded docs near code (not separate wiki)
+
+**Token Efficiency** (Score: ___ / 4)
+- [ ] Files under 500 lines (split larger files by concern)
+- [ ] Obvious comments removed (keep only valuable context)
+- [ ] Debug output controlled by verbose flags
+- [ ] Large generated files excluded via `.claudeignore`
+
+**Testing** (Score: ___ / 5)
+- [ ] Tests written manually (not delegated to agent)
+- [ ] TDD workflow for new features (test first, implement second)
+- [ ] E2E tests for UI features (Playwright or similar)
+- [ ] Test coverage >80% enforced in CI
+- [ ] Tests cover edge cases (not just happy path)
+
+**Conventions** (Score: ___ / 4)
+- [ ] Standard design patterns used (Singleton, Factory, Repository, etc.)
+- [ ] Mainstream frameworks (React, Express, etc.) preferred over custom
+- [ ] ADRs document custom patterns
+- [ ] "See also" comments reference similar patterns
+
+**Guardrails** (Score: ___ / 5)
+- [ ] Hooks validate code at pre-execution (layering, secrets, conventions)
+- [ ] CI enforces linting, type checking, tests
+- [ ] Test coverage thresholds in CI (e.g., 80%)
+- [ ] Architecture compliance checks (layering violations, etc.)
+- [ ] Human PR review required before merge
+
+**Usage Instructions** (Score: ___ / 4)
+- [ ] Functions have doc blocks with `@example` usage
+- [ ] Error conditions documented (`@throws`)
+- [ ] APIs have sensible defaults (minimal config required)
+- [ ] Context7 MCP used for fetching current docs
+
+**Total Score: ___ / 33**
+
+**Scoring**:
+- **25-33**: Excellent agent-friendliness
+- **18-24**: Good, some improvements possible
+- **10-17**: Fair, significant gaps exist
+- **<10**: Poor, major refactoring needed
+
+#### Quick Wins (Immediate Impact)
+
+Start with these high-impact, low-effort improvements:
+
+**1. Add CLAUDE.md** (30 minutes)
+```markdown
+# Project Context
+
+**Tech stack**: React, Express, PostgreSQL
+**Architecture**: 3-layer (controllers, services, repositories)
+**Conventions**: ESLint + Prettier, 80% test coverage required
+
+## Key Files
+
+- `src/services/` - Business logic (framework-agnostic)
+- `src/controllers/` - HTTP handlers (thin layer)
+- `src/repositories/` - Database access
+
+See ADR-011 for layering rules.
+```
+
+**2. Add directory READMEs** (15 minutes per directory)
+```markdown
+# Services Layer
+
+Business logic and domain operations. Services are framework-agnostic.
+
+**Rules**:
+- Call repositories for data access
+- Never import from controllers (layering violation)
+- Return domain objects (not HTTP responses)
+```
+
+**3. Add cross-references to hot files** (10 minutes per file)
+```typescript
+/**
+ * Event service - core business logic for event management.
+ *
+ * Related:
+ * - src/services/calendar-sync-service.ts (external calendar sync)
+ * - src/repositories/event-repository.ts (data access)
+ *
+ * See ADR-007 for event deletion strategy.
+ */
+```
+
+**4. Split one large file** (30 minutes)
+- Find file >500 lines
+- Split by concern (e.g., validation, sync, conflict resolution)
+- Add README in new directory
+
+**5. Enable test coverage in CI** (15 minutes)
+```yaml
+# .github/workflows/ci.yml
+- name: Run tests with coverage
+  run: npm test -- --coverage
+
+- name: Check coverage threshold
+  run: |
+    COVERAGE=$(npm test -- --coverage --json | jq '.coverage')
+    if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+      exit 1
+    fi
+```
+
+**Total time**: ~2 hours for foundational improvements.
+
+#### Resources
+
+**Primary source**:
+- [Agent Experience Best Practices](https://marmelab.com/blog/2026/01/21/agent-experience.html) by François Zaninotto (Marmelab)
+
+**Related frameworks**:
+- [Netlify AX (Agent Experience) Research](https://www.netlify.com/blog/agent-experience/) (2025)
+- [Speakeasy API Developer Experience Guide](https://docs.speakeasy.com/) (includes agent-friendly patterns)
+
+**Academic research**:
+- "Context Engineering for AI Agents" (ArXiv, June 2025)
+- "Agent-Oriented Software Engineering" (ArXiv, March 2025)
+- "Prompt Injection Prevention in Code Agents" (ArXiv, November 2024)
+
+**Cross-references in this guide**:
+- [CLAUDE.md patterns (3.1)](#31-claudemd-project-context)
+- [Hooks (6.2)](#62-hooks)
+- [CI/CD Integration (9.3)](#93-cicd-integration)
+- [Pitfalls (9.11)](#911-common-pitfalls--best-practices)
+- [Methodologies - TDD (9.14)](#914-development-methodologies)
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -9960,6 +11824,7 @@ Before moving to Section 10 (Reference), verify you understand:
 - [ ] **Continuous Improvement**: Refine over multiple sessions with learning mindset
 - [ ] **Best Practices**: Do/Don't patterns for professional work
 - [ ] **Development Methodologies**: TDD, SDD, BDD, and other structured approaches
+- [ ] **Codebase Design for Agents**: Optimize code for agent productivity (domain knowledge, discoverability, testing)
 
 **Communication Patterns**:
 - [ ] **Named Prompting Patterns**: As If, Constraint, Explain First, Rubber Duck, Incremental, Boundary
@@ -11557,4 +13422,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.9.11
+**Last updated**: January 2026 | **Version**: 3.10.0

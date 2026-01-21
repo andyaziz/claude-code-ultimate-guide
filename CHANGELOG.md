@@ -8,6 +8,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.10.0] - 2026-01-21
+
+### Added
+
+- **Section 9.18: Codebase Design for Agent Productivity** (~1809 lines)
+  - **Based on**: [Agent Experience Best Practices](https://marmelab.com/blog/2026/01/21/agent-experience.html) by François Zaninotto (Marmelab, Jan 21, 2026)
+  - **Additional validation**: Netlify AX framework (2025), Speakeasy implementation guide, ArXiv papers on agent context engineering
+  - **9.18.1 Paradigm Shift**: Traditional vs AI-native codebase design, Agent Experience (AX) framework, when to invest in AX
+  - **9.18.2 Domain Knowledge Embedding**: CLAUDE.md advanced patterns, code comments (what vs how), Architecture Decision Records (ADRs)
+  - **9.18.3 Code Discoverability**: Complete terms vs abbreviations, synonyms in comments, JSDoc tags, directory READMEs
+  - **9.18.4 Token Efficiency**: Split large files (500 line guideline), remove obvious comments, verbose flags for debug output
+  - **9.18.5 Testing for Autonomy**: Why TDD is more critical for agents, tests written manually (not delegated), browser automation, coverage as guardrail
+  - **9.18.6 Conventions & Patterns**: Standard design patterns agents know, "boring tech" advantage, ADRs for custom architectures
+  - **9.18.7 Guardrails & Validation**: Hooks as anti-pattern validators, "tainted code" philosophy, PR reviews, validation layers
+  - **9.18.8 Serendipity & Cross-References**: Module cross-references, self-documenting commands, embedded technical docs
+  - **9.18.9 Usage Instructions**: Doc blocks with examples, Context7 MCP for official docs, sensible defaults
+  - **9.18.10 Decision Matrix**: When to optimize for agents vs humans, agent-friendly codebase checklist (33-point), quick wins
+- **Section 3.1 enrichment**: Added cross-reference to Section 9.18 for advanced domain knowledge patterns
+- **Section 9.11 new subsection**: "Codebase Structure Pitfalls" with ❌/✅ patterns and cross-reference to Section 9.18
+- **Table of Contents**: Added Section 9.18 entry
+- **Section 9 Recap**: Added "Codebase Design for Agents" item to quality awareness checklist
+- **machine-readable/reference.yaml**: Added `codebase_design_agents` entry with line number and source attribution
+
+### Changed
+
+- **VERSION**: Bumped from 3.9.11 to 3.10.0 (minor version bump for major new section)
+- **Guide size**: Increased from ~11,560 lines to 13,425 lines (+1,865 lines, +16.1%)
+
+### Context
+
+- **Gap identified**: Guide lacked comprehensive codebase design patterns for agent productivity
+- **Timing**: Article published 2 days ago (Jan 21, 2026), validated by Netlify AX research and ArXiv papers
+- **Target audience**: Teams extensively using Claude Code (>50% commits by agents), greenfield projects
+- **Complementary sources**: Netlify "Agent Experience" research, Speakeasy API DX guide (includes AX patterns)
+
+---
+
 ## [3.9.11] - 2026-01-21
 
 ### Added

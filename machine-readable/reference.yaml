@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.11"
-updated: "2026-01-20"
+version: "3.10.0"
+updated: "2026-01-21"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -126,6 +126,10 @@ deep_dive:
   multi_instance_implementation: 9900
   multi_instance_monitoring: 9982
   multi_instance_decision_matrix: 10110
+  # Section 9.18 - Codebase Design for Agent Productivity
+  codebase_design_agents: 9942
+  codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
+  codebase_design_author: "François Zaninotto (Marmelab)"
   commands_table: 10179
   shortcuts_table: 10212
   troubleshooting: 10338
@@ -470,7 +474,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.9.11, 66 templates, cross-links"
+        event: "Code Landing sync v3.10.0, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

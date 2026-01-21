@@ -169,7 +169,7 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~11550 lines)
+│   ├── ultimate-guide.md     # Complete reference (~13425 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── methodologies.md      # 15 development methodologies
@@ -328,7 +328,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.9.11)
+**Archive**: Historical versions available in git history (pre-v3.10.0)
 
 </details>
 
@@ -339,7 +339,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | Repository | Purpose | Audience |
 |------------|---------|----------|
-| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (11K lines, 65 templates) | Developers |
+| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 65 templates) | Developers |
 | **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** | Non-technical usage (67 prompts, 5 workflows) | Knowledge workers |
 | **Code Landing** *(to be deployed)* | Marketing site for Claude Code guide | Discovery |
 | **Cowork Landing** *(to be deployed)* | Marketing site for Cowork guide | Discovery |
@@ -397,7 +397,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.9.11 | January 2026 | Crafted with Claude*
+*Version 3.10.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
