@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **README.md: Ecosystem cross-reference** — Added bidirectional link to Claude Cowork Guide
+  - New section "Not a Developer?" (lines 75-81) linking to Cowork Guide for non-technical users
+  - Improves ecosystem discovery and audience routing between dev and non-dev guides
+  - Cowork Guide also received reciprocal cross-reference (commit ceadd82 in Cowork repo)
+- **CLAUDE.md: Version reference update** — Updated current version from 3.9.7 to 3.9.9
+
+### Fixed
+
+- **README.md: Template count correction** — Fixed template count from 69 to accurate count of 65
+  - Badge (line 9): 69 → 65
+  - Examples Library summary (line 198): 66 → 65
+  - Ecosystem table (line 341): 66 → 65
+  - Verified with `find examples/ -type f \( -name "*.md" -o -name "*.sh" ... \) ! -name "README.md" | wc -l`
+  - Original count of 69 in v3.9.9 release was overcounted by 4 templates
+
 ## [3.9.9] - 2026-01-20
 
 ### Added
