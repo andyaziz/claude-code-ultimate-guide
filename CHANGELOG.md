@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Skill: Design Patterns Analyzer** (`examples/skills/design-patterns/`)
+  - **9 files, 5,690 lines**: Comprehensive GoF design patterns analyzer with stack-aware suggestions
+  - **SKILL.md** (450 lines): Main instructions with 3 operating modes (Detection, Suggestion, Evaluation)
+  - **reference/** (2,140 lines): Complete documentation for 23 GoF patterns
+    - `patterns-index.yaml`: Machine-readable index with metadata (difficulty, frequency, confidence)
+    - `creational.md`: 5 patterns (Singleton, Factory Method, Abstract Factory, Builder, Prototype)
+    - `structural.md`: 7 patterns (Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy)
+    - `behavioral.md`: 11 patterns (Observer, Strategy, State, Command, etc.)
+  - **signatures/** (1,420 lines): Detection and suggestion rules
+    - `stack-patterns.yaml`: 8 stacks detection + native alternatives (React, Angular, NestJS, Vue, Express, RxJS, Redux, ORMs)
+    - `detection-rules.yaml`: Grep patterns and heuristics for 23 patterns
+    - `code-smells.yaml`: Mapping from 15+ code smells to suggested patterns
+  - **checklists/** (450 lines): Quality evaluation system (5 criteria: Correctness, Testability, SRP, Open/Closed, Documentation)
+  - **Key features**:
+    - Detects 23 Gang of Four design patterns in TypeScript/JavaScript codebases
+    - Stack-aware detection (analyzes package.json, tsconfig.json, config files)
+    - Prefers stack-native alternatives (e.g., React Context over Singleton, RxJS over manual Observer)
+    - Code smell detection with refactoring suggestions
+    - Quality scoring (0-10 with weighted criteria)
+  - **Documentation**: Added comprehensive example in guide section 5.4 (149 lines) with usage patterns, stack-native recommendations table, detection methodology, and integration examples
+  - **Tested on**: Méthode Aristote codebase (Next.js 15.5 + React 19 + tRPC + Prisma)
+    - Found: Factory Method (8.2/10), Observer via EventSource (9.1/10), Strategy-like patterns, Repository via Prisma
+    - Suggested: React Context instead of Singleton, Strategy pattern for switch statements
+    - Identified: Large service files (2,396 and 2,221 lines) requiring extraction
+
+### Changed
+
+- **Template count**: 65 → 66 (added design-patterns skill)
+- **examples/README.md**: Added design-patterns entry with ⭐ marker
+- **machine-readable/reference.yaml**: Added design_patterns_skill entries (line numbers, location, modes, coverage)
+
+### Context
+
+- **Use case**: Analyze existing patterns, suggest refactoring with stack-native patterns, evaluate pattern implementation quality
+- **Target audience**: Developers working on TypeScript/JavaScript projects wanting to detect anti-patterns and improve architecture
+- **Methodology**: Glob → Grep → Read pipeline for detection, stack-aware suggestions prioritizing framework idioms
+
 ---
 
 ## [3.10.0] - 2026-01-21

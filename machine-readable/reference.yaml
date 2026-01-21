@@ -86,8 +86,13 @@ deep_dive:
   skills: 4420
   skill_template: 4540
   skill_examples: 4608
-  community_skills_cybersec: 4788
-  community_skills_iac: 4871
+  design_patterns_skill: 4799
+  design_patterns_skill_location: "examples/skills/design-patterns/"
+  design_patterns_skill_modes: "Detection, Suggestion, Evaluation"
+  design_patterns_skill_patterns: "23 GoF patterns (Creational 5, Structural 7, Behavioral 11)"
+  design_patterns_skill_stacks: "React, Angular, NestJS, Vue, Express, RxJS, Redux, ORMs"
+  community_skills_cybersec: 4947
+  community_skills_iac: 5030
   # DevOps/SRE Guide (guide/devops-sre.md)
   devops_sre_guide: "guide/devops-sre.md"
   devops_fire_framework: "guide/devops-sre.md:50"
