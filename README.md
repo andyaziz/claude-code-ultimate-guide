@@ -168,7 +168,7 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~11100 lines)
+│   ├── ultimate-guide.md     # Complete reference (~11550 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── methodologies.md      # 15 development methodologies

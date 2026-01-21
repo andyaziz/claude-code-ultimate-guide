@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.10] - 2026-01-21
+
+### Added
+
+- **Section 9.17: Scaling Patterns - Multi-Instance Workflows** (~390 lines)
+  - **Boris Cherny case study**: 259 PRs/30 days with 5-15 parallel Claude instances (InfoQ interview, Jan 2026)
+  - **Anthropic internal study**: 132 engineers, +50% productivity, 21.2 consecutive autonomous actions (Aug 2025)
+  - **Decision matrix by team size**: Solo (❌) → Startup (⚠️) → Scale-up (✅) → Enterprise (✅)
+  - **Cost-benefit analysis**: $240-1000/month with ROI thresholds (3-5% productivity gain to justify)
+  - **Git worktrees foundation**: Critical prerequisite for multi-instance isolation (non-negotiable)
+  - **Orchestration frameworks**: Headless PM (open-source REST API), Cursor, Windsurf
+  - **Progressive implementation**: 3-phase guide (single mastery → dual testing → multi-instance)
+  - **Monitoring guidelines**: Merge conflicts, PRs/month, test pass rates, skill atrophy
+  - **Anti-patterns**: When NOT to use (legacy monoliths, solo devs, <$500/mo budget, <5 PRs/week)
+  - **Primary sources**: InfoQ "Claude Code Creator Workflow" (2026-01-09), Anthropic Research "How AI is Transforming Work" (2025-08)
+- **machine-readable/reference.yaml**: 10 new entries for multi-instance topics
+  - `multi_instance_workflows`, `boris_cherny_case_study`, `anthropic_study_metrics`
+  - `git_worktrees_multi_instance`, `multi_instance_costs`, `orchestration_frameworks`
+  - `headless_pm_framework`, `multi_instance_implementation`, `multi_instance_monitoring`
+  - `multi_instance_decision_matrix`
+
+### Fixed
+
+- **Table of Contents**: Added missing sections 9.12-9.17 (git, cost, methodologies, prompts, teleportation, multi-instance)
+- **Section 9 checklist**: Added multi-instance scaling item to advanced workflows recap
+
+## [3.9.9] - 2026-01-20
+
 ### Changed
 
 - **README.md: Ecosystem cross-reference** — Added bidirectional link to Claude Cowork Guide

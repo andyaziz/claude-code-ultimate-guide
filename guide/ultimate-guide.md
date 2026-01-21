@@ -163,6 +163,12 @@ Context full → /compact or /clear
   - [9.9 Batch Operations Pattern](#99-batch-operations-pattern)
   - [9.10 Continuous Improvement Mindset](#910-continuous-improvement-mindset)
   - [9.11 Common Pitfalls & Best Practices](#911-common-pitfalls--best-practices)
+  - [9.12 Git Best Practices & Workflows](#912-git-best-practices--workflows)
+  - [9.13 Cost Optimization Strategies](#913-cost-optimization-strategies)
+  - [9.14 Development Methodologies](#914-development-methodologies)
+  - [9.15 Named Prompting Patterns](#915-named-prompting-patterns)
+  - [9.16 Session Teleportation](#916-session-teleportation)
+  - [9.17 Scaling Patterns: Multi-Instance Workflows](#917-scaling-patterns-multi-instance-workflows)
 - [10. Reference](#10-reference)
   - [10.1 Commands Table](#101-commands-table)
   - [10.2 Keyboard Shortcuts](#102-keyboard-shortcuts)
@@ -9545,6 +9551,390 @@ claude --teleport
 
 ---
 
+## 9.17 Scaling Patterns: Multi-Instance Workflows
+
+**Reading time**: 10 minutes
+
+**TL;DR**: Multi-instance orchestration = advanced pattern for teams managing 10+ concurrent features. Requires modular architecture + budget + monitoring. **95% of users don't need this** — sequential workflows with 1-2 instances are more efficient for most contexts.
+
+---
+
+### When Multi-Instance Makes Sense
+
+Don't scale prematurely. Multi-instance workflows introduce coordination overhead that outweighs benefits for most teams.
+
+| Context | Recommendation | Monthly Cost | Reasoning |
+|---------|----------------|--------------|-----------|
+| **Solo dev** | ❌ Don't | - | Overhead > benefit, use Cursor instead |
+| **Startup <10 devs** | ⚠️ Maybe | $400-750 | Only if modular architecture + tests |
+| **Scale-up 10-50 devs** | ✅ Consider | $1,000-2,000 | Headless PM framework + monitoring justified |
+| **Enterprise 50+** | ✅ Yes | $2,000-5,000 | Clear ROI, budget available |
+
+**Red flags (don't use multi-instance if true)**:
+- Architecture: Legacy monolith, no tests, tight coupling
+- Budget: <$500/month available for API costs
+- Expertise: Team unfamiliar with Claude Code basics
+- Context: Solo dev or <3 people
+
+---
+
+### Real-World Case: Boris Cherny (Interval)
+
+Boris Cherny, creator of Claude Code, shared his workflow orchestrating 5-15 Claude instances in parallel.
+
+**Setup**:
+- **5 instances** in local terminal (iTerm2 tabs, numbered 1-5)
+- **5-10 instances** on claude.ai/code (`--teleport` to sync with local)
+- **Git worktrees** for isolation (each instance = separate checkout)
+- **CLAUDE.md**: 2.5k tokens, team-shared and versioned in git
+- **Model**: Opus 4.5 (slower but fewer corrections needed)
+- **Slash commands**: `/commit-push-pr` used "dozens of times per day"
+
+**Results** (30 days, January 2026):
+- **259 PRs** merged
+- **497 commits**
+- **40k lines** added, **38k lines** deleted (refactor-heavy)
+
+**Cost**: ~$500-1,000/month API (Opus pricing)
+
+**Critical context**: Boris is the creator of Claude Code, working with perfect architecture, Anthropic resources, and ideal conditions. **This is not representative of average teams.**
+
+**Source**: [InfoQ - Claude Code Creator Workflow (Jan 2026)](https://www.infoq.com/news/2026/01/claude-code-creator-workflow/)
+
+---
+
+### Foundation: Git Worktrees (Non-Negotiable)
+
+Multi-instance workflows **REQUIRE** git worktrees to avoid conflicts. Without worktrees, parallel instances create merge hell.
+
+**Why worktrees are critical**:
+- Each instance operates in **isolated git checkout**
+- No branch switching = no context loss
+- No merge conflicts during development
+- Instant creation (~1s vs minutes for full clone)
+
+**Quick setup**:
+```bash
+# Create worktree with new branch
+/git-worktree feature/auth
+
+# Result: .worktrees/feature-auth/
+# - Separate checkout
+# - Shared .git history
+# - Zero duplication overhead
+```
+
+**See also**:
+- Command: [/git-worktree](../examples/commands/git-worktree.md)
+- Workflow: [Database Branch Setup](../examples/workflows/database-branch-setup.md)
+
+---
+
+### Anthropic Internal Study (August 2025)
+
+Anthropic studied how their own engineers use Claude Code, providing empirical data on productivity and limitations.
+
+**Study scope**:
+- **132 engineers and researchers** surveyed
+- **53 qualitative interviews** conducted
+- **200,000 session transcripts** analyzed (Feb-Aug 2025)
+
+**Productivity gains**:
+- **+50%** productivity (self-reported, vs +20% 12 months prior)
+- **2-3x increase** year-over-year in usage and output
+- **59%** of work involves Claude (vs 28% a year ago)
+- **27%** of work "wouldn't have been done otherwise" (scope expansion, not velocity)
+
+**Autonomous actions**:
+- **21.2 consecutive tool calls** without human intervention (vs 9.8 six months prior)
+- **+116%** increase in autonomous action chains
+- **33% reduction** in human interventions required
+- Average task complexity: **3.8/5** (vs 3.2 six months before)
+
+**Critical concerns (verbatim quotes from engineers)**:
+> "When producing is so easy and fast, it's hard to really learn"
+
+> "It's difficult to say what roles will be in a few years"
+
+> "I feel like I come to work each day to automate myself"
+
+**Implications**: Even at Anthropic (perfect conditions: created the tool, ideal architecture, unlimited budget), engineers express uncertainty about long-term skill development and role evolution.
+
+**Source**: [Anthropic Research - How AI is Transforming Work at Anthropic (Aug 2025)](https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic)
+
+---
+
+### Cost-Benefit Analysis
+
+Multi-instance workflows have hard costs and soft overhead (coordination, supervision, merge conflicts).
+
+#### Direct API Costs
+
+| Scale | Model | Monthly Cost | Break-Even Productivity Gain |
+|-------|-------|--------------|------------------------------|
+| **5 devs, 2 instances each** | Sonnet | $390-750 | 3-5% |
+| **10 devs, 2-3 instances** | Sonnet | $1,080-1,650 | 1.3-2% |
+| **Boris scale (15 instances)** | Opus | $500-1,000 | Justified if 259 PRs/month |
+
+**Calculation basis** (Sonnet 4.5):
+- Input: $3/million tokens
+- Output: $15/million tokens
+- Estimate: 30k tokens/instance/day × 20 days
+- 5 devs × 2 instances × 600k tokens/month = ~$540/month
+
+**OpusPlan optimization**: Use Opus for planning (10-20% of work), Sonnet for execution (80-90%). Reduces cost while maintaining quality.
+
+#### Hidden Costs (Not in API Bill)
+
+| Cost Type | Impact | Mitigation |
+|-----------|--------|------------|
+| **Coordination overhead** | 10-20% time managing instances | Headless PM framework |
+| **Merge conflicts** | 5-15% time resolving conflicts | Git worktrees + modular architecture |
+| **Context switching** | Cognitive load × number of instances | Limit to 2-3 instances per developer |
+| **Supervision** | Must review all autonomous output | Automated tests + code review |
+
+**ROI monitoring**:
+1. **Baseline**: Track PRs/month before multi-instance (3 months)
+2. **Implement**: Scale to multi-instance with monitoring
+3. **Measure**: PRs/month after 3 months
+4. **Decision**: If gain <3%, rollback to sequential
+
+---
+
+### Orchestration Frameworks
+
+Coordinating multiple Claude instances without chaos requires tooling.
+
+#### Headless PM (Open Source)
+
+**Project**: [madviking/headless-pm](https://github.com/madviking/headless-pm) (158 stars)
+
+**Architecture**:
+- **REST API** for centralized coordination
+- **Task locking**: Prevents parallel work on same file
+- **Role-based agents**: PM, Architect, Backend, Frontend, QA
+- **Document-based communication**: Agents @mention each other
+- **Git workflow guidance**: Automatic PR/commit suggestions
+
+**Workflow**:
+```
+Epic → Features → Tasks (major=PR, minor=commit)
+  ↓
+Agents register, lock tasks, update status
+  ↓
+Architect reviews (approve/reject)
+  ↓
+Communication via docs with @mention
+```
+
+**Use case**: Teams managing 5-10 instances without manual coordination overhead.
+
+#### Alternatives
+
+| Tool | Best For | Cost | Key Feature |
+|------|----------|------|-------------|
+| **Cursor Parallel Agents** | Solo/small teams | $20-40/month | UI integrated, git worktrees built-in |
+| **Windsurf Cascade** | Large codebases | $15/month | 10x faster context (Codemaps) |
+| **Sequential Claude** | Most teams | $20/month | 1-2 instances with better prompting |
+
+---
+
+### Implementation Guide (Progressive Scaling)
+
+Don't jump to 10 instances. Scale progressively with validation gates.
+
+#### Phase 1: Single Instance Mastery (2-4 weeks)
+
+**Goal**: Achieve >80% success rate with 1 instance before scaling.
+
+```bash
+# 1. Create CLAUDE.md (2-3k tokens)
+# - Conventions (naming, imports)
+# - Workflows (git, testing)
+# - Patterns (state management)
+
+# 2. Implement feedback loops
+# - Automated tests (run after every change)
+# - Pre-commit hooks (validation gates)
+# - /validate command (quality checks)
+
+# 3. Measure baseline
+# - PRs/month
+# - Test pass rate
+# - Time to merge
+```
+
+**Success criteria**: 80%+ PRs merged without major revisions.
+
+#### Phase 2: Dual Instance Testing (1 month)
+
+**Goal**: Validate that 2 instances increase throughput without chaos.
+
+```bash
+# 1. Setup git worktrees
+/git-worktree feature/backend
+/git-worktree feature/frontend
+
+# 2. Parallel development
+# - Instance 1: Backend API
+# - Instance 2: Frontend UI
+# - Ensure decoupled work (no file overlap)
+
+# 3. Monitor conflicts
+# - Track merge conflicts per week
+# - If >2% conflict rate, pause and fix architecture
+```
+
+**Success criteria**: <2% merge conflicts, >5% productivity gain vs single instance.
+
+#### Phase 3: Multi-Instance (if Phase 2 successful)
+
+**Goal**: Scale to 3-5 instances with orchestration framework.
+
+```bash
+# 1. Deploy Headless PM (or equivalent)
+# - Task locking to prevent conflicts
+# - Monitoring dashboard
+
+# 2. Define roles
+# - Architect (reviews PRs)
+# - Backend (API development)
+# - Frontend (UI development)
+# - QA (test automation)
+
+# 3. Weekly retrospectives
+# - Review conflict rate
+# - Measure ROI (cost vs output)
+# - Adjust instance count
+```
+
+**Success criteria**: Sustained 3-5% productivity gain over 3 months.
+
+---
+
+### Monitoring & Observability
+
+Track multi-instance workflows with metrics to validate ROI.
+
+#### Essential Metrics
+
+| Metric | Tool | Target | Red Flag |
+|--------|------|--------|----------|
+| **Merge conflicts** | `git log --grep="Merge conflict"` | <2% | >5% |
+| **PRs/month** | GitHub Insights | +3-5% vs baseline | Flat or declining |
+| **Test pass rate** | CI/CD | >95% | <90% |
+| **API cost** | Session stats script | Within budget | >20% over |
+
+**Session stats script** (from this guide):
+```bash
+# Track API usage across all instances
+./examples/scripts/session-stats.sh --range 7d --json
+
+# Monitor per-instance cost
+./examples/scripts/session-stats.sh --project backend --range 30d
+```
+
+**See also**: [Session Observability Guide](./observability.md)
+
+#### Warning Signs (Rollback Triggers)
+
+Stop multi-instance and return to sequential if you see:
+
+- **Merge conflicts** >5% of PRs
+- **CLAUDE.md** grows >5k tokens (sign of chaos)
+- **Test quality** degrades (coverage drops, flaky tests increase)
+- **Supervision overhead** >30% developer time
+- **Team reports** skill atrophy or frustration
+
+---
+
+### When NOT to Use Multi-Instance
+
+Be honest about your context. Most teams should stay sequential.
+
+#### Architecture Red Flags
+
+❌ **Legacy monolith** (tight coupling):
+- Claude struggles with implicit dependencies
+- Context pollution across instances
+- Merge conflicts frequent
+
+❌ **Event-driven systems** (complex interactions):
+- Hard to decompose into parallel tasks
+- Integration testing becomes nightmare
+
+❌ **No automated tests**:
+- Can't validate autonomous output
+- "Death spirals" where broken tests stay broken
+
+#### Team Red Flags
+
+❌ **Solo developer**:
+- Coordination overhead unjustified
+- Cursor parallel agents simpler (UI integrated)
+
+❌ **Team <3 people**:
+- Not enough concurrent work to parallelize
+- Better ROI from optimizing single-instance workflow
+
+❌ **Junior team**:
+- Requires expertise in Claude Code, git worktrees, prompt engineering
+- Start with single instance, scale later
+
+#### Budget Red Flags
+
+❌ **<$500/month available**:
+- Multi-instance costs $400-1,000/month minimum
+- Better investment: training, better prompts, Cursor
+
+---
+
+### Decision Matrix
+
+Use this flowchart to decide if multi-instance is right for you:
+
+```
+New feature request
+├─ Solo dev?
+│  └─ Use Cursor ($20/month)
+│
+├─ Startup <10 devs?
+│  ├─ Legacy code without tests?
+│  │  └─ Fix architecture first (1-2 months)
+│  └─ Modular + tested?
+│     └─ Try 2 instances (1 month pilot)
+│
+├─ Scale-up 10-50 devs?
+│  ├─ Budget >$1k/month?
+│  │  └─ Deploy Headless PM framework
+│  └─ Budget <$1k/month?
+│     └─ Sequential optimized (better prompts)
+│
+└─ Enterprise 50+ devs?
+   └─ Windsurf + custom orchestration
+```
+
+---
+
+### Resources
+
+**Primary sources**:
+- [Boris Cherny workflow (InfoQ, Jan 2026)](https://www.infoq.com/news/2026/01/claude-code-creator-workflow/)
+- [Anthropic internal study (Aug 2025)](https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic)
+- [Headless PM framework (GitHub)](https://github.com/madviking/headless-pm)
+
+**Related guides**:
+- [Git worktrees command](../examples/commands/git-worktree.md)
+- [Database branch setup workflow](../examples/workflows/database-branch-setup.md)
+- [Session observability](./observability.md)
+- [Cost optimization](#913-cost-optimization-strategies)
+
+**Community discussions**:
+- [Boris Cherny on Twitter/X: Setup walkthrough](https://twitter.com/bcherny)
+- [r/ClaudeAI: Multi-instance patterns](https://reddit.com/r/ClaudeAI)
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -9574,6 +9964,7 @@ Before moving to Section 10 (Reference), verify you understand:
 **Advanced Workflows**:
 - [ ] **Session Teleportation**: Migrate sessions between cloud and local environments
 - [ ] **Background Tasks**: Run tasks in cloud while working locally (`%` prefix)
+- [ ] **Multi-Instance Scaling**: Understand when/how to orchestrate parallel Claude instances (advanced teams only)
 
 ### What's Next?
 

@@ -116,11 +116,21 @@ deep_dive:
   git_best_practices: 8378
   cost_optimization: 8844
   session_teleportation: 9443
-  commands_table: 9619
-  shortcuts_table: 9652
-  troubleshooting: 9778
-  cheatsheet: 10153
-  daily_workflow: 10229
+  multi_instance_workflows: 9549
+  boris_cherny_case_study: 9583
+  anthropic_study_metrics: 9687
+  git_worktrees_multi_instance: 9728
+  multi_instance_costs: 9762
+  orchestration_frameworks: 9830
+  headless_pm_framework: 9842
+  multi_instance_implementation: 9900
+  multi_instance_monitoring: 9982
+  multi_instance_decision_matrix: 10110
+  commands_table: 10179
+  shortcuts_table: 10212
+  troubleshooting: 10338
+  cheatsheet: 10713
+  daily_workflow: 10789
   # AI Ecosystem (Section 11, ~line 10491)
   ai_ecosystem: 10491
   ai_ecosystem_complementarity: 10493
