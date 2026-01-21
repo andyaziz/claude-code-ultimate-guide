@@ -56,6 +56,7 @@ Ready-to-use templates for Claude Code configuration.
 ### Skills
 | File | Purpose |
 |------|---------|
+| [design-patterns/](./skills/design-patterns/) | Detect and analyze GoF design patterns with stack-aware suggestions ⭐ |
 | [tdd-workflow.md](./skills/tdd-workflow.md) | Test-Driven Development process |
 | [security-checklist.md](./skills/security-checklist.md) | OWASP Top 10 security checks |
 | [pdf-generator.md](./skills/pdf-generator.md) | Professional PDF generation (Quarto/Typst) |

@@ -4796,6 +4796,154 @@ it('should calculate order total', () => {
 });
 ```
 
+### Example 3: Design Patterns Analyzer Skill
+
+**Purpose**: Detect, analyze, and suggest Gang of Four design patterns in TypeScript/JavaScript codebases with stack-aware recommendations.
+
+**Location**: `examples/skills/design-patterns/`
+
+**Key Features**:
+- Detects 23 GoF design patterns (Creational, Structural, Behavioral)
+- Stack-aware detection (React, Angular, NestJS, Vue, Express, RxJS, Redux, ORMs)
+- Code smell detection with pattern suggestions
+- Quality evaluation (5 criteria: Correctness, Testability, SRP, Open/Closed, Documentation)
+- Prefers stack-native alternatives (e.g., React Context over Singleton)
+
+**Structure**:
+```
+design-patterns/
+├── SKILL.md                           # Main skill instructions
+├── reference/
+│   ├── patterns-index.yaml            # 23 patterns metadata
+│   ├── creational.md                  # 5 creational patterns
+│   ├── structural.md                  # 7 structural patterns
+│   └── behavioral.md                  # 11 behavioral patterns
+├── signatures/
+│   ├── stack-patterns.yaml            # Stack detection + native alternatives
+│   ├── detection-rules.yaml           # Grep patterns for detection
+│   └── code-smells.yaml               # Smell → pattern mappings
+└── checklists/
+    └── pattern-evaluation.md          # Quality scoring system
+```
+
+**Operating Modes**:
+
+1. **Detection Mode**: Find existing patterns in codebase
+   ```bash
+   # Invoke via skill or direct analysis
+   "Analyze design patterns in src/"
+   ```
+
+2. **Suggestion Mode**: Identify code smells and suggest patterns
+   ```bash
+   "Suggest design patterns to fix code smells in src/services/"
+   ```
+
+3. **Evaluation Mode**: Score pattern implementation quality
+   ```bash
+   "Evaluate the Factory pattern implementation in src/lib/errors/"
+   ```
+
+**Example Output**:
+
+```json
+{
+  "stack_detected": {
+    "primary": "react",
+    "version": "19.0",
+    "secondary": ["typescript", "next.js", "prisma"],
+    "detection_sources": ["package.json", "tsconfig.json"]
+  },
+  "patterns_found": {
+    "factory-method": [{
+      "file": "src/lib/errors/factory.ts",
+      "lines": "12-45",
+      "confidence": 0.9,
+      "quality_score": 8.2,
+      "notes": "Well-implemented with proper abstraction"
+    }],
+    "singleton": [{
+      "file": "src/config.ts",
+      "confidence": 0.85,
+      "quality_score": 4.0,
+      "recommendation": "Consider React Context instead"
+    }]
+  },
+  "code_smells": [{
+    "type": "switch_on_type",
+    "file": "src/components/data-handler.tsx",
+    "line": 52,
+    "severity": "medium",
+    "suggested_pattern": "strategy",
+    "rationale": "Replace conditional logic with strategy objects"
+  }]
+}
+```
+
+**Stack-Native Recommendations**:
+
+| Pattern | React Alternative | Angular Alternative | NestJS Alternative |
+|---------|-------------------|---------------------|-------------------|
+| Singleton | Context API + Provider | @Injectable() service | @Injectable() (default) |
+| Observer | useState + useEffect | RxJS Observables | EventEmitter |
+| Decorator | Higher-Order Component | @Decorator syntax | @Injectable decorators |
+| Factory | Custom Hook pattern | Factory service | Provider pattern |
+
+**Detection Methodology**:
+
+1. **Stack Detection**: Analyze package.json, tsconfig.json, config files
+2. **Pattern Search**: Use Glob → Grep → Read pipeline
+   - Glob: Find candidate files (`**/*factory*.ts`, `**/*singleton*.ts`)
+   - Grep: Match detection patterns (regex for key structures)
+   - Read: Verify pattern implementation
+3. **Quality Evaluation**: Score on 5 criteria (0-10 each)
+4. **Smell Detection**: Identify anti-patterns and suggest refactoring
+
+**Quality Evaluation Criteria**:
+
+| Criterion | Weight | Description |
+|-----------|--------|-------------|
+| Correctness | 30% | Follows canonical pattern structure |
+| Testability | 25% | Easy to mock, no global state |
+| Single Responsibility | 20% | One clear purpose |
+| Open/Closed | 15% | Extensible without modification |
+| Documentation | 10% | Clear intent, usage examples |
+
+**Example Usage in Agent**:
+
+```markdown
+---
+name: architecture-reviewer
+description: Review system architecture and design patterns
+tools: Read, Grep, Glob
+skills:
+  - design-patterns  # Inherits pattern knowledge
+---
+
+When reviewing architecture:
+1. Use design-patterns skill to detect existing patterns
+2. Evaluate pattern implementation quality
+3. Suggest improvements based on stack-native alternatives
+4. Check for code smells requiring pattern refactoring
+```
+
+**Integration with Méthode Aristote**:
+
+This skill is now installed in the Méthode Aristote repository at:
+```
+/Users/florianbruniaux/Sites/MethodeAristote/app/.claude/skills/design-patterns/
+```
+
+**Usage**:
+1. Direct invocation: "Analyze design patterns in src/"
+2. Via agent: Create an agent that inherits the design-patterns skill
+3. Automated review: Use in CI/CD to detect pattern violations
+
+**Reference**:
+- Full documentation: `examples/skills/design-patterns/SKILL.md`
+- Pattern reference: `examples/skills/design-patterns/reference/*.md`
+- Detection rules: `examples/skills/design-patterns/signatures/*.yaml`
+
 ## 5.5 Community Skill Repositories
 
 ### Cybersecurity Skills Repository
