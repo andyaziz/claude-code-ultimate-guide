@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-66-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-71-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -64,7 +64,7 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 
 **The problem**: Awesome-lists give links, not learning paths. Official docs are dense. Tutorials get outdated in weeks.
 
-**This guide**: Structured learning path with 66 copy-paste templates, from first install to advanced workflows.
+**This guide**: Structured learning path with 74 copy-paste templates, from first install to advanced workflows.
 
 **Reading time**: Quick Start ~15 min. Full guide ~3 hours (most read by section).
 
@@ -339,7 +339,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | Repository | Purpose | Audience |
 |------------|---------|----------|
-| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 66 templates) | Developers |
+| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 74 templates) | Developers |
 | **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** | Non-technical usage (67 prompts, 5 workflows) | Knowledge workers |
 | **Code Landing** *(to be deployed)* | Marketing site for Claude Code guide | Discovery |
 | **Cowork Landing** *(to be deployed)* | Marketing site for Cowork guide | Discovery |
