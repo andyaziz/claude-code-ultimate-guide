@@ -5,8 +5,9 @@
 *.swo
 *~
 
-# Claude Code
+# Claude Code (ignore personal config, but keep shared commands)
 .claude/
+!.claude/commands/
 
 # OS
 .DS_Store

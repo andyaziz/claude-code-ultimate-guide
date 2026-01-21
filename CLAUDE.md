@@ -64,6 +64,34 @@ echo "3.7.0" > VERSION && ./scripts/sync-version.sh
 ./scripts/sync-version.sh --check
 ```
 
+### Slash Commands (Maintenance)
+
+Custom slash commands available in this project:
+
+| Command | Description |
+|---------|-------------|
+| `/update-infos-release [bump-type]` | Update Claude Code releases tracking + optional guide version bump |
+| `/version` | Display current guide and Claude Code versions with stats |
+| `/changelog [count]` | View recent CHANGELOG entries (default: 5) |
+| `/sync` | Check guide/landing synchronization status |
+
+**Examples:**
+```
+/update-infos-release          # Update CC releases only
+/update-infos-release patch    # Update CC + bump guide (3.9.11 → 3.9.12)
+/update-infos-release minor    # Update CC + bump guide (3.9.11 → 3.10.0)
+/version                       # Show versions and content stats
+/changelog 10                  # Last 10 CHANGELOG entries
+/sync                          # Check guide/landing sync status
+```
+
+These commands are defined in `.claude/commands/` and automate:
+- Claude Code releases tracking (YAML + Markdown + Landing badge)
+- Guide version management (VERSION file + sync across all docs)
+- CHANGELOG updates
+- Landing site synchronization verification
+- Git commit and push to both repositories
+
 ## Conventions
 
 ### Documentation Style
