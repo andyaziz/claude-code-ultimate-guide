@@ -339,7 +339,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.10.0)
+**Archive**: Historical versions available in git history (pre-v3.11.0)
 
 </details>
 
