@@ -118,42 +118,44 @@ deep_dive:
   hooks: 5273
   hook_templates: 5418
   security_hooks: 5680
-  mcp_servers: 5821
-  mcp_config: 6115
-  mcp_security: 6483
-  cicd: 6801
-  ide_integration: 7490
-  feedback_loops: 7560
-  batch_operations: 7990
-  pitfalls: 8109
-  git_best_practices: 8378
-  cost_optimization: 8844
-  session_teleportation: 9443
-  multi_instance_workflows: 9549
-  boris_cherny_case_study: 9583
-  anthropic_study_metrics: 9687
-  git_worktrees_multi_instance: 9728
-  multi_instance_costs: 9762
-  orchestration_frameworks: 9830
-  headless_pm_framework: 9842
-  multi_instance_implementation: 9900
-  multi_instance_monitoring: 9982
-  multi_instance_decision_matrix: 10110
+  mcp_servers: 5984
+  serena_indexation: 6078
+  serena_mcp: 6037
+  mcp_config: 6149
+  mcp_security: 6517
+  cicd: 6835
+  ide_integration: 7524
+  feedback_loops: 7594
+  batch_operations: 8024
+  pitfalls: 8143
+  git_best_practices: 8412
+  cost_optimization: 8878
+  session_teleportation: 9477
+  multi_instance_workflows: 9583
+  boris_cherny_case_study: 9617
+  anthropic_study_metrics: 9721
+  git_worktrees_multi_instance: 9762
+  multi_instance_costs: 9796
+  orchestration_frameworks: 9864
+  headless_pm_framework: 9876
+  multi_instance_implementation: 9934
+  multi_instance_monitoring: 10016
+  multi_instance_decision_matrix: 10144
   # Section 9.18 - Codebase Design for Agent Productivity
-  codebase_design_agents: 9942
+  codebase_design_agents: 9976
   codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
   codebase_design_author: "François Zaninotto (Marmelab)"
-  commands_table: 10179
-  shortcuts_table: 10212
-  troubleshooting: 10338
-  cheatsheet: 10713
-  daily_workflow: 10789
-  # AI Ecosystem (Section 11, ~line 10491)
-  ai_ecosystem: 10491
-  ai_ecosystem_complementarity: 10493
-  ai_ecosystem_tool_matrix: 10531
-  ai_ecosystem_workflows: 10556
-  ai_ecosystem_integration: 10682
+  commands_table: 10213
+  shortcuts_table: 10246
+  troubleshooting: 10372
+  cheatsheet: 10747
+  daily_workflow: 10823
+  # AI Ecosystem (Section 11, ~line 10525)
+  ai_ecosystem: 10525
+  ai_ecosystem_complementarity: 10527
+  ai_ecosystem_tool_matrix: 10565
+  ai_ecosystem_workflows: 10590
+  ai_ecosystem_integration: 10716
   ai_ecosystem_detailed: "guide/ai-ecosystem.md"
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
@@ -173,7 +175,7 @@ deep_dive:
   cowork_prompts: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts"
   cowork_workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
   cowork_section: "guide/ai-ecosystem.md:760"
-  cowork_ultimate_guide: 10725
+  cowork_ultimate_guide: 10759
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -307,7 +309,9 @@ permissions:
 # MCP SERVERS - see deep_dive.mcp_servers
 # ════════════════════════════════════════════════════════════════
 mcp:
-  serena: "symbol search + session memory (write_memory/read_memory)"
+  serena: "symbol search + session memory (write_memory/read_memory) + project indexation"
+  serena_indexation: "uvx --from git+https://github.com/oraios/serena serena project index [--force-full|--incremental] [--parallel N]"
+  serena_cache: ".serena/cache/typescript/ (add to .gitignore)"
   context7: "library docs lookup"
   sequential: "structured multi-step reasoning"
   playwright: "browser automation / E2E"

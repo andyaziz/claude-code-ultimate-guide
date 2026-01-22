@@ -215,6 +215,18 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 
 **Serena memory**: `write_memory()` / `read_memory()` / `list_memories()`
 
+**Serena indexation**:
+```bash
+# Initial index
+uvx --from git+https://github.com/oraios/serena serena project index
+
+# Force rebuild
+serena project index --force-full
+
+# Incremental update (faster)
+serena project index --incremental --parallel 4
+```
+
 Check status: `/mcp`
 
 ---

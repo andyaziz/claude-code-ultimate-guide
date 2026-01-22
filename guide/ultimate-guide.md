@@ -6078,9 +6078,43 @@ write_memory("session_summary", "...") → Persist progress
 **Setup**:
 
 ```bash
-# Pre-index your project (recommended for large codebases)
+# Basic indexation (first run)
 uvx --from git+https://github.com/oraios/serena serena project index
+
+# Force full rebuild (if index is corrupted or outdated)
+uvx --from git+https://github.com/oraios/serena serena project index --force-full
+
+# Incremental indexation (faster after initial index)
+uvx --from git+https://github.com/oraios/serena serena project index --incremental
+
+# Parallel processing (recommended: 50-75% of CPU cores)
+uvx --from git+https://github.com/oraios/serena serena project index --parallel 4
+
+# Verbose mode (see progress details)
+uvx --from git+https://github.com/oraios/serena serena project index --verbose --force-full
+
+# View all options
+uvx --from git+https://github.com/oraios/serena serena project index --help
 ```
+
+**Indexation Options**:
+
+| Option | Description | Use When |
+|--------|-------------|----------|
+| `--force-full` | Complete rebuild of index | Corrupted index, major codebase changes |
+| `--incremental` | Update only changed files | Regular maintenance after initial index |
+| `--parallel N` | Use N CPU cores | Large codebases (use 50-75% of cores) |
+| `--verbose` | Show detailed progress | Debugging indexation issues |
+
+**Cache Location**: Index stored in `.serena/cache/typescript/` (add to `.gitignore`)
+
+**Important Notes**:
+- **Deprecated command**: `serena index-project` → Use `serena project index` instead
+- **First run**: Use basic `serena project index` (auto-detects full rebuild)
+- **Regular updates**: Use `--incremental` for faster re-indexation
+- **Performance**: `--parallel 4` on 8-core machine = ~60% faster indexation
+
+> **Sources**: [Serena Docs](https://oraios.github.io/serena/02-usage/020_running.html) • [GitHub Issues](https://github.com/oraios/serena/issues/372) • [Optimization Guide](https://smartscope.blog/en/ai-development/serena-mcp-project-indexing-optimization/)
 
 **Use when**:
 - Navigating large codebases (>10k lines)
