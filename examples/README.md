@@ -20,6 +20,7 @@ Ready-to-use templates for Claude Code configuration.
 | [`workflows/`](./workflows/) | Advanced development workflow guides |
 | [`modes/`](./modes/) | Behavioral modes for Claude (SuperClaude) |
 | [`semantic-anchors/`](./semantic-anchors/) | Precise vocabulary for better LLM outputs |
+| [`multi-provider/`](./multi-provider/) | **NEW** Multi-provider bridge (Copilot/Ollama) |
 
 ## Quick Start
 
@@ -166,6 +167,16 @@ Ready-to-use templates for Claude Code configuration.
 | [anchor-catalog.md](./semantic-anchors/anchor-catalog.md) | Comprehensive catalog of precise technical terms for prompting |
 
 > **See [Section 2.7](../guide/ultimate-guide.md#27-semantic-anchors) in the guide for how to use semantic anchors**
+
+### Multi-Provider Bridge
+
+| Tool | Purpose |
+|------|---------|
+| [cc-copilot-bridge](./multi-provider/) | Bridge GitHub Copilot to Claude Code CLI for free access to 25+ AI models |
+
+> 🔗 **Moved to dedicated repository**: [github.com/FlorianBruniaux/cc-copilot-bridge](https://github.com/FlorianBruniaux/cc-copilot-bridge)
+>
+> Turn your $10/month GitHub Copilot Pro+ subscription into unlimited Claude Code access with 25+ models (GPT-4.1, Claude Opus/Sonnet/Haiku, Gemini). Includes Ollama local mode for offline/private development.
 
 ---
 
