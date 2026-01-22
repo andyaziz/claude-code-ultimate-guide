@@ -82,6 +82,24 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 
 ---
 
+## 🔧 Hitting Rate Limits or High Costs?
+
+**cc-copilot-bridge** routes Claude Code through GitHub Copilot Pro+ for flat-rate access ($10/month instead of per-token billing).
+
+```bash
+# Install
+git clone https://github.com/FlorianBruniaux/cc-copilot-bridge.git && cd cc-copilot-bridge && ./install.sh
+
+# Use
+ccc   # Copilot mode (flat $10/month)
+ccd   # Direct Anthropic mode (per-token)
+cco   # Offline mode (Ollama, 100% local)
+```
+
+→ **[cc-copilot-bridge](https://github.com/FlorianBruniaux/cc-copilot-bridge)** — Multi-provider switching, rate limit bypass, 99%+ cost savings
+
+---
+
 ## 🎯 Learning Paths
 
 <details>

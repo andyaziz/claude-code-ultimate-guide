@@ -9398,6 +9398,25 @@ Team practices:
 □ Review cost metrics in retrospectives
 ```
 
+### Alternative: Flat-Rate via Copilot Pro+
+
+For heavy usage, consider **cc-copilot-bridge** to route requests through GitHub Copilot Pro+ ($10/month flat) instead of per-token billing.
+
+```bash
+# Switch to Copilot mode (flat rate)
+ccc  # Uses Copilot Pro+ subscription
+
+# Back to direct Anthropic (per-token)
+ccd  # Uses ANTHROPIC_API_KEY
+```
+
+**When this makes sense:**
+- You're hitting rate limits frequently
+- Monthly costs exceed $50-100
+- You already have Copilot Pro+ subscription
+
+See [Section 11.2: Multi-Provider Setup](#multi-provider-setup-cc-copilot-bridge) for full details.
+
 ### Advanced: Cost-Aware CI/CD
 
 ```yaml
@@ -12241,7 +12260,7 @@ Use this symptom-based guide for rapid issue identification and resolution:
 |---------|--------------|-----------|------------|
 | "Context too long" error | Session accumulated too much context | `/compact` first, then `/clear` if needed | Compact regularly at 70% |
 | Slow/delayed responses | High context usage (>75%) | Check `/status`, run `/compact` | Monitor context with `/status` |
-| "Rate limit exceeded" | API throttling from frequent requests | Wait 2 minutes, use `--model haiku` for simple tasks | Batch operations, use `/compact` |
+| "Rate limit exceeded" | API throttling from frequent requests | Wait 2 minutes, use `--model haiku` for simple tasks, or use [cc-copilot-bridge](https://github.com/FlorianBruniaux/cc-copilot-bridge) for flat-rate access | Batch operations, use `/compact`, consider Copilot Pro+ |
 | Claude forgets instructions | Context overflow, CLAUDE.md lost | Create checkpoint, `/clear`, reload CLAUDE.md | Keep CLAUDE.md concise (<500 lines) |
 | MCP server not connecting | Server crashed or config error | `claude mcp list`, check paths, restart server | Test servers after config changes |
 | Permission prompts every time | Tool not in `allowedTools` | Add pattern to `settings.json` allowedTools | Use wildcards: `Bash(git:*)` |
@@ -12979,6 +12998,7 @@ Claude Code is designed to be your **implementation partner** with deep codebase
 | **Slide generation** | No PPTX output capability | Kimi (native PowerPoint) |
 | **Audio synthesis** | No TTS capability | NotebookLM (podcast-style overviews) |
 | **Live browser prototyping** | No visual preview | v0.dev, Bolt (instant preview) |
+| **Rate limits / cost control** | Per-token billing, API limits | cc-copilot-bridge (flat-rate via Copilot) |
 
 The goal isn't replacement—it's **chaining the right tool for each step**.
 
@@ -13006,6 +13026,39 @@ The goal isn't replacement—it's **chaining the right tool for each step**.
 | **[NotebookLM](https://notebooklm.google.com)** | Doc synthesis + audio | Full features | Free |
 | **[v0.dev](https://v0.dev)** | UI prototyping (Shadcn) | Limited | $20/month |
 | **[Cursor](https://cursor.sh)** | IDE with AI autocomplete | Limited | $20/month |
+| **[cc-copilot-bridge](https://github.com/FlorianBruniaux/cc-copilot-bridge)** | Multi-provider switching | Full | Copilot Pro+ $10/month |
+
+### Multi-Provider Setup: cc-copilot-bridge
+
+For heavy Claude Code usage, **cc-copilot-bridge** routes requests through GitHub Copilot Pro+ instead of Anthropic's per-token billing.
+
+**What it solves:**
+- Rate limits during intensive development sessions
+- Cost optimization for high-volume usage (99%+ savings possible)
+- Offline development with Ollama for proprietary code
+
+**Quick Setup:**
+```bash
+# Install
+git clone https://github.com/FlorianBruniaux/cc-copilot-bridge.git
+cd cc-copilot-bridge && ./install.sh
+
+# Use (3-character aliases)
+ccc   # Copilot mode (flat $10/month via Copilot Pro+)
+ccd   # Direct mode (Anthropic per-token)
+cco   # Offline mode (Ollama, 100% local)
+```
+
+**Cost Comparison:**
+
+| Scenario | Anthropic Direct | With Copilot Pro+ | Savings |
+|----------|------------------|-------------------|---------|
+| Heavy daily usage | ~$300/month | $10/month | ~97% |
+| 100M tokens/month | $1,500 | $10 | 99.3% |
+
+> **Note**: Requires GitHub Copilot Pro+ subscription ($10/month) which provides access to Claude models through VS Code's API.
+
+See: [cc-copilot-bridge Quick Start](https://github.com/FlorianBruniaux/cc-copilot-bridge#-quick-start)
 
 ## 11.3 Practical Workflows
 
