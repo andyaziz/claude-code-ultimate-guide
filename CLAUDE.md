@@ -32,6 +32,10 @@ machine-readable/         # For LLM consumption
 tools/                    # Interactive utilities
 ├── audit-prompt.md       # Setup audit prompt
 └── onboarding-prompt.md  # Personalized learning prompt
+
+claudedocs/               # Claude working documents
+├── resource-evaluations/ # External resource assessments
+└── *.md                  # Analysis reports, plans, working docs
 ```
 
 ## Key Files
