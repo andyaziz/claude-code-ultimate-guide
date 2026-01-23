@@ -212,6 +212,7 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 | **Sequential** | Structured reasoning |
 | **Playwright** | Browser automation |
 | **Postgres** | Database queries |
+| **doobidoo** | Semantic memory + multi-client + Knowledge Graph |
 
 **Serena memory**: `write_memory()` / `read_memory()` / `list_memories()`
 

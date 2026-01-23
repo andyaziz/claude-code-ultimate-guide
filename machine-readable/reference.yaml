@@ -146,6 +146,7 @@ deep_dive:
   mcp_servers: 5984
   serena_indexation: 6078
   serena_mcp: 6037
+  doobidoo_memory_mcp: 6385
   mcp_config: 6149
   mcp_security: 6517
   cicd: 6835
@@ -338,6 +339,13 @@ permissions:
 # ════════════════════════════════════════════════════════════════
 mcp:
   serena: "symbol search + session memory (write_memory/read_memory) + project indexation"
+  doobidoo_memory: "semantic memory search + Knowledge Graph dashboard + 13+ clients (⚠️ under testing)"
+  doobidoo_install: "pip install mcp-memory-service && python -m mcp_memory_service.scripts.installation.install --quick"
+  doobidoo_dashboard: "http://localhost:8000"
+  doobidoo_vs_serena: "Serena=key-value (requires known key), doobidoo=semantic search (finds by meaning)"
+  doobidoo_backends: "sqlite_vec (local), cloudflare (multi-device), hybrid (local+cloud sync)"
+  doobidoo_tools: "store_memory, retrieve_memory, search_by_tag, delete_memory, list_memories, check_database_health, memory_graph"
+  doobidoo_data_location: "~/.mcp-memory-service/memories.db"
   serena_indexation: "uvx --from git+https://github.com/oraios/serena serena project index [--force-full|--incremental] [--parallel N]"
   serena_cache: ".serena/cache/typescript/ (add to .gitignore)"
   context7: "library docs lookup"

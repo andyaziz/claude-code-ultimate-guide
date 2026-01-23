@@ -33,6 +33,11 @@
       "command": "grepai",
       "args": ["mcp-serve"],
       "description": "Semantic code search and call graph analysis (requires Ollama)"
+    },
+    "doobidoo-memory": {
+      "command": "memory",
+      "args": ["server"],
+      "description": "Semantic memory with cross-session search (complements Serena)"
     }
   }
 }

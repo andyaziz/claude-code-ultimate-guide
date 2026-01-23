@@ -6382,6 +6382,145 @@ mgrep "code that handles user authentication"
 - Visual validation
 - Browser debugging
 
+### doobidoo Memory Service (Semantic Memory)
+
+> **⚠️ Status: Under Testing** - This MCP server is being evaluated. The documentation below is based on the official repository but hasn't been fully validated in production workflows yet. Feedback welcome!
+
+**Purpose**: Persistent semantic memory with cross-session search and multi-client support.
+
+**Why doobidoo complements Serena**:
+- Serena: Key-value memory (`write_memory("key", "value")`) - requires knowing the key
+- doobidoo: Semantic search (`retrieve_memory("what did we decide about auth?")`) - finds by meaning
+
+| Feature | Serena | doobidoo |
+|---------|--------|----------|
+| Memory storage | Key-value | Semantic embeddings |
+| Search by meaning | No | Yes |
+| Multi-client | Claude only | 13+ apps |
+| Dashboard | No | Knowledge Graph |
+| Symbol indexation | Yes | No |
+
+**Storage Backends**:
+
+| Backend | Usage | Performance |
+|---------|-------|-------------|
+| `sqlite_vec` (default) | Local, lightweight | <10ms queries |
+| `cloudflare` | Cloud, multi-device sync | Edge performance |
+| `hybrid` | Local fast + cloud background sync | 5ms local |
+
+**Data Location**: `~/.mcp-memory-service/memories.db` (SQLite with vector embeddings)
+
+**MCP Tools Available** (12 unified tools):
+
+| Tool | Description |
+|------|-------------|
+| `store_memory` | Store with tags, type, metadata |
+| `retrieve_memory` | Semantic search (top-N by similarity) |
+| `search_by_tag` | Exact tag matching (OR/AND logic) |
+| `delete_memory` | Delete by content_hash |
+| `list_memories` | Paginated browsing with filters |
+| `check_database_health` | Stats, backend status, sync info |
+| `get_cache_stats` | Server performance metrics |
+| `memory_graph:connected` | Find connected memories |
+| `memory_graph:path` | Shortest path between memories |
+| `memory_graph:subgraph` | Subgraph around a memory |
+
+**Installation**:
+
+```bash
+# Quick install (local SQLite backend)
+pip install mcp-memory-service
+python -m mcp_memory_service.scripts.installation.install --quick
+
+# Team/Production install (more options)
+git clone https://github.com/doobidoo/mcp-memory-service.git
+cd mcp-memory-service
+python scripts/installation/install.py
+# → Choose: cloudflare or hybrid for multi-device sync
+```
+
+**Configuration** (add to MCP config):
+
+```json
+{
+  "mcpServers": {
+    "memory": {
+      "command": "memory",
+      "args": ["server"]
+    }
+  }
+}
+```
+
+**Configuration with environment variables** (for team/cloud sync):
+
+```json
+{
+  "mcpServers": {
+    "memory": {
+      "command": "memory",
+      "args": ["server"],
+      "env": {
+        "MCP_MEMORY_STORAGE_BACKEND": "hybrid",
+        "MCP_HTTP_ENABLED": "true",
+        "MCP_HTTP_PORT": "8000",
+        "CLOUDFLARE_API_TOKEN": "your-token",
+        "CLOUDFLARE_ACCOUNT_ID": "your-account-id"
+      }
+    }
+  }
+}
+```
+
+**Key Environment Variables**:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `MCP_MEMORY_STORAGE_BACKEND` | `sqlite_vec` | Backend: sqlite_vec, cloudflare, hybrid |
+| `MCP_HTTP_ENABLED` | `true` | Enable dashboard server |
+| `MCP_HTTP_PORT` | `8000` | Dashboard port |
+| `MCP_OAUTH_ENABLED` | `false` | Enable OAuth for team auth |
+| `MCP_HYBRID_SYNC_INTERVAL` | `300` | Sync interval in seconds |
+
+**Usage**:
+
+```
+# Store a decision with tags
+store_memory("We decided to use FastAPI for the REST API", tags=["architecture", "api"])
+
+# Semantic search (finds by meaning, not exact match)
+retrieve_memory("what framework for API?")
+→ Returns: "We decided to use FastAPI..." with similarity score
+
+# Search by tag
+search_by_tag(["architecture"])
+
+# Check health
+check_database_health()
+```
+
+**Multi-Client Sync**:
+
+```
+# Same machine: all clients share ~/.mcp-memory-service/memories.db
+Claude Code ──┐
+Cursor ───────┼──► Same SQLite file
+VS Code ──────┘
+
+# Multi-device: use Cloudflare backend
+Device A ──┐
+Device B ──┼──► Cloudflare D1 + Vectorize
+Device C ──┘
+```
+
+**When to use which**:
+- **Serena**: Symbol navigation, code indexation, key-value memory with known keys
+- **doobidoo**: Cross-session decisions, "what did we decide about X?", multi-IDE sharing
+
+**Dashboard**: Access at http://localhost:8000 after starting the server.
+
+> **Source**: [doobidoo/mcp-memory-service GitHub](https://github.com/doobidoo/mcp-memory-service) (791 stars, v10.0.2)
+
 </details>
 
 ## 8.3 Configuration
