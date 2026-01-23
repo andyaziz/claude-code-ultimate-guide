@@ -4,6 +4,71 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.11.3] - 2026-01-23
+
+### Added
+
+- **Verification Loops pattern** (`guide/methodologies.md:145`)
+  - Formalized pattern for autonomous iteration with tests as termination condition
+  - Official Anthropic guidance: "Tell Claude to keep going until all tests pass"
+  - Implementation options: Stop hooks, multi-Claude verification, explicit "DONE" markers
+
+- **Eval Harness documentation** (`guide/methodologies.md:161`)
+  - Definition: Infrastructure running evaluations end-to-end
+  - Link to Anthropic source: "Demystifying Evals for AI Agents"
+
+- **everything-claude-code ecosystem entry** (`machine-readable/reference.yaml`)
+  - Added affaan-m/everything-claude-code (16k+ stars, created 2026-01-18)
+  - Author: Affaan Mustafa (Anthropic hackathon winner - Zenith project)
+  - Unique: Node.js cross-platform hooks, 15 MCP configs, Plugin marketplace format
+  - Caveats documented: hackathon win was indirect, Node.js hooks not officially recommended
+
+- **deep_dive index entries** (`machine-readable/reference.yaml`)
+  - `verification_loops`: guide/methodologies.md:145
+  - `verification_loops_source`: Anthropic Best Practices link
+  - `eval_harness`: guide/methodologies.md:161
+  - `eval_harness_source`: Demystifying Evals link
+
+- **Subscription Token Limits documentation** (`guide/ultimate-guide.md:1933-1995`)
+  - Detailed token budgets by plan: Pro ~44K, Max 5x ~88-220K, Max 20x ~220K+ per 5-hour window
+  - Opus/Sonnet consumption ratio (8-10×) explicitly documented
+  - Clarification that "hours" = processing time, not direct token conversion
+  - Link to `ccusage` community monitoring tool
+  - Historical note on October 2025 undocumented limit reductions
+  - **Sources**: Perplexity research (Jan 2026), Anthropic support docs, Reddit/GitHub community reports
+
+- **Goose comparison section** (`guide/ai-ecosystem.md:1116-1204`)
+  - New section "11.1 Goose: Open-Source Alternative (Block)"
+  - Technical comparison table: Claude Code vs Goose on 7 criteria
+  - GitHub stats: 15,400+ stars, 350+ contributors, Apache 2.0 license
+  - Use cases and trade-offs with honest advantages/limitations
+  - Hardware requirements by LLM type (cloud vs local models)
+  - Quick start installation commands
+  - Updated Table of Contents
+
+- **machine-readable/reference.yaml**: Additional entries
+  - `subscription_token_budgets: 1948`
+  - `subscription_opus_ratio: 1946`
+  - `subscription_monitoring: 1985`
+  - `ai_ecosystem_goose: "guide/ai-ecosystem.md:1116"`
+  - `ai_ecosystem_goose_comparison: "guide/ai-ecosystem.md:1132"`
+
+### Changed
+
+- **Subscription limits section** (`guide/ultimate-guide.md`) rewritten with concrete data
+- **reference.yaml**: Updated line numbers for `subscription_limits` (1914 → 1933) and `ai_ecosystem_context_packing` (1114 → 1208)
+
+### Research
+
+- **Comprehensive fact-check** of everything-claude-code repository
+  - Verified "Anthropic hackathon winner" claim (true for Zenith project, indirect for this repo)
+  - Confirmed 16k+ stars growth in 5 days via GitCharts
+  - Validated technical concepts (eval-harness, verification-loops) exist in Anthropic docs
+  - Found "strategic-compact" term not in official sources (not adopted)
+  - Confirmed Node.js hooks not recommended vs native shell
+
+---
+
 ## [3.11.2] - 2026-01-22
 
 ### Added
